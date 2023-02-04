@@ -135,36 +135,4 @@ lesson.save
 end
 
 
-
-# A SUPPRIMER (ci-dessous)
-
-file = URI.open("https://cdn.shopify.com/s/files/1/0308/7024/1420/products/blue-R-1_870x580.jpg?v=1668396768")
-
-bike1 = Bike.new(brand: "Decathlon", model: "Riverside", location: "Paris", price: 8, electric: true, user_id: 1,
-description: "My beautiful all-terrain bike is the perfect companion for all of my adventures. Whether I'm hitting the trails or exploring back roads, this bike can handle anything. With its durable frame and sturdy tires, I never have to worry about getting stuck or having to turn back. And the smooth ride it provides makes every journey a joy. I am so lucky to have this bike and all the wonderful experiences it has taken me on.")
-bike1.picture.attach(io: file, filename: "bike_decathlon.jpg", content_type: "image/jpg")
-bike1.user = User.where(first_name: 'Bob').first
-bike1.save
-
-puts "Generating first bike..."
-
-puts "Generating 2 example rents..."
-rent = Rent.new(
-  start_date: "2013-02-02 01:00:00 UTC",
-  end_date: "2013-02-04 01:00:00 UTC"
-)
-rent.user = User.where(first_name: 'Yamato').first
-rent.bike = Bike.where(brand: 'Trek').first
-rent.rent_price = Bike.where(brand: 'Trek').first.price
-rent.save!
-
-rent = Rent.new(
-  start_date: "2014-02-02 01:00:00 UTC",
-  end_date: "2014-02-04 01:00:00 UTC"
-)
-rent.user = User.where(first_name: 'Yamato').first
-rent.bike = Bike.where(brand: 'EDEN-BIKES').first
-rent.rent_price = Bike.where(brand: 'EDEN-BIKES').first.price
-rent.save!
-
 puts "Finished!"
