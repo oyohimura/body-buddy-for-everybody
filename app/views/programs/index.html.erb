@@ -7,5 +7,6 @@
     <p><%= program.duration %></p>
     <p><%= program.teacher.user.first_name %></p>
     <p><%= program.price %>€</p>
+    <p><%= link_to "More info about this program", program_path(program) %></p>
   <% end %>
 </div>
