@@ -91,7 +91,7 @@ program1.save
 file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
 program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 45, teacher_id: 2, price: 15, description: 'Improve flexibility and strength with Pilates', language: 'English')
 program2.medias.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
-user = User.where(first_name: 'Bob').first
+user = User.where(first_name: 'Clara').first
 program2.teacher = Teacher.find_by(user: user)
 program2.save
 
@@ -105,16 +105,16 @@ program3.save
 file4 = URI.open("https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=499&q=80")
 program4 = Program.new(discipline: 'Meditation', level: 'Beginner', target: 'Stress relief and mindfulness', duration: 30, teacher_id: 4, price: 5, description: 'Introduction to stress relief and mindfulness through meditation', language: 'English')
 program4.medias.attach(io: file4, filename: "program4.jpg", content_type: "image/jpg")
-user = User.where(first_name: 'Bob').first
+user = User.where(first_name: 'Clara').first
 program4.teacher = Teacher.find_by(user: user)
 program4.save
 
 # Create batches
 puts "Generating 2 example batches.."
-batch1 = Batch.new(program_id: 1, start_time: "2023-03-01 10:00:00", end_time: "2023-03-01 12:00:00", max_students: 20)
+batch1 = Batch.new(program: program1, start_time: "2023-03-01 10:00:00", end_time: "2023-03-01 12:00:00", max_students: 20)
 batch1.save
 
-batch2 = Batch.new(program_id: 2, start_time: "2023-03-02 14:00:00", end_time: "2023-03-02 16:00:00", max_students: 15)
+batch2 = Batch.new(program: program2, start_time: "2023-03-02 14:00:00", end_time: "2023-03-02 16:00:00", max_students: 15)
 batch2.save
 
 # Create lessons
