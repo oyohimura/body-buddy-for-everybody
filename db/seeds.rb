@@ -10,6 +10,7 @@ require "open-uri"
 Program.destroy_all
 User.destroy_all
 
+
 puts "Destroying database!"
 
 # Creating users
@@ -66,47 +67,72 @@ file = URI.open("https://avatars.githubusercontent.com/u/111865610?v=4")
 user.profile_picture.attach(io: file, filename: "arnaud.jpg", content_type: "image/jpg")
 user.save
 
-# Creating programs
-# TODO
+# Create teachers
+puts "Generating 2 example teachers..."
+teacher1 = Teacher.new(user: user, description: "Experienced Yoga teacher with over 10 years of experience teaching beginners and advanced students alike.", language: "English")
+teacher1.user = User.where(first_name: 'Bob').first
+teacher1.save
 
-# Create batch
-# TODO
+teacher2 = Teacher.new(user: user, description: "Certified Pilates instructor with a passion for helping people improve their fitness and flexibility.", language: "English")
+teacher2.user = User.where(first_name: 'Clara').first
+teacher2.save
+
+
+# Creating programs
+puts "Generating 4 example programs..."
+file1 = URI.open("https://media.istockphoto.com/id/647232406/fr/photo/professeur-dyoga-mexicain-m%C3%A9ditant.jpg?s=612x612&w=is&k=20&c=2pa2DIqWNOnvrDBKOoYwE-Z7Le3kcebQXhKZpvWCqMc=https://media.istockphoto.com/id/647232406/fr/photo/professeur-dyoga-mexicain-m%C3%A9ditant.jpg?s=612x612&w=is&k=20&c=2pa2DIqWNOnvrDBKOoYwE-Z7Le3kcebQXhKZpvWCqMc=")
+program1 = Program.new(discipline: 'Yoga', level: 'Beginner', target: 'Stress relief', duration: 60, teacher_id: 1, price: 10, description: 'Introducing the basics of yoga and breathing techniques to help relieve stress', language: 'English')
+program1.media.attach(io: file1, filename: "program1.jpg", content_type: "image/jpg")
+program1.teacher = Teacher.user.where(first_name: 'Bob').first
+program1.save
+
+file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
+program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 45, teacher_id: 2, price: 15, description: 'Improve flexibility and strength with Pilates', language: 'English')
+program2.media.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
+program2.teacher = Teacher.user.where(first_name: 'Clara').first
+program2.save
+
+file3 = URI.open("https://images.unsplash.com/photo-1540324155974-7523202daa3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80")
+program3 = Program.new(discipline: 'Dance', level: 'Advanced', target: 'Fun and fitness', duration: 75, teacher_id: 3, price: 20, description: 'Get fit and have fun with dance', language: 'English')
+program3.media.attach(io: file3, filename: "program3.jpg", content_type: "image/jpg")
+program3.teacher = Teacher.user.where(first_name: 'Bob').first
+program3.save
+
+file4 = URI.open("https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=499&q=80")
+program4 = Program.new(discipline: 'Meditation', level: 'Beginner', target: 'Stress relief and mindfulness', duration: 30, teacher_id: 4, price: 5, description: 'Introduction to stress relief and mindfulness through meditation', language: 'English')
+program4.media.attach(io: file4, filename: "program4.jpg", content_type: "image/jpg")
+program4.teacher = Teacher.user.where(first_name: 'Clara').first
+program4.save
+
+# Create batches
+puts "Generating 2 example batches.."
+batch1 = Batch.new(program_id: 1, start_time: "2023-03-01 10:00:00", end_time: "2023-03-01 12:00:00", max_students: 20)
+batch1.save
+
+batch2 = Batch.new(program_id: 2, start_time: "2023-03-02 14:00:00", end_time: "2023-03-02 16:00:00", max_students: 15)
+batch2.save
 
 # Create lessons
-# TODO
+puts "Generating 5 example lessons ..."
+lessons = [
+{title: "Introduction to Yoga", description: "Learn the basics of yoga and how to breathe properly."},
+{title: "Sun Salutations", description: "Practice the flowing sequence of postures to warm up your body."},
+{title: "Warrior Pose", description: "Improve balance and strengthen your legs with this powerful posture."},
+{title: "Tree Pose", description: "Find inner peace and focus while balancing on one foot."},
+{title: "Child's Pose", description: "Relax and release tension in your back and hips with this gentle posture."}
+]
 
-# Create teachers
-# TODO
 
-# A SUPPRIMER (ci-dessous)
+5.times do |i|
+lesson = Lesson.new(batch: batch1, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+lesson.save
+end
 
-file = URI.open("https://cdn.shopify.com/s/files/1/0308/7024/1420/products/blue-R-1_870x580.jpg?v=1668396768")
 
-bike1 = Bike.new(brand: "Decathlon", model: "Riverside", location: "Paris", price: 8, electric: true, user_id: 1,
-description: "My beautiful all-terrain bike is the perfect companion for all of my adventures. Whether I'm hitting the trails or exploring back roads, this bike can handle anything. With its durable frame and sturdy tires, I never have to worry about getting stuck or having to turn back. And the smooth ride it provides makes every journey a joy. I am so lucky to have this bike and all the wonderful experiences it has taken me on.")
-bike1.picture.attach(io: file, filename: "bike_decathlon.jpg", content_type: "image/jpg")
-bike1.user = User.where(first_name: 'Bob').first
-bike1.save
+5.times do |i|
+lesson = Lesson.new(batch: batch2, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+lesson.save
+end
 
-puts "Generating first bike..."
-
-puts "Generating 2 example rents..."
-rent = Rent.new(
-  start_date: "2013-02-02 01:00:00 UTC",
-  end_date: "2013-02-04 01:00:00 UTC"
-)
-rent.user = User.where(first_name: 'Yamato').first
-rent.bike = Bike.where(brand: 'Trek').first
-rent.rent_price = Bike.where(brand: 'Trek').first.price
-rent.save!
-
-rent = Rent.new(
-  start_date: "2014-02-02 01:00:00 UTC",
-  end_date: "2014-02-04 01:00:00 UTC"
-)
-rent.user = User.where(first_name: 'Yamato').first
-rent.bike = Bike.where(brand: 'EDEN-BIKES').first
-rent.rent_price = Bike.where(brand: 'EDEN-BIKES').first.price
-rent.save!
 
 puts "Finished!"

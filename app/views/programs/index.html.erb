@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>All programs</h1>
+  <% @programs.each do |program| %>
+    <p><%= program.discipline %></p>
+    <p><%= program.level %></p>
+    <p><%= program.target %></p>
+    <p><%= program.duration %></p>
+    <p><%= program.teacher.user.first_name %></p>
+    <p><%= program.price %>€</p>
+  <% end %>
+</div>
