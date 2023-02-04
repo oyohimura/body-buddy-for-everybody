@@ -1,2 +1,21 @@
 <h1>Students#index</h1>
 <p>Find me in app/views/students/index.html.erb</p>
+
+<h1>Listing students for batch <%= @batch.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.user.first_name %></td>
+        <td><%= student.user.last_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
