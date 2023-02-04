@@ -1,2 +1,8 @@
-<h1>Batches#index</h1>
-<p>Find me in app/views/batches/index.html.erb</p>
+<div class="container">
+  <h1>All batches for program <%= @program.id %> created by <%= @program.teacher.user.first_name %></h1>
+  <% @batches.each do |batch| %>
+    <p><%= batch.start_time %></p>
+    <p><%= batch.end_time %></p>
+    <p><%= batch.max_students %></p>
+  <% end %>
+</div>
