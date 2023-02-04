@@ -129,13 +129,13 @@ lessons = [
 
 
 5.times do |i|
-lesson = Lesson.new(batch: batch1, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+lesson = Lesson.new(batch: Batch.first, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
 lesson.save
 end
 
 
 5.times do |i|
-lesson = Lesson.new(batch: batch2, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+lesson = Lesson.new(batch: Batch.last, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
 lesson.save
 end
 
