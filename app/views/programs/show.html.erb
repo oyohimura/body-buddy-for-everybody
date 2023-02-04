@@ -1,2 +1,13 @@
 <h1>Programs#show</h1>
 <p>Find me in app/views/programs/show.html.erb</p>
+
+<%# link to teacher %>
+<p>Teached by <span><%= link_to user_profile_path(@program.teacher) do %>
+          <%= @program.teacher.user.first_name %>
+        <% end %></span></p>
+
+<%# link to each batch %>
+<% @program.batches.each do |batch| %>
+  <%= link_to 'batch', program_batch_path(@program.id, batch.id)%>
+<% end %>
+<%# <%= link_to 'Book this bike', new_bike_rent_path(@bike), class: 'btn btn-primary btn-lg shadow' %>
