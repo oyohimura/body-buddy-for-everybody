@@ -87,7 +87,6 @@ user = User.where(first_name: 'Bob').first
 program1.teacher = Teacher.find_by(user: user)
 program1.save
 
-
 file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
 program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 45, teacher_id: 2, price: 15, description: 'Improve flexibility and strength with Pilates', language: 'English')
 program2.medias.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
