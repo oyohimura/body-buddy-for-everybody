@@ -1,0 +1,16 @@
+<%= simple_form_for @program do |f| %>
+  <%= f.input :name, class: "form-control" %>
+  <%= f.input :discipline,  as: :select, class: "form-control", collection: ["Yoga", "Pilates", "Dance", "Meditation"] %>
+  <%= f.input :price, class: "form-control", input_html: {min: 0} %>
+  <%= f.input :level,  as: :select, class: "form-control", collection: ["Beginner", "Intermediate", "Advanced"] %>
+  <%= f.input :medias, as: :file, required: true %>
+  <%= f.input :description, required: true %>
+  <%= f.input :language, as: :select, class: "form-control", collection: ["French", "English", "Spanish", "German", "Japanese"] %>
+
+<div class="d-flex justify-content-center">
+    <div class="col-4 justify-content-around">
+      <p><%= f.button :submit, "Submit", class: "btn btn-primary" %></p>
+      <p><%= link_to "Cancel", dashboard_path, class: 'text-align-center' %></p>
+    </div>
+  </div>
+<% end %>
