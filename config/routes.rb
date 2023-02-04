@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :students, only: [:index, :new, :create]
   end
 
-  resources :students, only: [:show, :edit, :update] do
+  resources :students, only: [:edit, :update] do
     resources :slots_students, only: [:create]
   end
 
