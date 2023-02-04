@@ -11,8 +11,19 @@ class PagesController < ApplicationController
   end
 
   def profile
+    @user = User.find(params[:user_id])
   end
 
   def dashboard
+    @user = current_user
+    @students = Student.where(user_id: current_user.id)
+    @batchs = []
+    @students.each do |student|
+      @batchs << student.batch
+    end
+    @programs_students =[]
+    @batchs.each do |batch|
+     @programs_students << batch.program
+    end
   end
 end
