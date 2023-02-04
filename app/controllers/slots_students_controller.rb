@@ -32,9 +32,3 @@ class SlotsStudentsController < ApplicationController
   #   params.require(:slots_student).permit(:slot_id, :student_id)
   # end
 end
-
-@plant_tag = PlantTag.new()
-@plant_tag.plant = @plant
-@plant_tag.tag = Tag.find(params[:plant_tag][:tag_id])
-if @plant_tag.save!
-  redirect_to garden_path(@plant.garden)
