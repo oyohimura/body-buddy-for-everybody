@@ -1,6 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :batch
-  has_many :slots
+  has_many :slots, dependent: :destroy
   validates :number, presence: true, numericality: true
   validates :title
   validates :description, length: { minimum: 20 }

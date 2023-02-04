@@ -1,7 +1,7 @@
 class Program < ApplicationRecord
   belongs_to :teacher
-  has_many :batches
-  has_many :reviews
+  has_many :batches, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many_attached :medias
   validates :discipline, inclusion: { in: %w(Yoga Pilates Dance Meditation), message: "%{value} is not a valid discipline" }
   validates :level, inclusion: { in: %w(Beginner Intermediate Advanced), message: "%{value} is not a valid level" }
