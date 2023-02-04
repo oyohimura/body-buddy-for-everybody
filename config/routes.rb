@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: "pages#home"
   get '/dashboard', to: 'pages#dashboard' , as: "dashboard"
   get 'profile/:user_id', to: 'pages#profile', as: 'user_profile'
+  get 'teachers/', to: 'pages#index', as: 'teachers'
+  get 'teachers/:id', to: 'pages#show', as: 'teacher'
 
   resources :programs do
     resources :batches, only: [:index, :show, :new, :create, :edit]
@@ -23,7 +25,5 @@ Rails.application.routes.draw do
   end
 
   # resources :reviews, only: [:edit, :destroy, :update]
-  resources :teachers, only: [:index, :show]
   resources :slots_students, only: [:destroy]
-
 end
