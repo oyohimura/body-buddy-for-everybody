@@ -2,7 +2,7 @@ class BatchesController < ApplicationController
   before_action :set_batch, only: []
 
   def index
-    @program = Program.find(params[:id])
+    @program = Program.find(params[:program_id])
     @batches = Batch.where(program: @program)
   end
 
