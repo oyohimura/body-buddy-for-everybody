@@ -46,7 +46,7 @@ class BatchesController < ApplicationController
   private
 
   def batch_params
-    params.require(:batch).permit()
+    params.require(:batch).permit(:start_time, :end_time, :max_students)
   end
 
   def set_batch
