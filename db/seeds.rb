@@ -67,15 +67,68 @@ user.profile_picture.attach(io: file, filename: "arnaud.jpg", content_type: "ima
 user.save
 
 # Creating programs
+file1 = URI.open("https://fakeimage1.jpg")
+program1 = Program.new(discipline: 'Yoga', level: 'Beginner', target: 'Stress relief', duration: 60, teacher_id: 1, price: 10, description: 'Introducing the basics of yoga and breathing techniques to help relieve stress', language: 'English')
+program1.picture.attach(io: file1, filename: "program1.jpg", content_type: "image/jpg")
+program1.user = User.where(first_name: 'Bob').first
+program1.save
+
+file2 = URI.open("https://fakeimage2.jpg")
+program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 45, teacher_id: 2, price: 15, description: 'Improve flexibility and strength with Pilates', language: 'English')
+program2.picture.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
+program2.user = User.where(first_name: 'Bob').first
+program2.save
+
+file3 = URI.open("https://fakeimage3.jpg")
+program3 = Program.new(discipline: 'Dance', level: 'Advanced', target: 'Fun and fitness', duration: 75, teacher_id: 3, price: 20, description: 'Get fit and have fun with dance', language: 'English')
+program3. picture.attach(io: file3, filename: "program3.jpg", content_type: "image/jpg")
+program3.user = User.where(first_name: 'Bob').first
+program3.save
+
+file4 = URI.open("https://fakeimage4.jpg")
+program4 = Program.new(discipline: 'Meditation', level: 'Beginner', target: 'Stress relief and mindfulness', duration: 30, teacher_id: 4, price: 5, description: 'Introduction to stress relief and mindfulness through meditation', language: 'English')
+program4. picture.attach(io: file4, filename: "program4.jpg", content_type: "image/jpg")
+program4.user = User.where(first_name: 'Bob').first
+program4.save
+
 # TODO
 
 # Create batch
+batch1 = Batch.new(program_id: 1, start_time: "2023-03-01 10:00:00", end_time: "2023-03-01 12:00:00", location: "London", max_students: 20)
+batch1.save
+
+batch2 = Batch.new(program_id: 2, start_time: "2023-03-02 14:00:00", end_time: "2023-03-02 16:00:00", location: "Paris", max_students: 15)
+batch2.save
+
 # TODO
 
 # Create lessons
+lessons = [
+{title: "Introduction to Yoga", description: "Learn the basics of yoga and how to breathe properly."},
+{title: "Sun Salutations", description: "Practice the flowing sequence of postures to warm up your body."},
+{title: "Warrior Pose", description: "Improve balance and strengthen your legs with this powerful posture."},
+{title: "Tree Pose", description: "Find inner peace and focus while balancing on one foot."},
+{title: "Child's Pose", description: "Relax and release tension in your back and hips with this gentle posture."}
+]
+
+
+5.times do |i|
+lesson = Lesson.new(batch_id: first_batch.id, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+lesson.save
+end
+
+
+5.times do |i|
+lesson = Lesson.new(batch_id: second_batch.id, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+lesson.save
+end
+
+
 # TODO
 
 # Create teachers
+
+
 # TODO
 
 # A SUPPRIMER (ci-dessous)
