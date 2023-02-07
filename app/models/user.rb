@@ -3,8 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :teachers, dependent: :destroy
-  has_many :students, dependent: :destroy
+  belongs_to :batches, optional: true
   has_many :reviews, dependent: :destroy
   has_one_attached :profile_picture
   validates :profile_picture, presence: true
@@ -12,4 +11,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :address, presence: true
   validates :phone, presence: true
+  validates :description, length: { minimum: 20 }
+  LANGUAGES = ["French", "English", "Spanish", "German", "Japanese"]
+  validates :language, inclusion: { in: LANGUAGES }
+  validates :teacher, presence: true
 end

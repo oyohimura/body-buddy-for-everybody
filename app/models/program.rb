@@ -1,7 +1,8 @@
 class Program < ApplicationRecord
-  belongs_to :teacher
+  belongs_to :user
   has_many :batches, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :lessons, dependent: :destroy
   has_many_attached :medias
   DISCIPLINES = ["Yoga", "Pilates", "Dance", "Meditation"]
   validates :discipline, inclusion: { in: DISCIPLINES }
