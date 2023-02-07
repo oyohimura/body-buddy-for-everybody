@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_141856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,12 +54,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
 
   create_table "lessons", force: :cascade do |t|
     t.integer "number"
-    t.bigint "batch_id", null: false
+    t.bigint "program_id", null: false
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["batch_id"], name: "index_lessons_on_batch_id"
+    t.index ["program_id"], name: "index_lessons_on_program_id"
   end
 
   create_table "programs", force: :cascade do |t|
@@ -67,14 +67,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
     t.string "level"
     t.string "target"
     t.string "duration"
-    t.bigint "teacher_id", null: false
     t.integer "price"
     t.string "language"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
     t.string "name"
-    t.index ["teacher_id"], name: "index_programs_on_teacher_id"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -90,11 +90,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
 
   create_table "slot_students", force: :cascade do |t|
     t.bigint "slot_id", null: false
-    t.bigint "student_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slot_id"], name: "index_slot_students_on_slot_id"
-    t.index ["student_id"], name: "index_slot_students_on_student_id"
+    t.index ["user_id"], name: "index_slot_students_on_user_id"
   end
 
   create_table "slots", force: :cascade do |t|
@@ -104,26 +104,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
     t.string "access_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["lesson_id"], name: "index_slots_on_lesson_id"
-  end
-
-  create_table "students", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "batch_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 0
-    t.index ["batch_id"], name: "index_students_on_batch_id"
-    t.index ["user_id"], name: "index_students_on_user_id"
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.text "description"
-    t.bigint "user_id", null: false
-    t.string "language"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_teachers_on_user_id"
+    t.index ["batch_id"], name: "index_slots_on_batch_id"
+    t.index ["lesson_id"], name: "index_slots_on_lesson_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -138,6 +121,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
     t.string "last_name"
     t.string "address"
     t.string "phone"
+    t.text "description"
+    t.string "language"
+    t.bigint "batch_id"
+    t.index ["batch_id"], name: "index_users_on_batch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -145,14 +132,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_04_141002) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "batches", "programs"
-  add_foreign_key "lessons", "batches"
-  add_foreign_key "programs", "teachers"
+  add_foreign_key "lessons", "batches", column: "program_id"
+  add_foreign_key "programs", "users"
   add_foreign_key "reviews", "programs"
   add_foreign_key "reviews", "users"
   add_foreign_key "slot_students", "slots"
-  add_foreign_key "slot_students", "students"
+  add_foreign_key "slots", "batches"
   add_foreign_key "slots", "lessons"
-  add_foreign_key "students", "batches"
-  add_foreign_key "students", "users"
-  add_foreign_key "teachers", "users"
+  add_foreign_key "users", "batches"
 end
