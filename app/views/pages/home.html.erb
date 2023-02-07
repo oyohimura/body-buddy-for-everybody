@@ -1,46 +1,63 @@
-<div class="container">
-  <h1>Titre h1</h1>
-  <h2>Titre h2</h2>
-  <h3>Titre h3</h3>
-  <h4>Titre h4</h4>
-  <p>Everyone has the right to <span class='text-green'>freedom of thought</span>, <em>conscience and religion</em>; this right includes freedom to <span class='text-blue'>change his religion or belief</span>, and freedom, either alone or <strong>in community with others</strong> and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas <span class='text-pink'>through any media</span> and regardless of frontiers.</p>
-  <quote>
-  Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.
-  </quote>
-  <br>
-  <br>
-
-  <p>
-    <%= link_to "#", class: "btn btn-primary" do %>
-      Primary button
-    <% end %>
-  </p>
-
-  <p>
-    <%= link_to "#", class: "btn btn-secondary" do %>
-      Secondary button
-    <% end %>
-  </p>
-
-  <p>
-    <%= link_to "#", class: "btn btn-success" do %>
-      Success button
-    <% end %>
-  </p>
-
-  <p>
-    <%= link_to "#", class: "btn btn-warning" do %>
-      Warning button
-    <% end %>
-  </p>
-
-  <div class="cards">
-    <%= render 'programs/card', program: Program.first %>
-    <%= render 'programs/card', program: Program.last %>
+<div class="hero-banner">
+  <div class="container">
+    <div class="hero-banner-content">
+      <h1>Welcome to Our School</h1>
+      <p>Discover our brand new programs to learn new skills and achieve your goals!</p>
+      <p>Find the program that suits you best and join now!</p>
+      <br>
+      <%# <div class="col-4">
+        <%= render 'programs/search-form' %>
+      <%# </div> %>
+    </div>
   </div>
-
 </div>
 
-<div class="container">
-  <%= link_to "All programs (program index)", programs_path %>
-<div>
+<div class="container mt-3 mb-3">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h1>Our latest program</h1>
+    </div>
+    <div class="col-md-12">
+      <%= render 'programs/card', program: Program.last %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h1>Discover our programs below</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <% @programs.first(6).each do |program| %>
+      <div class="col-md-4">
+        <div class="bike-card">
+          <%= render 'programs/card', program: program %>
+          <div class="bike-card-actions">
+            <%= link_to "More info", program_path(program) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <%= link_to "See all programs", programs_path %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h1>Meet our teachers</h1>
+    </div>
+  </div>
+
+ <div class="teacher-cards">
+  <% @teachers = User.where(teacher: true).last(4) %>
+  <% @teachers.each do |teacher| %>
+    <%= render 'teachers/teacher', user: teacher %>
+  <% end %>
+</div>
+
+</div>

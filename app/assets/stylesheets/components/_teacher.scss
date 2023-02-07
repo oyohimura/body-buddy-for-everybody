@@ -1,0 +1,23 @@
+/* Your card CSS file */
+.teacher-card {
+  height: 300px;
+  background-color: $white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .teacher-avatar {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 15px;
+  }
+
+  .teacher-name {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
