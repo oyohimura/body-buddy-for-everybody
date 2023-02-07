@@ -1,0 +1,11 @@
+a {
+  color: $gray;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  &:hover {
+    color: $warning;
+    transition: 10ms;
+  }
+}

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,200&family=Playfair+Display:wght@500;700;900&display=swap');
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+span {
+  font-weight: 200;
+  font-style: italic;
+}
+
+quote {
+  font-weight: 200;
+  color: $gray;
+  background-color: $light-gray;
+  font-style: italic;
+}
+
+em {
+  font-weight: 700;
+  font-style: italic;
+}
+
+strong {
+  font-weight: 900;
+}
+
+.text-blue {
+  background-color: $light-blue;
+}
+
+.text-pink {
+  background-color: $light-pink;
+}
+
+.text-green {
+  background-color: $light-green;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+}
+
+h1 {
+  color: $pink;
+  font-weight: 900;
+}
+
+h2 {
+  color: $blue;
+  font-weight: 700;
+}
+
+h3 {
+  color: $green;
+  font-weight: 500;
+}
+
+h4, h5 {
+  color: $gray;
+  font-weight: 500;
+}
