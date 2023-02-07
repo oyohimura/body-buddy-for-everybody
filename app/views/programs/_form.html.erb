@@ -2,6 +2,7 @@
   <%= f.input :name, class: "form-control" %>
   <%= f.input :discipline,  as: :select, class: "form-control", collection: ["Yoga", "Pilates", "Dance", "Meditation"] %>
   <%= f.input :price, class: "form-control", input_html: {min: 0} %>
+  <%= f.input :duration, class: "form-control", input_html: {min: 0} %>
   <%= f.input :level,  as: :select, class: "form-control", collection: ["Beginner", "Intermediate", "Advanced"] %>
   <%= f.input :medias, as: :file, required: true %>
   <%= f.input :description, required: true %>
