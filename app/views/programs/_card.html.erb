@@ -1,0 +1,22 @@
+<div class="card-trip">
+  <div>
+    <%# <img src="https://images.unsplash.com/photo-1522787345986-d5c7885a889e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format" alt="image"> %>
+    <%= cl_image_tag program.medias.first.key %>
+    <div class="more-info">
+      <%= link_to "More info", program_path(program), class: 'btn btn-primary' %>
+    </div>
+    <div class="card-trip-infos">
+      <div class="avatar-card">
+        <%= cl_image_tag program.teacher.user.profile_picture.key %>
+        <%# <img src="https://kitt.lewagon.com/placeholder/users/krokrob" alt="user avatar"> %>
+      </div>
+      <div class="card-trip-infos-desc">
+        <h2><%= program.name %></h2>
+        <p><%= program.teacher.user.first_name %>'s program</p>
+        <p><%= program.level %> - <%= program.target %> - <%= program.duration %> days</p>
+      </div>
+      <div class="card-trip-infos-separator"></div>
+      <strong><%= program.price %>€</strong>
+    </div>
+  </div>
+</div>

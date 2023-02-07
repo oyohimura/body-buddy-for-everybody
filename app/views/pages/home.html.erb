@@ -3,30 +3,42 @@
   <h2>Titre h2</h2>
   <h3>Titre h3</h3>
   <h4>Titre h4</h4>
-  <p>Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.</p>
-  <%= link_to "#", class: "btn btn-primary" do %>
-    Primary button
-  <% end %>
+  <p>Everyone has the right to <span class='text-green'>freedom of thought</span>, <em>conscience and religion</em>; this right includes freedom to <span class='text-blue'>change his religion or belief</span>, and freedom, either alone or <strong>in community with others</strong> and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas <span class='text-pink'>through any media</span> and regardless of frontiers.</p>
+  <quote>
+  Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.
+  </quote>
+  <br>
+  <br>
 
-  <%= link_to "#", class: "btn btn-secondary" do %>
-    Secondary button
-  <% end %>
+  <p>
+    <%= link_to "#", class: "btn btn-primary" do %>
+      Primary button
+    <% end %>
+  </p>
 
-  <%= link_to "#", class: "btn btn-success" do %>
-    Success button
-  <% end %>
+  <p>
+    <%= link_to "#", class: "btn btn-secondary" do %>
+      Secondary button
+    <% end %>
+  </p>
 
-  <%= link_to "#", class: "btn btn-warning" do %>
-    Warning button
-  <% end %>
+  <p>
+    <%= link_to "#", class: "btn btn-success" do %>
+      Success button
+    <% end %>
+  </p>
 
-  <%= link_to "#", class: "btn btn-danger" do %>
-    Danger button
-  <% end %>
+  <p>
+    <%= link_to "#", class: "btn btn-warning" do %>
+      Warning button
+    <% end %>
+  </p>
 
-  <%= link_to "#", class: "btn btn-info" do %>
-    Info button
-  <% end %>
+  <div class="cards">
+    <%= render 'programs/card', program: Program.first %>
+    <%= render 'programs/card', program: Program.last %>
+  </div>
+
 </div>
 
 <div class="container">

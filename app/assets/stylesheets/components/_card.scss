@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  box-shadow: 0 10px 20px rgba(0,0,0,.2);
   border-radius: 5px;
 }
 
@@ -54,7 +54,18 @@
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0,0,0,.2);
-  margin: 20px 0;
+  // margin: 20px 0;
+  // width: 300px;
+}
+
+.card-trip {
+  position: relative;
+}
+
+.card-trip .more-info {
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .card-trip img {
@@ -63,30 +74,25 @@
   object-fit: cover;
 }
 
-.card-trip h2 {
-  font-size: 1rem;
-}
-
-.card-trip p {
-  font-size: 0.7rem;
-}
-
 .card-trip .card-trip-infos {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  padding: 12px;
+  padding-right: 32px;
+  padding-bottom: 4px;
 }
 
 .card-trip-infos {
   position: relative;
 }
 
-.avatar {
+.avatar-card {
   position: absolute;
   top: -25px;
   right: 30px;
 }
 
-.avatar img {
+.avatar-card img {
   border-radius: 50%;
   border-color: white;
   border-width: 1px;

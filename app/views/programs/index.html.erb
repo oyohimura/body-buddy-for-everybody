@@ -1,26 +1,8 @@
 <div class="container">
   <h1>All programs</h1>
-  <% @programs.each do |program| %>
-
-  <div class="card-trip">
-    <div>
-      <img src="https://images.unsplash.com/photo-1522787345986-d5c7885a889e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format" alt="image">
-      <div class="card-trip-infos">
-        <div class="avatar">
-          <img src="https://kitt.lewagon.com/placeholder/users/krokrob" alt="user avatar">
-        </div>
-        <div class="card-trip-infos-desc">
-          <h2><%= program.discipline %></h2>
-          <p><%= program.level %></p>
-          <p><%= program.target %></p>
-          <p><%= program.duration %></p>
-          <p><%= program.teacher.user.first_name %></p>
-        </div>
-        <div class="card-trip-infos-separator"> </div>
-        <h3><%= program.price %>€</h3>
-      </div>
-    </div>
+  <div class="cards">
+    <% @programs.each do |program| %>
+      <%= render 'card', program: program %>
+    <% end %>
   </div>
-    <p><%= link_to "More info about this program", program_path(program) %></p>
-  <% end %>
 </div>
