@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :home ]
 
   def home
+    @programs = Program.all
   end
 
   def index
@@ -23,7 +24,7 @@ class PagesController < ApplicationController
     end
     @programs_students =[]
     @batchs.each do |batch|
-     @programs_students << batch.program
+      @programs_students << batch.program
     end
   end
 end

@@ -4,7 +4,7 @@
   <p><%= @program.level %></p>
   <p><%= @program.target %></p>
   <p><%= @program.duration %></p>
-  <p><%= @program.teacher.user.first_name %></p>
+  <p><%= @program.user.first_name %></p>
   <p><%= @program.price %>€</p>
   <% @program.medias.each do |media| %>
     <%= cl_image_tag media.key, height: 300, width: 400, crop: :fill %>
@@ -12,8 +12,8 @@
 </div>
 
 <%# link to teacher %>
-<p>Teached by <span><%= link_to user_profile_path(@program.teacher) do %>
-          <%= @program.teacher.user.first_name %>
+<p>Teached by <span><%= link_to user_profile_path(@program.user) do %>
+          <%= @program.user.first_name %>
         <% end %></span></p>
 
 <%# link to each batch %>
