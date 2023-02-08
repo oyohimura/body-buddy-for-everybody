@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_194512) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_211710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,11 +54,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_194512) do
 
   create_table "lessons", force: :cascade do |t|
     t.integer "number"
-    t.bigint "program_id", null: false
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "program_id", null: false
     t.index ["program_id"], name: "index_lessons_on_program_id"
   end
 
@@ -90,9 +90,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_194512) do
 
   create_table "slot_students", force: :cascade do |t|
     t.bigint "slot_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["slot_id"], name: "index_slot_students_on_slot_id"
     t.index ["user_id"], name: "index_slot_students_on_user_id"
   end
@@ -133,11 +133,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_194512) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "batches", "programs"
-  add_foreign_key "lessons", "batches", column: "program_id"
+  add_foreign_key "lessons", "programs"
   add_foreign_key "programs", "users"
   add_foreign_key "reviews", "programs"
   add_foreign_key "reviews", "users"
   add_foreign_key "slot_students", "slots"
+  add_foreign_key "slot_students", "users"
   add_foreign_key "slots", "batches"
   add_foreign_key "slots", "lessons"
   add_foreign_key "users", "batches"

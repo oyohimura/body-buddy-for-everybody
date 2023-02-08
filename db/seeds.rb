@@ -7,7 +7,6 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require "open-uri"
 
-Program.destroy_all
 User.destroy_all
 
 puts "Destroying database!"
@@ -102,10 +101,10 @@ program4.save
 
 # Create batches
 puts "Generating 2 example batches.."
-batch1 = Batch.new(program: program1, start_time: "2023-03-01 10:00:00", end_time: "2023-03-01 12:00:00", max_students: 20)
+batch1 = Batch.new(program: Program.first, start_time: "2023-03-01 10:00:00", end_time: "2023-03-01 12:00:00", max_students: 20)
 batch1.save
 
-batch2 = Batch.new(program: program2, start_time: "2023-03-02 14:00:00", end_time: "2023-03-02 16:00:00", max_students: 15)
+batch2 = Batch.new(program: Program.last, start_time: "2023-03-02 14:00:00", end_time: "2023-03-02 16:00:00", max_students: 15)
 batch2.save
 
 # Create lessons
@@ -119,13 +118,13 @@ lessons = [
 ]
 
 5.times do |i|
-  lesson = Lesson.new(batch: Program.first, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
-  lesson.save
+  lesson = Lesson.new(program: Program.first, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+  lesson.save!
 end
 
 5.times do |i|
-  lesson = Lesson.new(batch: Program.last, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
-  lesson.save
+  lesson = Lesson.new(program: Program.last, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
+  lesson.save!
 end
 
 puts "Finished!"
