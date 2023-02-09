@@ -36,7 +36,8 @@ user = User.new(
   address: 'rue de la montage, 67210 Obernai',
   phone: '0123456789',
   description: "Certified Pilates instructor with a passion for helping people improve their fitness and flexibility.",
-  language: "English"
+  language: "English",
+  teacher: true
 )
 
 file = URI.open("https://res.cloudinary.com/wagon/image/upload/c_fill,g_face,h_200,w_200/v1663345881/yaxmecvbe7skaqrm4ziw.jpg")
@@ -51,7 +52,8 @@ user = User.new(
   address: 'rue du Japon, Paris',
   phone: '0123456789',
   description: 'New to pilates ! Hope to meet a lot of you people, online or physically!',
-  language: 'English'
+  language: 'English',
+  teacher: true
 )
 
 file = URI.open("https://avatars.githubusercontent.com/u/113622459?v=4")
