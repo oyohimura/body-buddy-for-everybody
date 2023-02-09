@@ -3,15 +3,15 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-    @batch = Batch.find(params[:batch_id])
+    @program = Program.find(params[:program_id])
   end
 
   def create
+    @program = Program.find(params[:program_id])
     @lesson = Lesson.new(lesson_params)
-    @batch = Batch.find(params[:batch_id])
-    @lesson.batch = @batch
+    @lesson.program = @program
     if @lesson.save
-      redirect_to batch_path(@batch), notice: "Lesson was successfully created."
+      redirect_to program_path(@program), notice: "Lesson was successfully created."
     else
       render :new
     end
@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
 
   def destroy
     @lesson.destroy
-    redirect_to lessons_path, notice: "Lesson was successfully destroyed."
+    redirect_to programs_path, notice: "Lesson was successfully destroyed."
   end
 
   private
