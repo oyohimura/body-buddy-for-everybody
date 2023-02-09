@@ -16,12 +16,13 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @programs = Program.all
     @user = current_user
     @students = Student.where(user_id: current_user.id)
     @batchs = []
     @students.each do |student|
       @batchs << student.batch
-    end
+    end0
     @programs_students =[]
     @batchs.each do |batch|
       @programs_students << batch.program
