@@ -1,15 +1,52 @@
+<%# link to teacher %>
+  <p>Teached by <span><%= link_to user_profile_path(@program.user) do %>
+    <%= @program.user.first_name %>
+  <% end %></span></p>
+
 <div class="container">
-  <h1>Program details :</h1>
-  <p><%= @program.discipline %></p>
-  <p><%= @program.level %></p>
-  <p><%= @program.target %></p>
-  <p><%= @program.duration %></p>
-  <p><%= @program.user.first_name %></p>
-  <p><%= @program.price %>€</p>
-  <% @program.medias.each do |media| %>
-    <%= cl_image_tag media.key, height: 300, width: 400, crop: :fill %>
+  <div class="card mb-3">
+  <%# à mettre au meme format que les autres cardes %>
+    <% @program.medias.each do |media| %>
+      <%= cl_image_tag media.key,  height: 350, aspect_ratio: '3:1', :background=>"white", :crop=>"pad" %>
+    <% end %>
+    <div class="card-body">
+      <p><%= @program.discipline %></p>
+      <p><%= @program.level %></p>
+      <p><%= @program.target %></p>
+      <p><%= @program.duration %></p>
+      <p><%= @program.user.first_name %></p>
+      <p><%= @program.price %>€</p>
+    </div>
+  </div>
+  <div class="teacher-cards">
+    <%= render 'teacher', user: @program.user %>
+  </div>
+</div>
+
+<div class="container">
+  <%# link to each batch %>
+  <% @program.batches.each do |batch| %>
+    <%= link_to 'batch', program_batch_path(@program.id, batch.id)%>
   <% end %>
 
+<div class="container">
+  <% @program.lessons.each do |lesson| %>
+    <p><%= lesson.title %></p>
+  <% end %>
+</div>
+
+<div class="container">
+  <% if current_user == @program.user%>
+    <%= simple_form_for([@program, @lesson]) do |f| %>
+      <%= f.input :number %>
+      <%= f.input :title %>
+      <%= f.input :description %>
+      <%= f.button :submit %>
+    <% end %>
+  <% end %>
+</div>
+
+<div>
   <%# link to teacher %>
   <p>Teached by <span><%= link_to user_profile_path(@program.user) do %>
             <%= @program.user.first_name %>

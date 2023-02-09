@@ -6,7 +6,9 @@ class ProgramsController < ApplicationController
     @programs = Program.all
   end
 
-  def show; end
+  def show
+    @lesson = Lesson.new
+  end
 
   def new
     @program = Program.new
