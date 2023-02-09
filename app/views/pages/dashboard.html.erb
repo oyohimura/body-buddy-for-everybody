@@ -1,1 +1,13 @@
-<h1> <%= @programs %> </h1>
+<div class="container">
+  <h2>My programs:</h2>
+  <% @programs.each do |program| %>
+    <p><%= program.name %></p>
+  <% end %>
+
+  <h2>My current registrations:</h2>
+  <% if current_user.batch.nil? %>
+    <p>You are not registered yet. You can <%= link_to "browse programs", programs_path %></p>
+  <% else %>
+    <p>Batch number <%= @batch.id %> of <%= @batch.program %> program.</p>
+  <% end %>
+</div>

@@ -9,14 +9,14 @@
   <% @program.medias.each do |media| %>
     <%= cl_image_tag media.key, height: 300, width: 400, crop: :fill %>
   <% end %>
+
+  <%# link to teacher %>
+  <p>Teached by <span><%= link_to user_profile_path(@program.user) do %>
+            <%= @program.user.first_name %>
+          <% end %></span></p>
+
+  <%# link to each batch %>
+  <% @program.batches.each do |batch| %>
+    <%= link_to 'batch', program_batch_path(@program.id, batch.id)%>
+  <% end %>
 </div>
-
-<%# link to teacher %>
-<p>Teached by <span><%= link_to user_profile_path(@program.user) do %>
-          <%= @program.user.first_name %>
-        <% end %></span></p>
-
-<%# link to each batch %>
-<% @program.batches.each do |batch| %>
-  <%= link_to 'batch', program_batch_path(@program.id, batch.id)%>
-<% end %>

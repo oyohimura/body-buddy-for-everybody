@@ -1,12 +1,13 @@
 <%= simple_form_for @program do |f| %>
   <%= f.input :name, class: "form-control" %>
-  <%= f.input :discipline,  as: :select, class: "form-control", collection: ["Yoga", "Pilates", "Dance", "Meditation"] %>
-  <%= f.input :price, class: "form-control", input_html: {min: 0} %>
-  <%= f.input :duration, class: "form-control", input_html: {min: 0} %>
-  <%= f.input :level,  as: :select, class: "form-control", collection: ["Beginner", "Intermediate", "Advanced"] %>
+  <%= f.input :discipline,  as: :select, class: "form-control", collection: Program::DISCIPLINES %>
+  <%= f.input :target, class: 'form-control' %>
+  <%= f.input :price, label: 'Price (€)', class: "form-control", input_html: {min: 0} %>
+  <%= f.input :duration, as: :select, label: 'Duration (months)', class: "form-control", collection: Program::DURATIONS %>
+  <%= f.input :level,  as: :select, class: "form-control", collection: Program::LEVELS %>
   <%= f.input :medias, as: :file, required: true %>
   <%= f.input :description, required: true %>
-  <%= f.input :language, as: :select, class: "form-control", collection: ["French", "English", "Spanish", "German", "Japanese"] %>
+  <%= f.input :language, as: :select, class: "form-control", collection: Program::LANGUAGES %>
 
 <div class="d-flex justify-content-center">
     <div class="col-4 justify-content-around">
