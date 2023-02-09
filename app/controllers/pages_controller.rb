@@ -22,7 +22,7 @@ class PagesController < ApplicationController
     @batchs = []
     @students.each do |student|
       @batchs << student.batch
-    end0
+    end
     @programs_students =[]
     @batchs.each do |batch|
       @programs_students << batch.program
