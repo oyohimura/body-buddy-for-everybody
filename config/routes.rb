@@ -9,14 +9,14 @@ Rails.application.routes.draw do
   resources :programs do
     resources :batches, only: [:index, :show, :new, :create, :edit]
     # resources :reviews, only: [:new, :create]
+    resources :lessons, only: [:create]
   end
 
   resources :batches, only: [:update, :destroy] do
-    resources :lessons, only: [:new, :create]
     resources :students, only: [:index, :new, :create]
   end
 
-  resources :students, only: [:edit, :update] do
+  resources :slots, only: [] do
     resources :slots_students, only: [:create]
   end
 
