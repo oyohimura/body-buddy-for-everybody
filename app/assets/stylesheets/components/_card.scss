@@ -54,6 +54,7 @@
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  height: 350px;
   // margin: 20px 0;
   // width: 300px;
 }
@@ -66,6 +67,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
+  margin-bottom: 20px;
 }
 
 .card-trip img {
@@ -76,7 +78,9 @@
 
 .card-trip .card-trip-infos {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  bottom:0;
+  right:0;
   padding: 12px;
   padding-right: 32px;
   padding-bottom: 4px;
@@ -103,5 +107,6 @@
 }
 
 .card-trip .card-trip-infos-separator {
-  flex-grow: 1;
+flex-grow: 1;
+align-items: flex-end;
 }
