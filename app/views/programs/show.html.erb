@@ -28,7 +28,6 @@
   <% @program.batches.each do |batch| %>
     <%= link_to 'batch', program_batch_path(@program.id, batch.id)%>
   <% end %>
-</div>
 
 <div class="container">
   <% @program.lessons.each do |lesson| %>
@@ -44,5 +43,17 @@
       <%= f.input :description %>
       <%= f.button :submit %>
     <% end %>
+  <% end %>
+</div>
+
+<div>
+  <%# link to teacher %>
+  <p>Teached by <span><%= link_to user_profile_path(@program.user) do %>
+            <%= @program.user.first_name %>
+          <% end %></span></p>
+
+  <%# link to each batch %>
+  <% @program.batches.each do |batch| %>
+    <%= link_to 'batch', program_batch_path(@program.id, batch.id)%>
   <% end %>
 </div>

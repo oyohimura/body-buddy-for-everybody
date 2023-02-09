@@ -1,18 +1,20 @@
 class Program < ApplicationRecord
+  DURATIONS = ['1', '2', '4', '6']
+  DISCIPLINES = ["Yoga", "Pilates", "Dance", "Meditation"]
+  LEVELS = ["Beginner", "Intermediate", "Advanced"]
+  LANGUAGES = ["French", "English", "Spanish", "German", "Japanese"]
   belongs_to :user
   has_many :batches, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many_attached :medias
-  DISCIPLINES = ["Yoga", "Pilates", "Dance", "Meditation"]
-  validates :discipline, inclusion: { in: DISCIPLINES }
-  LEVELS = ["Beginner", "Intermediate", "Advanced"]
-  validates :level, inclusion: { in: LEVELS }
+  validates :name, presence: true
+  validates :discipline, presence: true, inclusion: { in: DISCIPLINES }
+  validates :level, presence: true, inclusion: { in: LEVELS }
   validates :target, presence: true
-  validates :duration, presence: true, numericality: true
+  validates :duration, presence: true, inclusion: { in: DURATIONS }
   validates :price, presence: true, numericality: true
   validates :medias, presence: true
   validates :description, length: { minimum: 20 }
-  LANGUAGES = ["French", "English", "Spanish", "German", "Japanese"]
-  validates :language, inclusion: { in: LANGUAGES }
+  validates :language, presence: true, inclusion: { in: LANGUAGES }
 end

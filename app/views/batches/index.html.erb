@@ -1,8 +1,12 @@
 <div class="container">
-  <h1>All batches for program <%= @program.id %> created by <%= @program.teacher.user.first_name %></h1>
+  <h4>All batches for program <span class="text-pink"><%= @program.name %></span> created by <%= @program.user.first_name %></h4>
   <% @batches.each do |batch| %>
-    <p><%= batch.start_time %></p>
-    <p><%= batch.end_time %></p>
-    <p><%= batch.max_students %></p>
+    <p>Starts at : <%= batch.start_time.strftime("at %I:%M%p on %d/%m/%Y") %></p>
+    <p>Ends at : <%= batch.end_time.strftime("at %I:%M%p on %d/%m/%Y") %></p>
+    <p>Maximum number of students : <%= batch.max_students %></p>
+    <%= link_to "More info on batch", program_batch_path(@program, batch) %>
   <% end %>
+  <div>
+    <%= link_to "Back to program description", program_path(@program) %>
+  </div>
 </div>

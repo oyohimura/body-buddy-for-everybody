@@ -16,16 +16,12 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @programs = Program.all
+    # @programs = Program.all
     @user = current_user
-    @students = Student.where(user_id: current_user.id)
-    @batchs = []
-    @students.each do |student|
-      @batchs << student.batch
-    end
-    @programs_students =[]
-    @batchs.each do |batch|
-      @programs_students << batch.program
-    end
+    # @students = User.where(user_id: current_user.id)
+    # All my programs (as a teacher)
+    @programs = Program.where(user: current_user)
+    # The batch I am currently registered on
+    @batch = current_user.batch # @batch.program to get the program
   end
 end

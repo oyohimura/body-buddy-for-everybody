@@ -31,7 +31,7 @@ class ProgramsController < ApplicationController
 
   def create
     @program = Program.new(program_params)
-    @program.teacher = Teacher.find(current_user.teacher)
+    @program.user = current_user
     if @program.save
       redirect_to program_path(@program), notice: 'Program was successfully created.'
     else
@@ -42,7 +42,7 @@ class ProgramsController < ApplicationController
   private
 
   def program_params
-    params.require(:program).permit(:discipline, :level, :target, :duration, :price, :media, :description, :language)
+    params.require(:program).permit(:name, :discipline, :level, :target, :duration, :price, :medias, :description, :language)
   end
 
   def set_program
