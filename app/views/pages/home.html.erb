@@ -53,7 +53,7 @@
     </div>
   </div>
 
- <div class="teacher-cards">
+ <div class="teacher-cards d-flex">
   <% @teachers = User.where(teacher: true).last(4) %>
   <% @teachers.each do |teacher| %>
     <%= render 'programs/teacher', user: teacher %>

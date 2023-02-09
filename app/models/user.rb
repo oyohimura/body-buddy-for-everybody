@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  belongs_to :batches, optional: true
+  belongs_to :batch, optional: true
   has_many :reviews, dependent: :destroy
 
   has_many :programs, dependent: :destroy # added 8-2-2023
