@@ -56,7 +56,7 @@
  <div class="teacher-cards">
   <% @teachers = User.where(teacher: true).last(4) %>
   <% @teachers.each do |teacher| %>
-    <%= render 'teachers/teacher', user: teacher %>
+    <%= render 'programs/teacher', user: teacher %>
   <% end %>
 </div>
 
