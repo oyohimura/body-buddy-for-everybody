@@ -78,25 +78,25 @@ user.save
 # Creating programs
 puts "Generating 4 example programs..."
 file1 = URI.open("https://media.istockphoto.com/id/647232406/fr/photo/professeur-dyoga-mexicain-m%C3%A9ditant.jpg?s=612x612&w=is&k=20&c=2pa2DIqWNOnvrDBKOoYwE-Z7Le3kcebQXhKZpvWCqMc=")
-program1 = Program.new(discipline: 'Yoga', level: 'Beginner', target: 'Stress relief', duration: 60, price: 10, description: 'Introducing the basics of yoga and breathing techniques to help relieve stress', language: 'English', name: 'Yoga basics for stress')
+program1 = Program.new(discipline: 'Yoga', level: 'Beginner', target: 'Stress relief', duration: 6, price: 10, description: 'Introducing the basics of yoga and breathing techniques to help relieve stress', language: 'English', name: 'Yoga basics for stress')
 program1.medias.attach(io: file1, filename: "program1.jpg", content_type: "image/jpg")
 program1.user = User.where(first_name: 'Bob').first
 program1.save
 
 file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
-program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 45, price: 15, description: 'Improve flexibility and strength with Pilates', language: 'English', name: 'Pilates for strength')
+program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 4, price: 15, description: 'Improve flexibility and strength with Pilates', language: 'English', name: 'Pilates for strength')
 program2.medias.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
 program2.user = User.where(first_name: 'Clara').first
 program2.save
 
 file3 = URI.open("https://images.unsplash.com/photo-1540324155974-7523202daa3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80")
-program3 = Program.new(discipline: 'Dance', level: 'Advanced', target: 'Fun and fitness', duration: 75, price: 20, description: 'Get fit and have fun with dance', language: 'English', name: 'Fun dance moves')
+program3 = Program.new(discipline: 'Dance', level: 'Advanced', target: 'Fun and fitness', duration: 2, price: 20, description: 'Get fit and have fun with dance', language: 'English', name: 'Fun dance moves')
 program3.medias.attach(io: file3, filename: "program3.jpg", content_type: "image/jpg")
 program3.user = User.where(first_name: 'Bob').first
 program3.save
 
 file4 = URI.open("https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=499&q=80")
-program4 = Program.new(discipline: 'Meditation', level: 'Beginner', target: 'Stress relief and mindfulness', duration: 30, price: 5, description: 'Introduction to stress relief and mindfulness through meditation', language: 'English', name: 'Have a meditaste')
+program4 = Program.new(discipline: 'Meditation', level: 'Beginner', target: 'Stress relief and mindfulness', duration: 1, price: 5, description: 'Introduction to stress relief and mindfulness through meditation', language: 'English', name: 'Have a meditaste')
 program4.medias.attach(io: file4, filename: "program4.jpg", content_type: "image/jpg")
 program4.user = User.where(first_name: 'Clara').first
 program4.save
