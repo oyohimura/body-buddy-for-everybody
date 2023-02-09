@@ -23,18 +23,18 @@
   </div>
 
   <div class="row">
-    <div class="col-12 text-center mb-4">
+    <div class="col-12 text-center mb-2 mt-4">
       <h1>Discover our programs below</h1>
     </div>
   </div>
 
   <div class="row">
     <% @programs.first(6).each do |program| %>
-      <div class="col-md-4">
+      <div class="col-md-4 mt-3">
         <div class="bike-card">
           <%= render 'programs/card', program: program %>
           <div class="bike-card-actions">
-            <%= link_to "More info", program_path(program) %>
+
           </div>
         </div>
       </div>
