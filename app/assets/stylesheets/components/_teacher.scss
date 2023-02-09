@@ -1,5 +1,12 @@
 /* Your card CSS file */
+.teacher-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .teacher-card {
+  width: 300px;
   height: 300px;
   background-color: $white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -9,6 +16,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin: 20px;
 
   .teacher-avatar {
     width: 150px;
