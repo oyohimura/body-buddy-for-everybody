@@ -10,10 +10,14 @@ class LessonsController < ApplicationController
     @program = Program.find(params[:program_id])
     @lesson = Lesson.new(lesson_params)
     @lesson.program = @program
-    if @lesson.save
-      redirect_to program_path(@program), notice: "Lesson was successfully created."
-    else
-      render :new
+    respond_to do |format|
+      if @lesson.save
+        format.html { redirect_to program_path(@program), notice: "Lesson was successfully created." }
+        format.json
+      else
+        format.html { render :new }
+        format.json
+      end
     end
   end
 
