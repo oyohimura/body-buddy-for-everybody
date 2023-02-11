@@ -4,11 +4,14 @@
   <div class="row justify-content-center mt-5">
     <% @users.each_slice(4) do |group| %>
       <% group.each do |user| %>
-        <div class="col-sm-3 mb-5">
+        <div class="col-sm-3 mb-5 mx-3">
           <!-- teacher card -->
           <%= render partial: "programs/teacher", locals: { user: user } %>
         </div>
       <% end %>
     <% end %>
+  </div>
+  <div class="row text-center">
+    <%= link_to '[Back to dashboard]', dashboard_path %>
   </div>
 </div>

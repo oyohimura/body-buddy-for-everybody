@@ -8,6 +8,8 @@
   <% if current_user.batch.nil? %>
     <p>You are not registered yet. You can <%= link_to "browse programs", programs_path %></p>
   <% else %>
-    <p>Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program. => <%= link_to "[See batch info]", program_batch_path(@batch.program, @batch) %></p>
+    <p>Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.
+    => <%= link_to "[See batch info]", program_batch_path(@batch.program, @batch) %>
+    - <%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
   <% end %>
 </div>
