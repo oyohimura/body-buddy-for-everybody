@@ -76,7 +76,7 @@ user.profile_picture.attach(io: file, filename: "arnaud.jpg", content_type: "ima
 user.save!
 
 user = User.new(
-  password: 'Kelly123$$',
+  password: 'Kelly123$',
   email: 'kelly@gmail.com',
   first_name: 'Kelly',
   last_name: 'Kamm',
@@ -89,6 +89,37 @@ user = User.new(
 
 file = URI.open("https://images.yogaanytime.com/2022/01/17/thumb_kelly-21223.jpg")
 user.profile_picture.attach(io: file, filename: "kelly.jpg", content_type: "image/jpg")
+user.save!
+
+# 2 users registered to the only batch of Patanjali
+user = User.new(
+  password: 'Bill123$',
+  email: 'bill@gmail.com',
+  first_name: 'Bill',
+  last_name: 'Smith',
+  address: 'Ocean Street, Malibu',
+  phone: '0123456789',
+  description: "Beginning my yoga road.",
+  language: 'English'
+)
+
+file = URI.open("https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Bill_Gates_-_Nov._8%2C_2019.jpg/640px-Bill_Gates_-_Nov._8%2C_2019.jpg")
+user.profile_picture.attach(io: file, filename: "bill.jpg", content_type: "image/jpg")
+user.save!
+
+user = User.new(
+  password: 'Elon123$',
+  email: 'elon@gmail.com',
+  first_name: 'Elon',
+  last_name: 'Grumpy',
+  address: 'New York, Manhattan highest tower',
+  phone: '0123456789',
+  description: "Beginning my meditation road to better handle my business.",
+  language: 'English'
+)
+
+file = URI.open("https://cdn.futura-sciences.com/buildsv6/images/largeoriginal/d/9/a/d9a1058910_50163142_elon-musk1.jpg")
+user.profile_picture.attach(io: file, filename: "elon.jpg", content_type: "image/jpg")
 user.save!
 
 # Creating programs
@@ -152,7 +183,13 @@ batch3 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.first
 batch3.save!
 
 batch4 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.last, start_time: "2023-03-02 14:00:00", end_time: "2023-09-02 16:00:00", max_students: 15)
+user1 = User.where(first_name: 'Bill').first
+user1.batch = batch4
+user2 = User.where(first_name: 'Elon').first
+user2.batch = batch4
 batch4.save!
+user1.save!
+user2.save!
 
 # Create lessons
 puts "Generating lessons for first program..."

@@ -100,12 +100,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <h2>Pictures</h2>
-          <% @program.medias.each do |media| %>
-            <%= cl_image_tag media.key,  height: 350, aspect_ratio: '3:1', :background=>"white", :crop=>"pad" %>
-          <% end %>
-        </div>
     </div>
   </section>
 </div>
