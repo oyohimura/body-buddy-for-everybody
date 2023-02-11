@@ -42,22 +42,27 @@
   </div>
 
   <div class="row">
-    <div class="col-12 text-center mb-4">
-      <%= link_to "See all programs", programs_path %>
+    <div class="col-12 mt-4 text-center">
+      <%= link_to "See all programs", programs_path, class: 'btn btn-outline btn-outline-danger' %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 text-center mb-4">
+    <div class="col-12 mt-4 text-center">
       <h1>Meet our teachers</h1>
     </div>
   </div>
 
- <div class="teacher-cards d-flex">
-  <% @teachers = User.where(teacher: true).last(4) %>
-  <% @teachers.each do |teacher| %>
-    <%= render 'programs/teacher', user: teacher %>
-  <% end %>
-</div>
+  <div class="teacher-cards d-flex">
+    <% @teachers = User.where(teacher: true).last(4) %>
+    <% @teachers.each do |teacher| %>
+      <%= render 'programs/teacher', user: teacher %>
+    <% end %>
+  </div>
 
+  <div class="row">
+    <div class="col-12 mt-4 text-center">
+      <%= link_to "See all teachers", teachers_path, class: 'btn btn-outline btn-outline-danger' %>
+    </div>
+  </div>
 </div>

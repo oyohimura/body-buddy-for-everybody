@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'pages#dashboard' , as: "dashboard"
   get 'profile/:user_id', to: 'pages#profile', as: 'user_profile'
   get 'teachers/', to: 'pages#index', as: 'teachers'
-  get 'teachers/:id', to: 'pages#show', as: 'teacher'
+  # get 'teachers/:id', to: 'pages#show', as: 'teacher'
 
   resources :programs do
     resources :batches, only: [:index, :show, :new, :create, :edit]
