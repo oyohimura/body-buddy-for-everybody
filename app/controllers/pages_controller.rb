@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
 
   def index
+    @users = User.where(teacher: true)
   end
 
   def show
