@@ -32,6 +32,8 @@ class ProgramsController < ApplicationController
   def create
     @program = Program.new(program_params)
     @program.user = current_user
+    current_user.teacher = true
+    current_user.save!
     if @program.save
       redirect_to program_path(@program), notice: 'Program was successfully created.'
     else

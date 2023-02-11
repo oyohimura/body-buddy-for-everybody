@@ -1,8 +1,13 @@
 <div class="container">
   <h2>My programs:</h2>
-  <% @programs.each do |program| %>
-    <p><%= program.name %></p>
+  <% if current_user.teacher? %>
+    <% @programs.each do |program| %>
+      <%= link_to program_path(program) do %>
+        <p><%= program.name %></p>
+      <% end %>
+    <% end %>
   <% end %>
+  <%= link_to 'Create a new program', new_program_path %>
 
   <h2>My current registrations:</h2>
   <% if current_user.batch.nil? %>
