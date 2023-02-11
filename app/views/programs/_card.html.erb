@@ -7,7 +7,9 @@
     </div>
     <div class="card-trip-infos">
       <div class="avatar-card">
-        <%= cl_image_tag program.user.profile_picture.key %>
+        <%= link_to user_profile_path(program.user) do %>
+          <%= cl_image_tag program.user.profile_picture.key %>
+        <% end %>
         <%# <img src="https://kitt.lewagon.com/placeholder/users/krokrob" alt="user avatar"> %>
       </div>
       <div class="card-trip-infos-desc">
