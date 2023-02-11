@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update]
+  # before_action :set_student, only: [:show, :edit, :update]
 
   def index
     @batch = Batch.find(params[:batch_id])
@@ -14,14 +14,11 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @batch = Batch.find(params[:batch_id])
-    @student = Student.new(student_params)
-    @student.user = current_user
-    @student.batch = @batch
-    if @student.save
-      redirect_to  batch_students(@batch), notice: 'Student was successfully created.'
+    user = current_user
+    if user.update(batch: Batch.find(params[:user][:batch]))
+      redirect_to dashboard_path, notice: 'You were successfully registered.'
     else
-      render :new
+      render program_batch_path(params[:batch].program, params[:batch]), status: :unprocessable_entity
     end
   end
 
@@ -29,20 +26,22 @@ class StudentsController < ApplicationController
   end
 
   def update
-    if @student.update(student_params)
-      redirect_to batch_students(@batch), notice: 'Student was successfully updated.'
+    current_user.batch = params[:batch]
+    raise
+    if current_user.update
+      redirect_to dashboard, notice: 'You were successfully registered.'
     else
-      render :edit, status: :unprocessable_entity
+      render program_batch_path(params[:batch].program, params[:batch]), status: :unprocessable_entity
     end
   end
 
-  private
+  # private
 
-  def set_student
-    @student = Student.find(params[:id])
-  end
+  # def set_student
+  #   @student = Student.find(params[:id])
+  # end
 
-  def student_params
-    params.require(:student).permit(:status)
-  end
+  # def student_params
+  #   params.require(:student).permit(:status)
+  # end
 end

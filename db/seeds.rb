@@ -108,7 +108,7 @@ batch1 = Batch.new(program: Program.first, start_time: "2023-03-01 10:00:00", en
 # Generating inscription to batch for Arnaud
 user = User.where(first_name: 'Arnaud').first
 user.batch = batch1
-batch1.save
+batch1.save!
 user.save!
 
 batch1 = Batch.new(program: Program.first, start_time: "2023-06-01 10:00:00", end_time: "2023-08-01 12:00:00", max_students: 20)
