@@ -1,0 +1,20 @@
+<div class="card-trip">
+  <div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+      <div class="col-md-10">
+        <div class="row p-2 bg-white">
+          <div class="col-lg-6 mt-1"><%= cl_image_tag program.medias.first.key %></div>
+          <div class="col-lg-6 mt-1">
+            <h2><%= program.name %></h2>
+            <ul>
+              <li><%= program.user.first_name %>'s program</li>
+              <li><%= program.level %></li>
+              <li><%= program.target %></li>
+              <li><%= program.duration %> month</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
