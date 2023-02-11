@@ -1,0 +1,10 @@
+<%= simple_form_for([ program, lesson ],
+                    data: {
+                      insert_in_list_target: "form",
+                      action: "submit->insert-in-list#send"
+                    }) do |f| %>
+  <%= f.input :number %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>
