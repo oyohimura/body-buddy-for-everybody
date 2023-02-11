@@ -2,6 +2,10 @@
   <section style="background-color: #eee;">
     <div class="row">
       <h1><%= @user.first_name %>'s profile</h1>
+      <p> <% if @user.teacher? %>
+          <%= @user.first_name %> is teaching at BodyBuddy since <%= @user.created_at.to_date %>
+          <% end %>
+      </p>
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
@@ -9,21 +13,35 @@
             class: 'rounded-circle img-fluid' %>
             <h5 class="my-3"><%= @user.first_name %></h5>
           </div>
+        <% if @user.teacher? %>
         </div>
         <div class="card mb-4 mb-lg-0">
           <div class="card-body p-0">
             <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fa fa-bicycle" aria-hidden="true"></i>
-                <p class="mb-0"><%= @user.batch.program.name %></p>
+                <p class="mb-0"><%= @user.description %></p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fa-regular fa-handshake"></i>
-                <p class="mb-0"><%= @user.batch.program.name %></p>
+               <p class="mb-0"> I teach in <%= @user.language %> !</p>
               </li>
             </ul>
           </div>
         </div>
+        <% else %>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <p class="mb-0"><%= @user.description %></p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+               <p class="mb-0"> I learn in <%= @user.language %> !</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <% end %>
       </div>
       <div class="col-lg-8">
         <div class="card mb-4">
@@ -53,22 +71,31 @@
               <div class="col-sm-9">
                 <p class="text-muted mb-0"><%= @user.address %></p>
               </div>
+            <% unless @user.teacher? %>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Program attended</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> <%= @user.batch.program.name %></p>
+            </div>
+             <% end %>
             </div>
           </div>
         </div>
+        <% if @user.teacher? %>
         <div class="row">
         <h2><%= @user.first_name %>'s programs</h2>
         <% @user.programs.each do |program| %>
           <div class="col-6">
             <div class="bike-card">
               <%= render 'programs/card', program: program %>
-              <div class="bike-card-actions">
-                <%= link_to "More info", program_path(program) %>
-              </div>
             </div>
           </div>
         <% end %>
-      </div>
+        </div>
+        <% end %>
     </div>
   </section>
 </div>
