@@ -12,7 +12,8 @@ class BatchesController < ApplicationController
 
   def new
     @batch = Batch.new
-  end
+    @program = Program.find([params[:program_id]])
+      end
 
   def create
     @batch = Batch.new(batch_params)

@@ -1,0 +1,14 @@
+ <%= simple_form_for [@program, @batch], url: program_batches_path(@program), data: { controller: 'flatpickr' }, class:"d-flex justify-content-center" do |f| %>
+  <div class="form-group text-center mt-3">
+    <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_target: "startDate" } }, class: "form-control" %>
+  </div>
+  <div class="form-group text-center mt-3">
+    <%= f.input :end_time, as: :string, label: "End Date", input_html: { data: { flatpickr_target: "endDate" } }, class: "form-control" %>
+  </div>
+   <div class="form-group text-center mt-3">
+    <%= f.input :max_students, label: 'Max Students', class: "form-control", input_html: {min: 1} %>
+  </div>
+  <div class="form-group text-center mt-3">
+    <%= f.button :submit, "Add Batch to my Program", class: "btn btn-primary" %>
+  </div>
+  <% end %>
