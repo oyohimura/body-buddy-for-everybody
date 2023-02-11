@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
 
   def create
     user = current_user
-    if user.update(batch: Batch.find(params[:user][:batch]))
+    if user.update(batch: Batch.find(params[:batch_id]))
       redirect_to dashboard_path, notice: 'You were successfully registered.'
     else
       render program_batch_path(params[:batch].program, params[:batch]), status: :unprocessable_entity

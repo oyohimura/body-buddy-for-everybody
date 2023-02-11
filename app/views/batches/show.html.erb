@@ -8,7 +8,6 @@
     <p><span class="text-blue">You are registered to this batch.</span></p>
   <% else %>
     <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
-      <%= f.hidden_field :batch, value: @batch.id %>
       <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
     <% end %>
   <% end %>
