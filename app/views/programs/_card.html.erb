@@ -1,5 +1,5 @@
 <div class="card-trip">
-  <div>
+  <div class="latest">
     <%# <img src="https://images.unsplash.com/photo-1522787345986-d5c7885a889e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format" alt="image"> %>
     <%= cl_image_tag program.medias.first.key %>
     <div class="more-info">
@@ -17,8 +17,9 @@
         <p><%= program.user.first_name %>'s program</p>
         <p><%= program.level %> - <%= program.target %> - <%= program.duration %> months</p>
       </div>
-      <div class="card-trip-infos-separator"></div>
-      <strong><%= program.price %>€</strong>
+      <div class="card-trip-price">
+        <strong><%= program.price %>€</strong>
+      </div>
     </div>
   </div>
 </div>
