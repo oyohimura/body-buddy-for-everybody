@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
 
   def index
     @batch = Batch.find(params[:batch_id])
-    @students = Student.where(batch: @batch)
+    @users = User.where(batch: @batch)
   end
 
   def show

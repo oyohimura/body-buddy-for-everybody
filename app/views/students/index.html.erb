@@ -1,21 +1,14 @@
-<h1>Students#index</h1>
-<p>Find me in app/views/students/index.html.erb</p>
-
-<h1>Listing students for batch n°<%= @batch.id %></h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.user.first_name %></td>
-        <td><%= student.user.last_name %></td>
-      </tr>
+<div class="container">
+  <h1 class="text-center mt-3">Program: <%= @batch.program.name %></h1>
+  <h2 class="text-center mt-3">All students booked on batch n°<%= @batch.id %></h2>
+  <div class="row justify-content-center mt-5">
+    <% @users.each_slice(4) do |group| %>
+      <% group.each do |user| %>
+        <div class="col-sm-3 mb-5">
+          <!-- teacher card -->
+          <%= render partial: "programs/teacher", locals: { user: user } %>
+        </div>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
