@@ -2,14 +2,14 @@ class SlotsController < ApplicationController
   before_action :set_lesson
 
   def new
-    @slot = Slot.new
   end
 
   def create
     @slot = Slot.new(slot_params)
     @slot.lesson = Lesson.find(params[:lesson_id])
+    @slot.batch = Batch.find(params[:slot][:batch_id])
     if @slot.save
-      redirect_to program_batch_path(@lesson.batch), notice: "Slot was successfully created."
+      redirect_to program_batch_path(@slot.batch.program, @slot.batch), notice: "Slot was successfully created."
     else
       render :new
     end
@@ -28,6 +28,6 @@ class SlotsController < ApplicationController
   end
 
   def slot_params
-    params.require(:slot).permit(:start_time, :end_time)
+    params.require(:slot).permit(:start_time, :end_time, :access_link, :batch_id)
   end
 end

@@ -9,16 +9,18 @@
     <% @batch.program.lessons.each do |lesson| %>
       <ul><li><%= lesson.title %></li></ul>
       <% lesson.slots.each do |slot|%>
-      <% @slot = Slot.new %>
-        <%= lesson.start_time %>
+        <%= slot.start_time %>
       <% end %>
       <p> +Add a Slot</p>
-      <%# <%= simple_form_for @slot, method: :post, url: lesson_batchs_path(@lesson), data: { turbo: false } do |f| %>
-        <%# <%= f.input :start_time, class: "form-control"  %>
-        <%# <%= f.input :end_time, class: "form-control"  %>
-        <%# <%= f.input :access_link, class: "form-control"  %>
-        <%# <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
-      <%# <% end %>
+      <% @lesson = lesson %>
+      <% @slot = Slot.new %>
+      <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false } do |f| %>
+        <%= f.hidden_field :batch_id, value: @batch.id %>
+        <%= f.input :start_time, class: "form-control"  %>
+        <%= f.input :end_time, class: "form-control"  %>
+        <%= f.input :access_link, class: "form-control" %>
+        <%= f.submit 'add a slot', class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
   <% end %>
 
