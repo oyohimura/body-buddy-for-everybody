@@ -16,7 +16,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :address, presence: true
   validates :phone, presence: true
-  validates :description, length: { minimum: 20 }
+  validates :description, length: { minimum: 5 } #changed from 20 to 5
   LANGUAGES = ["French", "English", "Spanish", "German", "Japanese"]
   validates :language, inclusion: { in: LANGUAGES }
 end

@@ -17,7 +17,7 @@
       <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false } do |f| %>
         <%= f.hidden_field :batch_id, value: @batch.id %>
         <%= f.input :start_time, class: "form-control"  %>
-        <%= f.input :end_time, class: "form-control"  %>
+        <%= f.input :duration, class: "form-control"  %>
         <%= f.input :access_link, class: "form-control" %>
         <%= f.submit 'add a slot', class: 'btn btn-primary' %>
       <% end %>

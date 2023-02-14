@@ -43,9 +43,9 @@
           <div class="carousel-indicators">
             <% @program.medias.each_with_index do |media, i| %>
               <% if media == @program.medias.first %>
-                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="0" data-bs-interval="6000" class="active" aria-current="true" aria-label="Slide 1"></button>
               <% else %>
-                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
+                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="<%= i %>" data-bs-interval="6000" aria-label="Slide <%= i+1 %>"></button>
               <% end %>
             <% end %>
           </div>
