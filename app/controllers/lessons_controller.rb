@@ -9,6 +9,7 @@ class LessonsController < ApplicationController
   def create
     @program = Program.find(params[:program_id])
     @lesson = Lesson.new(lesson_params)
+    @lesson.number = @program.lessons.count + 1
     @lesson.program = @program
     respond_to do |format|
       if @lesson.save
