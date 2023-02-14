@@ -1,8 +1,8 @@
 <div class="container">
   <h2>Info about batch #<%= @batch.id %></h2>
-  <p>Starts at : <%= @batch.start_time.strftime("at %I:%M%p on %d/%m/%Y") %></p>
-  <p>Ends at : <%= @batch.end_time.strftime("at %I:%M%p on %d/%m/%Y") %></p>
-  <p>Maximum number of students : <%= @batch.max_students %></p>
+  <p>Starts at <%= @batch.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
+  <p>Ends at <%= @batch.end_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
+  <p><%= @batch.max_students %> students maximum.</p>
 
   <% if current_user.programs.include?(@batch.program) %>
     <p>add a slot</p>
@@ -24,13 +24,10 @@
     <% end %>
   <% end %>
 
-
-
-  <% if current_user.teacher == true %>
-  <% else %>
+  <% unless current_user.teacher == true %>
     <% @user = User.new() %>
-    <% if current_user.batch == @batch%>
-      <p><span class="text-blue">You are registered to this batch.</span></p>
+    <% if current_user.batch == @batch %>
+      <p>You are <span class="text-blue">registered</span> to this batch. </p>
     <% else %>
       <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
         <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
@@ -38,7 +35,6 @@
     <% end %>
   <% end %>
 
-
-<br>
+  <br>
   <%= link_to "Back to all batches for selected program", program_batches_path(@batch.program) %>
 </div>
