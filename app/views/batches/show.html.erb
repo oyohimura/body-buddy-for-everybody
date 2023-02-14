@@ -4,6 +4,26 @@
   <p>Ends at <%= @batch.end_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
   <p><%= @batch.max_students %> students maximum.</p>
 
+  <% if current_user.programs.include?(@batch.program) %>
+    <p>add a slot</p>
+    <% @batch.program.lessons.each do |lesson| %>
+      <ul><li><%= lesson.title %></li></ul>
+      <% lesson.slots.each do |slot|%>
+        <%= slot.start_time %>
+      <% end %>
+      <p> +Add a Slot</p>
+      <% @lesson = lesson %>
+      <% @slot = Slot.new %>
+      <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false } do |f| %>
+        <%= f.hidden_field :batch_id, value: @batch.id %>
+        <%= f.input :start_time, class: "form-control"  %>
+        <%= f.input :end_time, class: "form-control"  %>
+        <%= f.input :access_link, class: "form-control" %>
+        <%= f.submit 'add a slot', class: 'btn btn-primary' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <% unless current_user.teacher == true %>
     <% @user = User.new() %>
     <% if current_user.batch == @batch %>
