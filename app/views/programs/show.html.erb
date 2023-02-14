@@ -43,9 +43,9 @@
           <div class="carousel-indicators">
             <% @program.medias.each_with_index do |media, i| %>
               <% if media == @program.medias.first %>
-                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="0" data-bs-interval="6000" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-interval="6000"  data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
               <% else %>
-                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="<%= i %>" data-bs-interval="6000" aria-label="Slide <%= i+1 %>"></button>
+                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-interval="6000" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
               <% end %>
             <% end %>
           </div>
@@ -91,8 +91,12 @@
               <p class="text-muted mb-0">
                 <div data-controller="insert-in-list">
                   <div data-insert-in-list-target="items">
-                    <% @program.lessons.each do |lesson| %>
-                      <p>Lesson <%= lesson.number %>: <strong><%= lesson.title %></strong></p>
+                    <% if @program.lessons.count.zero? %>
+                      <p data-insert-in-list-target="nolessons">Teacher still has to define the lessons for this program.</p>
+                    <% else %>
+                      <% @program.lessons.each do |lesson| %>
+                        <p>Lesson <%= lesson.number %>: <strong><%= lesson.title %></strong></p>
+                      <% end %>
                     <% end %>
                   </div>
                   <% if current_user == @program.user %>
@@ -120,22 +124,33 @@
               <p class="mb-0">Batches</p>
             </div>
             <div class="col-sm-9">
+              <% if @program.batches.count > 0 %>
               <% @program.batches.each do |batch| %>
                 <div class="row">
                   <div class="col-8">
-                    <%= batch.start_time.strftime("%A, %b %e, %Y") %> -> <%= batch.end_time.strftime("%A, %b %e, %Y") %>
+                    <%= batch.start_time.strftime("%A, %b %e, %Y") %> to <%= batch.end_time.strftime("%A, %b %e, %Y") %>
                   </div>
-                  <div class="col-1"></div>
-                  <div class="col-3">
+                  <div class="col-4">
                     <% unless current_user.teacher? %>
-                      <% if current_user.batch != batch %>
-                        <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
+                      <% if current_user.batch != batch && current_user.batch.program == @program %>
+                        Registered to
+                        <%= link_to dashboard_path do %>
+                          <span class='text-blue'>batch #<%= current_user.batch.id %></span>
+                        <% end %>
+                      <% elsif current_user.batch != batch && current_user.batch.program != @program %>
+                        Registered to <span class='text-warning'>program #<%= @program.id %></span>
+                      <% elsif current_user.batch == batch %>
+                        <span class='text-blue'>Registered!</span>
                       <% else %>
+                        <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
                         You are <span class='text-blue'>registered</span>.
                       <% end %>
                     <% end %>
                   </div>
                 </div>
+              <% end %>
+              <% else %>
+                <p>There are <em>no batches available yet</em>. Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path %></span>!</p>
               <% end %>
             </div>
           </div>
