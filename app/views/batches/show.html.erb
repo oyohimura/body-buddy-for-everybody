@@ -2,7 +2,7 @@
   <h2>Info about batch #<%= @batch.id %></h2>
   <p>Starts at <%= @batch.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
   <p>Ends at <%= @batch.end_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
-  <p><%= @batch.max_students %> students maximum.</p>
+  <p><%= @batch.max_students %> students maximum. (<%= @batch.users.count %>/ <%= @batch.max_students %> currently registered)</p>
 
   <% if current_user.programs.include?(@batch.program) %>
     <p>add a slot</p>
@@ -24,6 +24,11 @@
     <% end %>
   <% end %>
 
+
+
+
+<% if @batch.users.count > @batch.max_students%>  <%# condition for max students %>
+
   <% unless current_user.teacher == true %>
     <% @user = User.new() %>
     <% if current_user.batch == @batch %>
@@ -34,7 +39,11 @@
       <% end %>
     <% end %>
   <% end %>
+<% else %> <%# else for max students %>
+  <%= link_to 'This batch is full, please select another one', program_batches_path(@batch.program) %>
+<% end %> <%# end for max students %>
 
-  <br>
+
+<br>
   <%= link_to "Back to all batches for selected program", program_batches_path(@batch.program) %>
 </div>
