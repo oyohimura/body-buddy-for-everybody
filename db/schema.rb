@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_211710) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_14_184428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,11 +100,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_211710) do
   create_table "slots", force: :cascade do |t|
     t.bigint "lesson_id", null: false
     t.datetime "start_time"
-    t.datetime "end_time"
     t.string "access_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "batch_id", null: false
+    t.integer "duration"
     t.index ["batch_id"], name: "index_slots_on_batch_id"
     t.index ["lesson_id"], name: "index_slots_on_lesson_id"
   end
