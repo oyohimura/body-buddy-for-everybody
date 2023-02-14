@@ -27,7 +27,7 @@
 
 
 
-<% if @batch.users.count > @batch.max_students%>  <%# condition for max students %>
+<% if @batch.users.count < @batch.max_students%>  <%# condition for max students %>
 
   <% unless current_user.teacher == true %>
     <% @user = User.new() %>
