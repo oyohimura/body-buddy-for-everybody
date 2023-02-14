@@ -87,7 +87,7 @@ user = User.new(
   teacher: true
 )
 
-file = URI.open("https://images.yogaanytime.com/2022/01/17/thumb_kelly-21223.jpg")
+file = URI.open("https://images.yogaanytime.com/2022/01/17/vthumb_kelly-21223.jpg")
 user.profile_picture.attach(io: file, filename: "kelly.jpg", content_type: "image/jpg")
 user.save!
 
@@ -103,7 +103,7 @@ user = User.new(
   language: 'English'
 )
 
-file = URI.open("https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Bill_Gates_-_Nov._8%2C_2019.jpg/640px-Bill_Gates_-_Nov._8%2C_2019.jpg")
+file = URI.open("https://img-0.journaldunet.com/wqqB5hyWXIRpmixAXpbZfJUVhXc=/931x/smart/206e2137b616429dbdfb0260326abcdc/ccmcms-jdn/11547842.jpg")
 user.profile_picture.attach(io: file, filename: "bill.jpg", content_type: "image/jpg")
 user.save!
 
@@ -148,11 +148,21 @@ program4.medias.attach(io: file4, filename: "program4.jpg", content_type: "image
 program4.user = User.where(first_name: 'Clara').first
 program4.save!
 
-file5 = URI.open('https://images.yogaanytime.com/2022/11/21/forum_kellykamm15730TIMG20351-33405.jpg')
 program5 = Program.new(discipline: 'Yoga', level: 'Advanced', target: 'Acceptance, Relief, Courage, Inner Peace, Balance', duration: 1, price: 60,
   description: "When you let go of the need to control everything, sometimes magic happens. This cyclic class honors the rhythm and balance of light and dark through dynamic movement and gentle Yin shapes as we hear about Pan Gu and the story of creation in Chinese mythology. You will feel deeply grounded, but also light and soft.",
   language: 'English', name: 'Pan Gu')
-program5.medias.attach(io: file5, filename: "program5.jpg", content_type: "image/jpg")
+program5.medias.attach(
+  io: URI.open("https://res.cloudinary.com/dtegydg3s/image/upload/v1676284620/f8pvjkqzgfhpaqyyhcvy.png"),
+  filename: 'program5_1.png',
+  content_type: "image/png")
+program5.medias.attach(
+  io: URI.open("https://res.cloudinary.com/dtegydg3s/image/upload/v1676284633/rtrzzygkfrwwmgftishh.png"),
+  filename: 'program5_2.png',
+  content_type: "image/png")
+program5.medias.attach(
+  io: URI.open("https://res.cloudinary.com/dtegydg3s/image/upload/v1676284638/k38t7ctsm7l071n7izlz.png"),
+  filename: 'program5_2.png',
+  content_type: "image/png")
 program5.user = User.where(first_name: 'Kelly').first
 program5.save!
 
