@@ -4,6 +4,6 @@ class Slot < ApplicationRecord
   has_many :slot_students, dependent: :destroy
   has_many :users, through: :slot_students
   validates :start_time, presence: true
-  validates :end_time, presence: true
+  validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :access_link, presence: true
 end

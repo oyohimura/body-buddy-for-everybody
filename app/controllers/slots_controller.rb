@@ -28,6 +28,6 @@ class SlotsController < ApplicationController
   end
 
   def slot_params
-    params.require(:slot).permit(:start_time, :end_time, :access_link, :batch_id)
+    params.require(:slot).permit(:start_time, :duration, :access_link, :batch_id)
   end
 end
