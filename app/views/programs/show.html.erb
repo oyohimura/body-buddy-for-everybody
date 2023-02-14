@@ -127,7 +127,13 @@
                   </div>
                   <div class="col-1"></div>
                   <div class="col-3">
-                    <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
+                    <% unless current_user.teacher? %>
+                      <% if current_user.batch != batch %>
+                        <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
+                      <% else %>
+                        You are <span class='text-blue'>registered</span>.
+                      <% end %>
+                    <% end %>
                   </div>
                 </div>
               <% end %>
