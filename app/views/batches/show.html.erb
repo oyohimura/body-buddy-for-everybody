@@ -3,13 +3,18 @@
   <p>Starts at <%= @batch.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
   <p>Ends at <%= @batch.end_time.strftime("%l:%M %p on %A, %b %e, %Y") %></p>
   <p><%= @batch.max_students %> students maximum.</p>
-  <% @user = User.new() %>
-  <% if current_user.batch == @batch %>
-    <p>You are <span class="text-blue">registered</span> to this batch. </p>
-  <% else %>
-    <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
-      <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
+
+  <% unless current_user.teacher == true %>
+    <% @user = User.new() %>
+    <% if current_user.batch == @batch %>
+      <p>You are <span class="text-blue">registered</span> to this batch. </p>
+    <% else %>
+      <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
+        <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
   <% end %>
+
+  <br>
   <%= link_to "Back to all batches for selected program", program_batches_path(@batch.program) %>
 </div>
