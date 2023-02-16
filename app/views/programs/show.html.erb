@@ -164,7 +164,10 @@
                 </div>
               <% end %>
               <% else %>
-                <p>There are <em>no batches available yet</em>. Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path %></span>!</p>
+                <p>There are <em>no batches available yet</em>.</p>
+                <% if current_user && current_user.teacher == false %>
+                  <p>Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path %></span>!</p>
+                <% end %>
               <% end %>
             </div>
           </div>
