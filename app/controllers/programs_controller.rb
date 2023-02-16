@@ -4,12 +4,13 @@ class ProgramsController < ApplicationController
 
   def index
     if params[:search]
-      @programs = Program.where(
-        discipline: params[:search][:discipline],
-        language: params[:search][:language],
-        duration: params[:search][:duration],
-        level: params[:search][:prog_level]
-      )
+      filter_params = {}
+      params[:search].each_key do |search_field|
+        unless params[:search][search_field].length.zero?
+          filter_params[search_field] = params[:search][search_field]
+        end
+      end
+      @programs = Program.where(filter_params)
     else
       @programs = Program.all
     end
