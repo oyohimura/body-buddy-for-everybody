@@ -1,5 +1,29 @@
 <div class="container">
   <h1>All programs</h1>
+  <div class="col-12">
+    <div class="row align-items-center justify-content-around d-flex mt-4">
+      <div class="col-10 align-items-center justify-content-around d-flex">
+        <div class="col mx-2">
+          <%= simple_form_for(:search, url: programs_path, method: :get, class: 'form-inline') do |f| %>
+          <%= f.input :discipline, label: 'Discipline of choice:', collection: Program::DISCIPLINES, class: "form-group mb-2" %>
+        </div>
+        <div class="col mx-2">
+          <%= f.input :prog_level, label: 'Your level?', collection: Program::LEVELS, class: "form-group mb-2" %>
+        </div>
+        <div class="col mx-2">
+          <%= f.input :duration, label: 'For how long? (month(s))', collection: Program::DURATIONS, class: "form-group mb-2" %>
+        </div>
+        <div class="col mx-2">
+          <%= f.input :language, label: 'Language?', collection: Program::LANGUAGES, class: "form-group mb-2" %>
+        </div>
+      </div>
+      <div class="col-2 d-flex justify-content-between">
+        <%= f.submit "Browse programs!", class: "btn btn-warning mt-3" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+      <%#= f.submit "Reset filters", class: "btn btn-secondary" %>
   <div class="cards">
     <% @programs.each do |program| %>
       <%= render 'card', program: program %>

@@ -131,19 +131,21 @@
                     <%= batch.start_time.strftime("%A, %b %e, %Y") %> to <%= batch.end_time.strftime("%A, %b %e, %Y") %>
                   </div>
                   <div class="col-4">
-                    <% unless current_user.teacher? %>
-                      <% if current_user.batch != batch && current_user.batch.program == @program %>
-                        Registered to
-                        <%= link_to dashboard_path do %>
-                          <span class='text-blue'>batch #<%= current_user.batch.id %></span>
+                    <% if current_user %>
+                      <% unless current_user.teacher? %>
+                        <% if current_user.batch != batch && current_user.batch.program == @program %>
+                          Registered to
+                          <%= link_to dashboard_path do %>
+                            <span class='text-blue'>batch #<%= current_user.batch.id %></span>
+                          <% end %>
+                        <% elsif current_user.batch != batch && current_user.batch.program != @program %>
+                          Registered to <span class='text-warning'>program #<%= @program.id %></span>
+                        <% elsif current_user.batch == batch %>
+                          <span class='text-blue'>Registered!</span>
+                        <% else %>
+                          <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
+                          You are <span class='text-blue'>registered</span>.
                         <% end %>
-                      <% elsif current_user.batch != batch && current_user.batch.program != @program %>
-                        Registered to <span class='text-warning'>program #<%= @program.id %></span>
-                      <% elsif current_user.batch == batch %>
-                        <span class='text-blue'>Registered!</span>
-                      <% else %>
-                        <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
-                        You are <span class='text-blue'>registered</span>.
                       <% end %>
                     <% end %>
                   </div>

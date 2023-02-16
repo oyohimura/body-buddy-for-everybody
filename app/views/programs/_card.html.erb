@@ -14,8 +14,9 @@
       </div>
       <div class="card-trip-infos-desc">
         <h2><%= program.name %></h2>
-        <p><%= program.user.first_name %>'s program</p>
-        <p><%= program.level %> - <%= program.target %> - <%= program.duration %> months</p>
+        <p><strong><%= program.discipline %></strong> - <%= program.user.first_name %>'s program - <strong><%= pluralize program.duration, 'month' %></strong></p>
+        <p><em>Level: </em><%= program.level %></p>
+        <p><em>Target: </em><%= program.target %></p>
       </div>
       <div class="card-trip-price">
         <strong><%= program.price %>€</strong>
