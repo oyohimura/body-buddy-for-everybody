@@ -1,9 +1,27 @@
 class ProgramsController < ApplicationController
-  before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :set_program, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
-    @programs = Program.all
+    @program = Program.new
+
+    if params[:search] && params[:search].keys.sort == ['discipline', 'duration', 'prog_level', 'language'].sort
+      sql_query = <<~SQL
+        programs.discipline @@ :discipline
+        AND programs.duration @@ :duration
+        AND programs.level @@ :prog_level
+        AND programs.language @@ :language
+      SQL
+      @programs = Program.where(
+        sql_query,
+        discipline: "%#{params[:search][:discipline]}%",
+        prog_level: "%#{params[:search][:prog_level]}%",
+        duration: "%#{params[:search][:duration]}%",
+        language: "%#{params[:search][:language]}%"
+      )
+    else
+      @programs = Program.all
+    end
   end
 
   def show
