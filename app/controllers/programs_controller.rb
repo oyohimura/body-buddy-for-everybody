@@ -4,18 +4,11 @@ class ProgramsController < ApplicationController
 
   def index
     if params[:search]
-      sql_query = <<~SQL
-        programs.discipline @@ :discipline
-        AND programs.duration @@ :duration
-        AND programs.level @@ :prog_level
-        AND programs.language @@ :language
-      SQL
       @programs = Program.where(
-        sql_query,
-        discipline: "%#{params[:search][:discipline]}%",
-        prog_level: "%#{params[:search][:prog_level]}%",
-        duration: "%#{params[:search][:duration]}%",
-        language: "%#{params[:search][:language]}%"
+        discipline: params[:search][:discipline],
+        language: params[:search][:language],
+        duration: params[:search][:duration],
+        level: params[:search][:prog_level]
       )
     else
       @programs = Program.all
