@@ -24,9 +24,15 @@
     </div>
   </div>
       <%#= f.submit "Reset filters", class: "btn btn-secondary" %>
-  <div class="cards">
-    <% @programs.each do |program| %>
-      <%= render 'card', program: program %>
+  <% if @programs.count.zero? %>
+    <div class="text-center">
+      <h5 style="margin-top: 32px;"><i class="fa-solid fa-hand-holding-heart"></i> There are no programs matching your criteria (yet). You may <%= link_to 'try again', programs_path, class: 'text-blue' %>.</h5>
+    </div>
+  <% else %>
+    <div class="cards">
+      <% @programs.each do |program| %>
+        <%= render 'card', program: program %>
+      <% end %>
     <% end %>
   </div>
 </div>

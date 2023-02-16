@@ -3,9 +3,7 @@ class ProgramsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
-    @program = Program.new
-
-    if params[:search] && params[:search].keys.sort == ['discipline', 'duration', 'prog_level', 'language'].sort
+    if params[:search]
       sql_query = <<~SQL
         programs.discipline @@ :discipline
         AND programs.duration @@ :duration
