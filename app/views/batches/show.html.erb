@@ -25,26 +25,34 @@
     <% end %>
   <% end %>
 
+  <% if @batch.users.count < @batch.max_students%>  <%# condition for max students %>
+    <% unless current_user.teacher == true %>
+      <% @user = User.new() %>
+      <% if current_user.batch == @batch %>
+        <p>You are <span class="text-blue">registered</span> to this batch. </p>
 
-
-
-<% if @batch.users.count < @batch.max_students%>  <%# condition for max students %>
-
-  <% unless current_user.teacher == true %>
-    <% @user = User.new() %>
-    <% if current_user.batch == @batch %>
-      <p>You are <span class="text-blue">registered</span> to this batch. </p>
-    <% else %>
-      <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
-        <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
+        <div data-controller="submit-on-click-radio-button">
+          <%# You also need to book the slots, now that you are registered to the batch. %>
+          <% @batch.program.lessons.each do |lesson| %>
+            <h4><%= lesson.number %>. <%= lesson.title %></h4>
+            <% @slotstudent = SlotStudent.new %>
+            <% @slot = Slot.first %>
+            <%= form_for @slotstudent, url: slot_slots_students_path(@slot), method: :post, data: {turbo: false}, html: {class: "nifty_form"} do |f| %>
+              <% lesson.slots.each do |slot| %>
+                <%= radio_button_tag(:start_time, "child", data: { submit_on_click_radio_button_target: "slot" }) %>
+                <%= label_tag(:slot, "I am younger than 21") %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
+          <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-<% else %> <%# else for max students %>
-  <%= link_to 'This batch is full, please select another one', program_batches_path(@batch.program) %>
-<% end %> <%# end for max students %>
+  <% else %> <%# else for max students %>
+    <%= link_to 'This batch is full, please select another one', program_batches_path(@batch.program) %>
+  <% end %> <%# end for max students %>
 
-
-<br>
-  <%= link_to "Back to all batches for selected program", program_batches_path(@batch.program) %>
 </div>

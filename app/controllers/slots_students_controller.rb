@@ -3,9 +3,8 @@ class SlotsStudentsController < ApplicationController
   before_action :set_student, only: [:create]
 
   def create
-    @slot_student = SlotsStudent.new()
-    @slot_student.student = @student
-    @slot_student.slot = Slot.find(params[:slot_students][:slot_id])
+    @slot_student.user = current_user
+    @slot_student.slot = Slot.find(params[:slot_id])
     if @slot_student.save
       redirect_to @slot_student.student, notice: 'Slot was successfully added.'
     else

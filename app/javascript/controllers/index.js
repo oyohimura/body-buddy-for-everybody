@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import InsertInListController from "./insert_in_list_controller"
 application.register("insert-in-list", InsertInListController)
+
+import SubmitOnClickRadioButtonController from "./submit_on_click_radio_button_controller"
+application.register("submit-on-click-radio-button", SubmitOnClickRadioButtonController)
