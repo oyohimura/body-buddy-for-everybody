@@ -132,19 +132,27 @@
                   </div>
                   <div class="col-4">
                     <% if current_user %>
-                      <% unless current_user.teacher? %>
-                        <% if current_user.batch != batch && current_user.batch.program == @program %>
-                          Registered to
-                          <%= link_to dashboard_path do %>
-                            <span class='text-blue'>batch #<%= current_user.batch.id %></span>
+                      <% if current_user.teacher? && @program.user == current_user %>
+                        <%= link_to program_batch_path(@program ,batch.id) do %>
+                          <span class='text-primary'>Check my batch</span>
+                        <% end %>
+                      <% elsif current_user.teacher? && @program.user != current_user%>
+
+                      <% else %>
+                        <% if current_user.batch && current_user.batch != batch && current_user.batch.program == @program %>
+                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                            <span class='text-primary'>Registered to batch #<%= current_user.batch.id %></span>
                           <% end %>
-                        <% elsif current_user.batch != batch && current_user.batch.program != @program %>
-                          Registered to <span class='text-warning'>program #<%= @program.id %></span>
-                        <% elsif current_user.batch == batch %>
-                          <span class='text-blue'>Registered!</span>
+                        <% elsif current_user.batch &&  current_user.batch != batch && current_user.batch.program != @program %>
+                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                            <span class='text-primary'> Already registered to batch # <%= current_user.batch.id %></span>
+                          <% end %>
+                        <% elsif current_user.batch && current_user.batch == batch %>
+                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                            <span class='text-blue'>you are registered to this batch </span>
+                          <% end %>
                         <% else %>
                           <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
-                          You are <span class='text-blue'>registered</span>.
                         <% end %>
                       <% end %>
                     <% end %>
