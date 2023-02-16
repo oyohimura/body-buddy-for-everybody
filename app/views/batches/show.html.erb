@@ -5,11 +5,11 @@
   <p><%= @batch.max_students %> students maximum. (<%= @batch.users.count %>/ <%= @batch.max_students %> currently registered)</p>
 
   <% if current_user.programs.include?(@batch.program) %>
-    <p>add a slot</p>
     <% @batch.program.lessons.each do |lesson| %>
-      <ul><li><%= lesson.title %></li></ul>
+    <div class="container">
+      <ul><li><h3><%= lesson.title %></h3></li></ul>
       <% lesson.slots.each do |slot|%>
-        <%= slot.start_time %>
+        <ul><li><%= slot.start_time %></li></ul>
       <% end %>
       <p> +Add a Slot</p>
       <% @lesson = lesson %>
@@ -21,6 +21,7 @@
         <%= f.input :access_link, class: "form-control" %>
         <%= f.submit 'add a slot', class: 'btn btn-primary' %>
       <% end %>
+    </div>
     <% end %>
   <% end %>
 
