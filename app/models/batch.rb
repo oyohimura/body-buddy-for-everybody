@@ -19,7 +19,7 @@ class Batch < ApplicationRecord
   end
 
   def batch_duration_within_program_duration
-    if (end_time - start_time) / 1.day > program.duration.to_i
+    if (end_time - start_time) / 1.month > program.duration.to_i
       errors.add(:end_time, "can't exceed program duration")
     end
   end
