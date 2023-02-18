@@ -6,7 +6,8 @@ export default class extends Controller {
   static targets = [ "startDate", "endDate" ]
 
   connect() {
-    flatpickr(this.startDateTarget, {enableTime: true, time_24hr: true})
-    flatpickr(this.endDateTarget, {enableTime: true, time_24hr: true})
+    console.log("hello")
+    flatpickr(this.startDateTarget, {enableTime: false, dateFormat: "Y-m-d"})
+    flatpickr(this.endDateTarget, {enableTime: false, dateFormat: "Y-m-d"})
   }
 }
