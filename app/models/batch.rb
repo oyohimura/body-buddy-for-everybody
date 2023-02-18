@@ -6,6 +6,7 @@ class Batch < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :max_students, presence: true, numericality: true
+  validate :batch_duration_within_program_duration
 
   private
 
@@ -16,4 +17,11 @@ class Batch < ApplicationRecord
       user.save!
     end
   end
+
+  def batch_duration_within_program_duration
+    if (end_time - start_time) / 1.day > program.duration.to_i
+      errors.add(:end_time, "can't exceed program duration")
+    end
+  end
+
 end

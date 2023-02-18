@@ -17,9 +17,10 @@ class BatchesController < ApplicationController
 
   def create
     @batch = Batch.new(batch_params)
-    @batch.program = Program.find(params[:id])
+    @program = Program.find(params[:program_id])
+    @batch.program = @program
     if @batch.save
-      redirect_to program_batch_path(@batch), notice: 'Batch was successfully created.'
+      redirect_to program_batch_path(program_id: @program.id, id: @batch.id), notice: 'Batch was successfully created.',status: :see_other
     else
       render :new, status: :unprocessable_entity
     end
