@@ -6,21 +6,27 @@
     </div>
     <div class="card-trip-infos">
       <div class="card-trip-infos-desc">
-        <h2><%= program.name %></h2>
-        <h6>my batches</h6>
+        <h2><%= program.name %></h2> <%= pluralize program.duration, 'month' %>
+        <strong><h6>my batches</h6></strong>
         <div class="scroll">
           <ul>
             <%program.batches.each do |batch|%>
               <%= link_to program_batch_path(program, batch) do %>
-                <li>batch #<%= batch.id %></li>
+                <li>batch #<%= batch.id %> - <%= link_to "(#{batch.users.count} / #{batch.max_students} students)", batch_students_path(batch) %></li>
               <% end %>
             <% end %>
           </ul>
         </div>
       </div>
     </div>
-        <div class="edit">
-          <%= link_to 'edit', edit_program_path(program) %>
-        </div>
+    <div class="edit">
+      <%= link_to 'edit', edit_program_path(program) %>
+    </div>
+    <div class="delete">
+      <%= link_to "delete", program_path(program),
+        data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this program?" },
+        class: "ms-3 text-danger"
+      %>
+    </div>
   </div>
 </div>

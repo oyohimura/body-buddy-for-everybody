@@ -6,25 +6,36 @@
                   <div class="col-md-4 mt-3">
                     <div class="bike-card">
                       <%= render 'programs/dashboardcard', program: program %>
-                      <div class="bike-card-actions">
-                      </div>
                     </div>
                   </div>
                 <% end %>
               </div>
-
-              <%= link_to new_program_path do %>
-                <i class="fa-solid fa-plus"></i> Create a new program
-              <% end %>
+              <br>
+              <div class="btn btn-success">
+                <%= link_to new_program_path do %>
+                  <i class="fa-solid fa-plus"></i> Create a new program
+                <% end %>
+              </div>
 
             <% else %> <%# student page %>
-              <h2>My batches:</h2>
+              <h2>My batch:</h2>
               <% if current_user.batch.nil? %>
                 <p>You are not registered yet. You can <%= link_to "browse programs", programs_path %>!</p>
               <% else %>
-                <p>Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.
-                => <%= link_to "[See batch info]", program_batch_path(@batch.program, @batch) %>
-                - <%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
+
+
+                  <div class="col-md-4 mt-3">
+                    <div class="bike-card">
+                      <%= render 'programs/dashboardstudentcard', program: @batch.program %>
+                    </div>
+                  </div>
+                  <br>
+                  <h5>[Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.]</h5>
+                  <br>
+                  <%= link_to program_batch_path(@batch.program, @batch) do%>
+                    <p>[Select a slot !]</p>
+                  <% end %>
+                  <p><%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
               <% end %>
             <% end %>
           </div>
