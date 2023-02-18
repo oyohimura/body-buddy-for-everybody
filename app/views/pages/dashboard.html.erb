@@ -1,26 +1,30 @@
-<div class="container">
-  <% if current_user.teacher? %>
-    <h2>My programs:</h2>
-    <ul>
-      <% @programs.each do |program| %>
-        <li><%= link_to program_path(program) do %>
-          <p><%= program.name %>: <%= pluralize program.batches.count, 'batch' %></p>
-        <% end %>
-        </li>
-      <% end %>
-    </ul>
-    <%= link_to new_program_path do %>
-      <i class="fa-solid fa-plus"></i> Create a new program
-    <% end %>
+          <div class="container">
+            <% if current_user.teacher? %> <%#teacher page %>
+              <h2>My programs:</h2><br>
+              <div class="row">
+                <% @programs.each do |program| %>
+                  <div class="col-md-4 mt-3">
+                    <div class="bike-card">
+                      <%= render 'programs/dashboardcard', program: program %>
+                      <div class="bike-card-actions">
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
 
-  <% else %>
-    <h2>My batches:</h2>
-    <% if current_user.batch.nil? %>
-      <p>You are not registered yet. You can <%= link_to "browse programs", programs_path %>!</p>
-    <% else %>
-      <p>Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.
-      => <%= link_to "[See batch info]", program_batch_path(@batch.program, @batch) %>
-      - <%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
-    <% end %>
-  <% end %>
-</div>
+              <%= link_to new_program_path do %>
+                <i class="fa-solid fa-plus"></i> Create a new program
+              <% end %>
+
+            <% else %> <%# student page %>
+              <h2>My batches:</h2>
+              <% if current_user.batch.nil? %>
+                <p>You are not registered yet. You can <%= link_to "browse programs", programs_path %>!</p>
+              <% else %>
+                <p>Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.
+                => <%= link_to "[See batch info]", program_batch_path(@batch.program, @batch) %>
+                - <%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
+              <% end %>
+            <% end %>
+          </div>

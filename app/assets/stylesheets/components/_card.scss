@@ -71,6 +71,20 @@
   margin-bottom: 20px;
 }
 
+.card-trip .edit {
+  position: absolute;
+  bottom: -20px;
+  left: 8px;
+  margin-bottom: 20px;
+}
+
+.card-trip .delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  margin-bottom: 20px;
+}
+
 .card-trip img {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
