@@ -14,10 +14,7 @@ Rails.application.routes.draw do
 
   resources :batches, only: [:update, :destroy] do
     resources :students, only: [:index, :new, :create]
-  end
-
-  resources :slots, only: [] do
-    resources :slots_students, only: [:create]
+    post '/slots_students', to: "slots_students#create_all", as: "slots_create"
   end
 
   resources :lessons, only: [] do

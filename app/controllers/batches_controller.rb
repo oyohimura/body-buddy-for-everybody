@@ -8,12 +8,18 @@ class BatchesController < ApplicationController
 
   def show
     @batch = Batch.find(params[:id])
+    if current_user
+      @your_slot_students = SlotStudent.where(user: current_user).where(slot: @batch.slots)
+      @your_slot_students = @your_slot_students.sort_by { |ss| ss.slot.lesson.id }
+    else
+      @your_slot_students = []
+    end
   end
 
   def new
     @batch = Batch.new
     @program = Program.find([params[:program_id]])
-      end
+  end
 
   def create
     @batch = Batch.new(batch_params)

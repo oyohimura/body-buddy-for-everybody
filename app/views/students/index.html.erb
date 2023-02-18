@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="text-center mt-3">Program: <%= @batch.program.name %></h1>
   <h2 class="text-center mt-3">All students booked on batch n°<%= @batch.id %></h2>
-  <div class="row justify-content-center mt-5">
+  <div class="row d-flex justify-content-center mt-5">
     <% @users.each_slice(4) do |group| %>
       <% group.each do |user| %>
         <div class="col-sm-3 mb-5 mx-3">
@@ -11,7 +11,12 @@
       <% end %>
     <% end %>
   </div>
-  <div class="row text-center">
-    <%= link_to '[Back to dashboard]', dashboard_path %>
+  <div class="row d-flex justify-content-center">
+    <div class="text-center">
+      <%= link_to 'Back to dashboard', dashboard_path %>
+    </div>
+    <div class="text-center">
+      <%= link_to 'Back to batch details', program_batch_path(@batch.program, @batch) %>
+    </div>
   </div>
 </div>
