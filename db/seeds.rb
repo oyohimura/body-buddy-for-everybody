@@ -235,21 +235,21 @@ lessons = [
     lesson: lesson,
     batch: batch,
     duration: 1,
-    start_time: batch.start_time + (1.day..(batch.end_time - batch.start_time)).to_a.sample,
+    start_time: batch.start_time + (1..(batch.end_time.to_date - batch.start_time.to_date).to_i).to_a.sample.day,
     access_link: 'zoom.link/test'
   )
   slot2 = Slot.create!(
     lesson: lesson,
     batch: batch,
     duration: 1,
-    start_time: batch.start_time + (1.day..(batch.end_time - batch.start_time)).to_a.sample,
+    start_time: batch.start_time + (1..(batch.end_time.to_date - batch.start_time.to_date).to_i).to_a.sample.day,
     access_link: 'zoom.link/test'
   )
   slot3 = Slot.create!(
     lesson: lesson,
     batch: batch,
     duration: 1,
-    start_time: batch.start_time + (1.day..(batch.end_time - batch.start_time)).to_a.sample,
+    start_time: batch.start_time + (1..(batch.end_time.to_date - batch.start_time.to_date).to_i).to_a.sample.day,
     access_link: 'zoom.link/test'
   )
 end
