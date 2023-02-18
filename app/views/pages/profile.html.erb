@@ -3,7 +3,7 @@
     <div class="row">
       <h1><%= @user.first_name %>'s profile</h1>
       <p> <% if @user.teacher? %>
-          <%= @user.first_name %> is teaching at BodyBuddy since <%= @user.created_at.strftime("%B %Y") %>
+          <%= @user.first_name %> has been teaching at BodyBuddy since <%= @user.created_at.strftime("%B %Y") %>
           <% end %>
       </p>
       <div class="col-lg-4">
