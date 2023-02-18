@@ -21,8 +21,9 @@ user = User.new(
   email: 'bob@gmail.com',
   address: '57 Rue Auber, 14150 Ouistreham',
   phone: '0123456789',
-  description: "New to pilates ! Hope to meet a lot of you people, online or physically!",
-  language: "English"
+  description: "Certified Pilates instructor with a passion for helping people improve their fitness and flexibility.",
+  language: "English",
+  teacher: true
 )
 file = URI.open("https://img.huffingtonpost.com/asset/573cd81c1600002a00f93ce9.jpeg?ops=scalefit_720_noupscale")
 user.profile_picture.attach(io: file, filename: "bob.jpeg", content_type: "image/jpeg")
@@ -35,9 +36,8 @@ user = User.new(
   last_name: 'Moriconi',
   address: 'rue de la montage, 67210 Obernai',
   phone: '0123456789',
-  description: "Certified Pilates instructor with a passion for helping people improve their fitness and flexibility.",
-  language: "English",
-  teacher: true
+  description: "New to pilates ! Hope to meet a lot of you people, online or physically!",
+  language: "English"
 )
 
 file = URI.open("https://res.cloudinary.com/wagon/image/upload/c_fill,g_face,h_200,w_200/v1663345881/yaxmecvbe7skaqrm4ziw.jpg")
@@ -133,7 +133,7 @@ program1.save!
 file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
 program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 4, price: 150, description: 'Improve flexibility and strength with Pilates', language: 'English', name: 'Pilates for strength')
 program2.medias.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
-program2.user = User.where(first_name: 'Clara').first
+program2.user = User.where(first_name: 'Bob').first
 program2.save!
 
 file3 = URI.open("https://images.unsplash.com/photo-1540324155974-7523202daa3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80")
@@ -145,24 +145,28 @@ program3.save!
 file4 = URI.open("https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=499&q=80")
 program4 = Program.new(discipline: 'Meditation', level: 'Beginner', target: 'Stress relief and mindfulness', duration: 1, price: 50, description: 'Introduction to stress relief and mindfulness through meditation', language: 'English', name: 'Have a meditaste')
 program4.medias.attach(io: file4, filename: "program4.jpg", content_type: "image/jpg")
-program4.user = User.where(first_name: 'Clara').first
+program4.user = User.where(first_name: 'Bob').first
 program4.save!
 
 program5 = Program.new(discipline: 'Yoga', level: 'Advanced', target: 'Acceptance, Relief, Courage, Inner Peace, Balance', duration: 1, price: 60,
   description: "When you let go of the need to control everything, sometimes magic happens. This cyclic class honors the rhythm and balance of light and dark through dynamic movement and gentle Yin shapes as we hear about Pan Gu and the story of creation in Chinese mythology. You will feel deeply grounded, but also light and soft.",
   language: 'English', name: 'Pan Gu')
+
 program5.medias.attach(
   io: URI.open("https://res.cloudinary.com/dtegydg3s/image/upload/v1676284620/f8pvjkqzgfhpaqyyhcvy.png"),
   filename: 'program5_1.png',
-  content_type: "image/png")
+  content_type: "image/png"
+)
 program5.medias.attach(
   io: URI.open("https://res.cloudinary.com/dtegydg3s/image/upload/v1676284633/rtrzzygkfrwwmgftishh.png"),
   filename: 'program5_2.png',
-  content_type: "image/png")
+  content_type: "image/png"
+)
 program5.medias.attach(
   io: URI.open("https://res.cloudinary.com/dtegydg3s/image/upload/v1676284638/k38t7ctsm7l071n7izlz.png"),
   filename: 'program5_2.png',
-  content_type: "image/png")
+  content_type: "image/png"
+)
 program5.user = User.where(first_name: 'Kelly').first
 program5.save!
 
@@ -176,30 +180,30 @@ program6.save!
 
 # Create batches
 puts "Generating example batches.."
-batch1 = Batch.new(program: Program.first, start_time: "2023-03-01 10:00:00", end_time: "2023-04-01 12:00:00", max_students: 20)
+batch1 = Batch.new(program: Program.first, start_time: "2023-03-01 10:00:00", end_time: "2023-08-30 9:00:00", max_students: 20)
 # Generating inscription to batch for Arnaud
 user = User.where(first_name: 'Arnaud').first
 user.batch = batch1
 batch1.save!
 user.save!
 
-batch1 = Batch.new(program: Program.first, start_time: "2023-06-01 10:00:00", end_time: "2023-08-01 12:00:00", max_students: 20)
+batch1 = Batch.new(program: Program.first, start_time: "2023-06-01 10:00:00", end_time: "2023-11-15 12:00:00", max_students: 20)
 batch1.save!
 
-batch2 = Batch.new(program: Program.first, start_time: "2023-03-02 14:00:00", end_time: "2023-09-02 16:00:00", max_students: 15)
+batch2 = Batch.new(program: Program.first, start_time: "2024-01-05 14:00:00", end_time: "2024-06-30 16:00:00", max_students: 15)
 batch2.save!
 
-batch3 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.first, start_time: "2023-03-02 14:00:00", end_time: "2023-09-02 16:00:00", max_students: 15)
-batch3.save!
-
-batch4 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.last, start_time: "2023-03-02 14:00:00", end_time: "2023-09-02 16:00:00", max_students: 15)
+batch3 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.first, start_time: "2023-03-02 14:00:00", end_time: "2023-04-01 16:00:00", max_students: 15)
 user1 = User.where(first_name: 'Bill').first
-user1.batch = batch4
+user1.batch = batch3
 user2 = User.where(first_name: 'Elon').first
-user2.batch = batch4
-batch4.save!
+user2.batch = batch3
+batch3.save!
 user1.save!
 user2.save!
+
+batch4 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.last, start_time: "2023-06-01 14:00:00", end_time: "2023-09-30 16:00:00", max_students: 15)
+batch4.save!
 
 # Create lessons
 puts "Generating lessons for first program..."
@@ -226,6 +230,28 @@ lessons = [
 3.times do |i|
   lesson = Lesson.new(program: User.where(first_name: 'Kelly').first.programs.first, number: i + 1, title: lessons[i][:title], description: lessons[i][:description])
   lesson.save!
+  batch = User.where(first_name: 'Kelly').first.programs.first.batches.first
+  slot1 = Slot.create!(
+    lesson: lesson,
+    batch: batch,
+    duration: 1,
+    start_time: batch.start_time + (1.day..(batch.end_time - batch.start_time)).to_a.sample,
+    access_link: 'zoom.link/test'
+  )
+  slot2 = Slot.create!(
+    lesson: lesson,
+    batch: batch,
+    duration: 1,
+    start_time: batch.start_time + (1.day..(batch.end_time - batch.start_time)).to_a.sample,
+    access_link: 'zoom.link/test'
+  )
+  slot3 = Slot.create!(
+    lesson: lesson,
+    batch: batch,
+    duration: 1,
+    start_time: batch.start_time + (1.day..(batch.end_time - batch.start_time)).to_a.sample,
+    access_link: 'zoom.link/test'
+  )
 end
 
 lessons = [
