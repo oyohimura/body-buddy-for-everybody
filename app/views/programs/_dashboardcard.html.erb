@@ -1,0 +1,26 @@
+<div class="card-trip">
+  <div class="latest">
+    <%= cl_image_tag program.medias.first.key %>
+    <div class="more-info">
+      <%= link_to "Create a batch", new_program_batch_path(program), class: 'btn btn-primary' %>
+    </div>
+    <div class="card-trip-infos">
+      <div class="card-trip-infos-desc">
+        <h2><%= program.name %></h2>
+        <h6>my batches</h6>
+        <div class="scroll">
+          <ul>
+            <%program.batches.each do |batch|%>
+              <%= link_to program_batch_path(program, batch) do %>
+                <li>batch #<%= batch.id %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+        <div class="edit">
+          <%= link_to 'edit', edit_program_path(program) %>
+        </div>
+  </div>
+</div>
