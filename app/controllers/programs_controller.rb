@@ -36,7 +36,7 @@ class ProgramsController < ApplicationController
 
   def destroy
     @program.destroy
-    redirect_to programs_path, notice: 'Program was successfully deleted.'
+    redirect_to dashboard_path, notice: 'Program was successfully deleted.'
   end
 
   def create
