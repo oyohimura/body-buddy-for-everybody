@@ -91,7 +91,9 @@
               <p class="text-muted mb-0">
                 <div data-controller="insert-in-list">
                   <div data-insert-in-list-target="items">
-                    <% if @program.lessons.count.zero? %>
+                    <% if @program.lessons.count.zero? && @program.user == current_user %>
+                      <p data-insert-in-list-target="nolessons">Create your first lesson !</p>
+                    <% elsif @program.lessons.count.zero? %>
                       <p data-insert-in-list-target="nolessons">Teacher still has to define the lessons for this program.</p>
                     <% else %>
                       <% @program.lessons.each do |lesson| %>
@@ -164,7 +166,11 @@
                 </div>
               <% end %>
               <% else %>
-                <p>There are <em>no batches available yet</em>.</p>
+                <% if @program.user == current_user %>
+                  <%= link_to 'Create your first batch for this lesson !', new_program_batch_path(@program) %>
+                <% else %>
+                  <p>There are <em>no batches available yet</em>.</p>
+                <% end %>
                 <% if current_user && current_user.teacher == false %>
                   <p>Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path %></span>!</p>
                 <% end %>
