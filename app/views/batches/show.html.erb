@@ -12,25 +12,31 @@
       <div class="card" style="width: 32rem;">
         <div class="card-body m-4">
           <ul>
-            <% @batch.program.lessons.each do |lesson| %>
-            <div class="container">
-              <li><h3><%= lesson.title %></h3></li>
-              <ul>
-                <% lesson.slots.where(batch: @batch).each do |slot|%>
-                  <li><%= slot.start_time %></li>
+            <% if @batch.program.lessons == [] %>
+              <p>No lessons have been defined yet.
+              <%= link_to 'Add lessons on program page', program_path(@batch.program) %>
+              </p>
+            <% else %>
+              <% @batch.program.lessons.each do |lesson| %>
+              <div class="container">
+                <li><h3><%= lesson.title %></h3></li>
+                <ul>
+                  <% lesson.slots.where(batch: @batch).each do |slot|%>
+                    <li><%= slot.start_time %></li>
+                  <% end %>
+                </ul>
+                <p> +Add a Slot</p>
+                <% @lesson = lesson %>
+                <% @slot = Slot.new %>
+                <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false }, data: { controller: 'flatpickr-time' } do |f| %>
+                  <%= f.hidden_field :batch_id, value: @batch.id %>
+                  <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_time_target: "startDate" } }, class: "form-control" %>
+                  <%= f.input :duration, class: "form-control"  %>
+                  <%= f.input :access_link, class: "form-control" %>
+                  <%= f.submit 'add a slot', class: 'btn btn-primary' %>
                 <% end %>
-              </ul>
-              <p> +Add a Slot</p>
-              <% @lesson = lesson %>
-              <% @slot = Slot.new %>
-              <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false }, data: { controller: 'flatpickr-time' } do |f| %>
-                <%= f.hidden_field :batch_id, value: @batch.id %>
-                <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_time_target: "startDate" } }, class: "form-control" %>
-                <%= f.input :duration, class: "form-control"  %>
-                <%= f.input :access_link, class: "form-control" %>
-                <%= f.submit 'add a slot', class: 'btn btn-primary' %>
+              </div>
               <% end %>
-            </div>
             <% end %>
           </ul>
         </div>
