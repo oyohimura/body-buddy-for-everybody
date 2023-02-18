@@ -1,8 +1,10 @@
 <div class="container">
   <div class="row justify-content-center">
+    <h1 class="text-center">Create new batch for "<%= @program.first.name %>" program</h1>
     <div class="col-6">
-      <h1>Adding a batch</h1>
       <div class="card bg-light" style="padding: 24px;">
+        Program duration: <%= pluralize @program.first.duration, 'month' %>
+        <br>
         <%= render 'form', batch: @batch %>
       </div>
     </div>
