@@ -15,6 +15,6 @@ class Program < ApplicationRecord
   validates :duration, presence: true, inclusion: { in: DURATIONS }
   validates :price, presence: true, numericality: true
   validates :medias, presence: true
-  validates :description, length: { minimum: 20 }
+  validates :description, length: { minimum: 3 }
   validates :language, presence: true, inclusion: { in: LANGUAGES }
 end
