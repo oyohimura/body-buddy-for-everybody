@@ -18,6 +18,7 @@ class ProgramsController < ApplicationController
 
   def show
     @lesson = Lesson.new
+    @review = Review.new
   end
 
   def new
