@@ -24,5 +24,7 @@ class PagesController < ApplicationController
     @programs = Program.where(user: current_user)
     # The batch I am currently registered on
     @batch = current_user.batch # @batch.program to get the program
+    start_date = params.fetch(:start_date, Date.today).to_date
+    @slots = current_user.slots.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 end
