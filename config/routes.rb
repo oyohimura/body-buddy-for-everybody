@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :programs do
     resources :batches, only: [:index, :show, :new, :create, :edit]
-    # resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:new, :create]
     resources :lessons, only: [:create]
   end
 
@@ -21,6 +21,6 @@ Rails.application.routes.draw do
     resources :slots, only: [:new, :create, :destroy]
   end
 
-  # resources :reviews, only: [:edit, :destroy, :update]
+  resources :reviews, only: [:edit, :destroy, :update]
   resources :slots_students, only: [:destroy]
 end

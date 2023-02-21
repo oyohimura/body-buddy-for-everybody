@@ -16,5 +16,8 @@ application.register("hello", HelloController)
 import InsertInListController from "./insert_in_list_controller"
 application.register("insert-in-list", InsertInListController)
 
+import StarRatingController from "./star_rating_controller"
+application.register("star-rating", StarRatingController)
+
 import VisibilityController from "./visibility_controller"
 application.register("visibility", VisibilityController)
