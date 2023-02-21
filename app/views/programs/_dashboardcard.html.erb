@@ -7,7 +7,9 @@
     <div class="card-trip-infos">
       <div class="card-trip-infos-desc">
         <h2><%= program.name %></h2> <%= pluralize program.duration, 'month' %>
-        <strong><h6>my batches</h6></strong>
+        <% if program.batches.length != 0  %>
+          <strong><h6>my batches</h6></strong>
+
         <%# <div class="scroll"> %>
           <ul>
             <%program.batches.each do |batch|%>
@@ -17,13 +19,16 @@
             <% end %>
           </ul>
         <%# </div> %>
+        <% else %>
+          <strong><h6><%= link_to "You have no batch yet", new_program_batch_path(program) %></h6></strong>
+        <% end %>
       </div>
     </div>
     <div class="edit">
       <%= link_to 'edit', edit_program_path(program) %>
     </div>
-    <div class="edit">
-      <%= link_to 'edit', edit_program_path(program) %>
+    <div class="addlesson">
+      <%= link_to 'Program details', program_path(program) %>
     </div>
     <div class="delete">
       <%= link_to "delete", program_path(program),
