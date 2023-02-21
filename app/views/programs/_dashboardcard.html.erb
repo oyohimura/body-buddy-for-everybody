@@ -8,7 +8,7 @@
       <div class="card-trip-infos-desc">
         <h2><%= program.name %></h2> <%= pluralize program.duration, 'month' %>
         <strong><h6>my batches</h6></strong>
-        <div class="scroll">
+        <%# <div class="scroll"> %>
           <ul>
             <%program.batches.each do |batch|%>
               <%= link_to program_batch_path(program, batch) do %>
@@ -16,8 +16,11 @@
               <% end %>
             <% end %>
           </ul>
-        </div>
+        <%# </div> %>
       </div>
+    </div>
+    <div class="edit">
+      <%= link_to 'edit', edit_program_path(program) %>
     </div>
     <div class="edit">
       <%= link_to 'edit', edit_program_path(program) %>
