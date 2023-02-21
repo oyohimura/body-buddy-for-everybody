@@ -107,6 +107,21 @@
   position: relative;
 }
 
+// .card-trip-infos-desc {
+//   position: relative;
+// }
+
+// .card-trip-infos-desc .card-trip-carac {
+//   position: absolute;
+//   bottom: -20px;
+// }
+
+.card-trip-carac {
+  ul {
+    list-style-type: none;
+  }
+}
+
 .avatar-card {
   position: absolute;
   top: -25px;

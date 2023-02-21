@@ -45,7 +45,7 @@ class ProgramsController < ApplicationController
     current_user.teacher = true
     current_user.save!
     if @program.save
-      redirect_to program_path(@program), notice: 'Program was successfully created.'
+      redirect_to program_path(@program), notice: 'Program was successfully created.', data: { turbo: false }
     else
       render :new, status: :unprocessable_entity
     end
@@ -54,7 +54,7 @@ class ProgramsController < ApplicationController
   private
 
   def program_params
-    params.require(:program).permit(:name, :discipline, :level, :target, :duration, :price, :medias, :description, :language)
+    params.require(:program).permit(:name, :discipline, :level, :target, :duration, :price, :description, :language, medias: [])
   end
 
   def set_program

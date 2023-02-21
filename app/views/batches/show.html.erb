@@ -12,6 +12,11 @@
       <div class="card" style="width: 44rem;">
         <div class="card-body m-4">
           <ul class="list-unstyled">
+            <% if @batch.program.lessons == [] %>
+              <p>No lessons have been defined yet.
+              <%= link_to 'Add lessons on program page', program_path(@batch.program) %>
+            </p>
+            <% else %>
             <% @batch.program.lessons.each do |lesson| %>
             <div class="container">
 
@@ -53,6 +58,7 @@
               </div>
             </div>
             <% end %>
+          <% end %>
           </ul>
         </div>
       </div>
