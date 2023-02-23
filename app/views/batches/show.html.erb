@@ -94,11 +94,20 @@
                       <p>No slots available yet. Please come back later to register for this lesson.</p>
                     <% else %>
                       <% if SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).length > 0 %>
-                        Already booked 😁. Please make sure you are available on:
-                        <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %>
-                        for <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                        <div class="d-flex justify-content-evenly">
+                          <div>
+                            <i class="fa-regular fa-circle-check"></i> Booked!
+                          </div>
+                          <div>
+                              <i class='fa-solid fa-calendar-check'></i>
+                            <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%A, %B %e at %I:%M %p") %>
+                          </div>
+                          <div>
+                              <i class='fa-solid fa-stopwatch'></i> <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                          </div>
+                        </div>
                       <% else %>
-                        <%= f.input lesson.id, label: false, collection: lesson.slots.where(batch: @batch).map { |el| "#{pluralize el.duration, "hr"} - @#{el.start_time.strftime("%l:%M %p on %A, %b %e, %Y")}" } %>
+                        <%= f.input lesson.id, label: false, label_method: :time_formatted, value_method: :id, collection: lesson.slots.where(batch: @batch) %>
                       <% end %>
                     <% end %>
                   </div>
