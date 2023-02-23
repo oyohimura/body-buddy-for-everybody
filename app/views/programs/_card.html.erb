@@ -14,7 +14,7 @@
       </div>
       <div class="card-trip-infos-desc">
         <h2><%= program.name.capitalize %></h2>
-        <p><strong><%= program.discipline %></strong> - <span class="text-blue"><%= program.user.first_name %></span>'s program - <strong><%= pluralize program.duration, 'month' %></strong></p>
+        <p><i class="fa-solid fa-dumbbell"></i> <%= program.discipline %> - <span class="text-blue"><%= program.user.first_name %></span>'s program - <strong><%= pluralize program.duration, 'month' %></strong></p>
         <% case program.level %>
         <% when 'Beginner' %>
           <% color_level = 'success-green' %>
@@ -30,7 +30,7 @@
               <span class="text-<%= color_level %>"><i class="fa-solid fa-signal"></i> </span> <%= program.level %>
             </li>
             <li>
-              <i class="fa-solid fa-bullseye"> </i> <%= truncate(program.target, length: 30, separator: ',') %>
+              <i class="fa-solid fa-crosshairs"></i> <%= truncate(program.target, length: 30, separator: ',') %>
             </li>
           </ul>
         </div>
