@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BodyBuddyForEverybody</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= favicon_link_tag 'icon.png' %>
+  </head>
+
+  <body>
+    <div class="navbar navbar-expand-sm navbar-light navbar-lewagon-hp"
+    data-controller="change-nav-link-color" data-action="scroll@window->change-nav-link-color#updateNavbar">
+      <%= render "shared/navbar-hp" %>
+    </div>
+    <%= render "shared/flashes" %>
+    <div>
+      <%= yield %>
+    </div>
+    <%= render "shared/footer" %>
+  </body>
+</html>

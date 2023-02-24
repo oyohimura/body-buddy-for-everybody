@@ -55,17 +55,20 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  color: $pink;
+  color: $gray;
+  text-shadow: 2px 2px 5px $light-blue;
   font-weight: 900;
 }
 
 h2 {
-  color: $blue;
+  color: $gray;
+  text-shadow: 2px 2px 5px $light-blue;
   font-weight: 700;
 }
 
 h3 {
-  color: $green;
+  color: $gray;
+  text-shadow: 2px 2px 5px $light-blue;
   font-weight: 500;
 }
 

@@ -1,5 +1,9 @@
 <div class="container">
-  <h1>All programs</h1>
+  <% if @programs == Program.all %>
+    <h1><%= pluralize Program.all.count, 'program' %> available</h1>
+  <% else %>
+    <h1><%= pluralize @programs.count, 'program' %> found</h1>
+  <% end %>
   <div class="col-12">
     <div class="row align-items-center justify-content-around d-flex mt-4">
       <div class="col-10 align-items-center justify-content-around d-flex">
