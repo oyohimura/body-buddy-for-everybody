@@ -1,5 +1,5 @@
 meta_product_name: "Body Buddy"
-meta_title: "Body Buddy - Online Courses "
+meta_title: "BodyBuddyforEverybody"
 meta_description: "Build your own journey to a balanced life"
-meta_image: "icon.png" # should exist in `app/assets/images/`
+meta_image: "icon_og.png" # should exist in `app/assets/images/`
 twitter_account: "@product_twitter_account"   # required for Twitter Cards
