@@ -22,9 +22,11 @@ class PagesController < ApplicationController
     # @students = User.where(user_id: current_user.id)
     # All my programs (as a teacher)
     @programs = Program.where(user: current_user)
+    lessons = Lesson.where(program: @programs)
     # The batch I am currently registered on
     @batch = current_user.batch # @batch.program to get the program
     start_date = params.fetch(:start_date, Date.today).to_date
-    @slots = current_user.slots.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+
+      @slots = current_user.slots.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 end

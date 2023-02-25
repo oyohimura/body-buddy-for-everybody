@@ -1,0 +1,101 @@
+
+/* Card trip CSS */
+
+.card-dashboard {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  height: 450px;
+
+  // margin: 20px 0;
+  // width: 300px;
+}
+
+.card-dashboard {
+  position: relative;
+}
+
+.card-dashboard .more-info {
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  margin-bottom: 20px;
+}
+
+.card-dashboard .edit {
+  position: absolute;
+  bottom: -20px;
+  left: 8px;
+  margin-bottom: 20px;
+}
+
+.card-dashboard .addlesson{
+  position: absolute;
+  bottom: -20px;
+  left: 35%;
+  margin-bottom: 20px;
+}
+
+.card-dashboard .delete {
+  position: absolute;
+  bottom: -20px;
+  right: 8px;
+  margin-bottom: 20px;
+}
+
+.card-dashboard img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-dashboard .card-dashboard-infos {
+  display: flex;
+  align-items: flex-end;
+  bottom:0;
+  right:0;
+  padding: 12px;
+  padding-right: 32px;
+  padding-bottom: 4px;
+}
+
+.card-dashboard-infos {
+  position: relative;
+}
+
+// .card-dashboard-infos-desc {
+//   position: relative;
+// }
+
+// .card-dashboard-infos-desc .card-dashboard-carac {
+//   position: absolute;
+//   bottom: -20px;
+// }
+
+.card-dashboard-carac {
+  ul {
+    list-style-type: none;
+  }
+}
+
+.card-dashboard .card-dashboard-infos-separator {
+flex-grow: 1;
+align-items: flex-end;
+}
+
+.card-dashboard .card-dashboard-price {
+  position: absolute;
+  right: 16px;
+  top: 160px;
+  width: 40px;
+}
+
+.card-dashboard-latest img{
+  border-radius: 5px;
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+}

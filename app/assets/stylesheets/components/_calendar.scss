@@ -1,0 +1,22 @@
+.simple-calendar {
+  table {
+    min-height: 80vh;
+  }
+  .today {
+    background-color: #FAF3DD;
+  }
+
+}
+
+.slot {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #83e2f4;
+  transition: background 0.3s ease;
+}
+
+.slot:hover {
+  background: #67b2c1;
+  color: white;
+}
