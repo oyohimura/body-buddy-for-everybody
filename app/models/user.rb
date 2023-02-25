@@ -9,8 +9,9 @@ class User < ApplicationRecord
   has_many :programs, dependent: :destroy # added 8-2-2023
   has_many :slot_students, dependent: :destroy # added 8-2-2023
   has_many :slots, through: :slot_students # added 8-2-2023
-  has_many :lessons, through: :programs # added 25-2-2023
-  has_many :slots, through: :lessons # added 25-2-2023
+  has_many :lessons, through: :programs
+  # has_many :slots_as_teacher, class_name: "Slot", through: :lessons
+  # has_many :slots_as_teacher, :through => :lessons, :source => 'Slot'
 
   has_one_attached :profile_picture
   validates :profile_picture, presence: true

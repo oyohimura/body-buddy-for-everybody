@@ -28,6 +28,11 @@ class PagesController < ApplicationController
     @batch = current_user.batch # @batch.program to get the program
     start_date = params.fetch(:start_date, Date.today).to_date
 
-      @slots = current_user.slots.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+    if current_user.teacher?
+      @slots = current_user.lessons.map{ |lesson| lesson.slots}.flatten
+      # @slots = current_user.slots.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+    else
+      @slots = current_user.slots
+    end
   end
 end
