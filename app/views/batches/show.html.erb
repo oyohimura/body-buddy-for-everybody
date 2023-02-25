@@ -1,5 +1,4 @@
 <div class="container">
-<div>
   <h1>"<%= @batch.program.name.capitalize %>"</h1>
   <h2>Info about batch #<%= @batch.id %></h2>
   <ul>
@@ -46,130 +45,147 @@
         </div>
       </div>
     </div>
-  <div class="col-lg-8">
-    <% if current_user.programs.include?(@batch.program) %> <%# condition if teacher of the batch %>
-      <div class="d-flex justify-content-center">
-        <div class="card" style="width: 44rem;">
-          <div class="card-body m-4">
-            <ul class="list-unstyled">
-              <% if @batch.program.lessons == [] %>
-                <p>No lessons have been defined yet.
-                <%= link_to 'Add lessons on program page', program_path(@batch.program) %>
-              </p>
-              <% else %>
-              <% @batch.program.lessons.each do |lesson| %>
-              <div class="container">
-                <div class="card text-center mb-5">
-                  <div class="card-header bg-success text-dark">
-                    <li><h3><%= lesson.number %>. <%= lesson.title %></h3></li>
-                  </div>
-                  <div class="card-body">
-                    <% if lesson.slots.where(batch: @batch).length == 0 %> <%# condition show slots or no slots %>
-                      <h6>No slots for this lesson yet</h6>
-                    <% else %>
-                      <% if SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).length > 0 %>
-                        <div class="d-flex justify-content-evenly">
-                          <div>
-                            <i class="fa-regular fa-circle-check"></i> Booked!
-                          </div>
-                          <div>
-                              <i class='fa-solid fa-calendar-check'></i>
-                            <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%A, %B %e at %I:%M %p") %>
-                          </div>
-                          <div>
-                              <i class='fa-solid fa-stopwatch'></i> <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
-                          </div>
-                        </div>
-                      <% else %>
-                        <%= f.input lesson.id, label: false, label_method: :time_formatted, value_method: :id, collection: lesson.slots.where(batch: @batch) %>
-                      <% end %>
-                    <% end %>
-                    <ul>
-                      <div class="m-2">
-                        <% lesson.slots.where(batch: @batch).each do |slot|%>
-                          <li><%= slot.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %></li>
-                        <% end %>
-                      </div>
-                    </ul>
-                  </div>
-                  <div class="card-footer text-muted">
-                    <div data-controller="visibility"><%# added stimulus controller to toggle form %>
-                      <button class="btn btn-primary" data-action="visibility#toggleTargets">+Add a lesson</button>
-                      <div data-visibility-target="hideable" hidden>
-                        <% @lesson = lesson %>
-                        <% @slot = Slot.new %>
-                        <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false }, data: { controller: 'flatpickr-time' } do |f| %>
-                          <%= f.hidden_field :batch_id, value: @batch.id %>
-                          <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_time_target: "startDate" } }, class: "form-control" %>
-                          <%= f.input :duration, class: "form-control"  %>
-                          <%= f.input :access_link, class: "form-control" %>
-                          <%= f.submit 'Create a slot', class: 'btn btn-danger' %>
-                        <% end %>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-              </div>
-              <% end %>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <% if @batch.users.count < @batch.max_students %>  <%# condition for max students %>
-      <% unless current_user.teacher? %>
-        <% @user = User.new() %>
-        <% if current_user.batch == @batch %> <%# condition student of the batch %>
-          <p>You are <span class="text-blue">registered</span> to this batch. </p>
-          <%# Say if registered to slots already. %>
-          <% unless @your_slot_students.length.zero? %>
-            <p>You are <span class="text-pink">already registered</span> to slots for:</p>
-            <ul>
-              <% @your_slot_students.each do |el| %>
-                <li>
-                  Lesson <%= el.slot.lesson.number %>: <%= el.slot.lesson.title %>
-                  - <i class="fa-solid fa-circle-xmark"></i>
-                  <%= link_to "Un-register", slots_student_path(el), data: { "turbo-method": :delete } %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-          <div class="d-flex justify-content-center">
-            <div class="card" style="width: 44rem;">
-              <div class="card text-center  m-4">
-                <%= simple_form_for :selected_slots, url: batch_slots_create_path(@batch.id), method: :post, data: { turbo: false }, html: {class: "nifty_form"} do |f| %>
-                  <% @batch.program.lessons.each do |lesson| %>
+    <div class="col-lg-8">
+      <% if current_user.programs.include?(@batch.program) %> <%# condition if teacher of the batch %>
+        <div class="d-flex justify-content-center">
+          <div class="card" style="width: 44rem;">
+            <div class="card-body m-4">
+              <ul class="list-unstyled">
+                <% if @batch.program.lessons == [] %>
+                  <p>No lessons have been defined yet.
+                    <%= link_to 'Add lessons on program page', program_path(@batch.program) %>
+                  </p>
+                <% else %>
+                <% @batch.program.lessons.each do |lesson| %>
+                <div class="container">
+                  <div class="card text-center mb-5">
                     <div class="card-header bg-success text-dark">
-                      <h3><%= lesson.number %>. <%= lesson.title %></h3>
+                      <li><h3><%= lesson.number %>. <%= lesson.title %></h3></li>
                     </div>
                     <div class="card-body">
-                      <% if lesson.slots.where(batch: @batch).length.zero? %>
-                        <p>No slots available yet. Please come back later to register for this lesson.</p>
+                      <% if lesson.slots.where(batch: @batch).length == 0 %> <%# condition show slots or no slots %>
+                        <h6>No slots for this lesson yet</h6>
                       <% else %>
                         <% if SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).length > 0 %>
-                          Already booked 😁. Please make sure you are available on:
-                          <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %>
-                          for <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                          <div class="d-flex justify-content-evenly">
+                            <div>
+                              <i class="fa-regular fa-circle-check"></i> Booked!
+                            </div>
+                            <div>
+                                <i class='fa-solid fa-calendar-check'></i>
+                              <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%A, %B %e at %I:%M %p") %>
+                            </div>
+                            <div>
+                                <i class='fa-solid fa-stopwatch'></i> <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                            </div>
+                          </div>
                         <% else %>
-                          <%= f.input lesson.id, label: false, collection: lesson.slots.where(batch: @batch).map { |el| "#{pluralize el.duration, "hr"} - @#{el.start_time.strftime("%l:%M %p on %A, %b %e, %Y")}" } %>
+                          <%= f.input lesson.id, label: false, label_method: :time_formatted, value_method: :id, collection: lesson.slots.where(batch: @batch) %>
                         <% end %>
                       <% end %>
+                      <ul>
+                        <div class="m-2">
+                          <% lesson.slots.where(batch: @batch).each do |slot|%>
+                            <li><%= slot.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %></li>
+                          <% end %>
+                        </div>
+                      </ul>
                     </div>
-                  <% end %>
-                  <%= f.submit "Register to selected time slots!" %>
+                    <div class="card-footer text-muted">
+                      <div data-controller="visibility"><%# added stimulus controller to toggle form %>
+                        <button class="btn btn-primary" data-action="visibility#toggleTargets">+Add a slot</button>
+                        <div data-visibility-target="hideable" hidden>
+                          <% @lesson = lesson %>
+                          <% @slot = Slot.new %>
+                          <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false }, data: { controller: 'flatpickr-time' } do |f| %>
+                            <%= f.hidden_field :batch_id, value: @batch.id %>
+                            <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_time_target: "startDate" } }, class: "form-control" %>
+                            <%= f.input :duration, class: "form-control"  %>
+                            <%= f.input :access_link, class: "form-control" %>
+                            <%= f.submit 'Create a slot', class: 'btn btn-danger' %>
+                          <% end %>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
                 <% end %>
-              </div>
+              <% end %>
+              </ul>
             </div>
-        <% else %> <%# else for current_user.batch %>
-          <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
-            <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
-          <% end %>
-        <% end %> <%# end for current_user.batch %>
-      <% end %> <%# end for current_user.teacher? %>
-    <% else %> <%# else for max students %>
-      <%= link_to 'This batch is full, please select another one', program_batches_path(@batch.program) %>
-    <% end %> <%# end for max students %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @batch.users.count < @batch.max_students %>  <%# condition for max students %>
+        <% unless current_user.teacher? %>
+          <% @user = User.new() %>
+          <% if current_user.batch == @batch %> <%# condition student of the batch %>
+            <p>You are <span class="text-blue">registered</span> to this batch. </p>
+            <%# Say if registered to slots already. %>
+            <% unless @your_slot_students.length.zero? %>
+              <p>You are <span class="text-pink">already registered</span> to slots for:</p>
+              <ul>
+                <% @your_slot_students.each do |el| %>
+                  <li>
+                    Lesson <%= el.slot.lesson.number %>: <%= el.slot.lesson.title %>
+                    - <i class="fa-solid fa-circle-xmark"></i>
+                    <%= link_to "Un-register", slots_student_path(el), data: { "turbo-method": :delete } %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+            <div class="d-flex justify-content-center">
+              <div class="card" style="width: 44rem;">
+                <div class="card text-center  m-4">
+                  <%= simple_form_for :selected_slots, url: batch_slots_create_path(@batch.id), method: :post, data: { turbo: false }, html: {class: "nifty_form"} do |f| %>
+                    <% @batch.program.lessons.each do |lesson| %>
+                      <div class="card-header bg-success text-dark">
+                        <h3><%= lesson.number %>. <%= lesson.title %></h3>
+                      </div>
+                      <div class="card-body">
+                        <% if lesson.slots.where(batch: @batch).length.zero? %>
+                          <p>No slots available yet. Please come back later to register for this lesson.</p>
+                        <% else %>
+                          <% if SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).length > 0 %>
+                            <div class="d-flex justify-content-evenly">
+                              <div>
+                                <i class="fa-regular fa-circle-check"></i> Booked!
+                              </div>
+                              <div>
+                                  <i class='fa-solid fa-calendar-check'></i>
+                                <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%A, %B %e at %I:%M %p") %>
+                              </div>
+                              <div>
+                                  <i class='fa-solid fa-stopwatch'></i> <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                              </div>
+                            </div>
+                          <% else %>
+                            <%= f.input lesson.id, label: false, label_method: :time_formatted, value_method: :id, collection: lesson.slots.where(batch: @batch) %>
+                          <% end %>
+                          <%# <% if SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).length > 0 %>
+                            <%# Already booked 😁. Please make sure you are available on: %>
+                            <%# <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %>
+                            <%# for <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                          <%# <% else %>
+                          <%# <%= f.input :slot, label: false, label_method: :time_formatted, value_method: :id, collection: lesson.slots.where(batch: @batch) %>
+                          <%# <% end %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                    <%= f.submit "Register to selected time slots!" %>
+                  <% end %>
+                </div>
+              </div>
+          <% else %> <%# else for current_user.batch %>
+            <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
+              <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>
+            <% end %>
+          <% end %> <%# end for current_user.batch %>
+        <% end %> <%# end for current_user.teacher? %>
+      <% else %> <%# else for max students %>
+        <%= link_to 'This batch is full, please select another one', program_batches_path(@batch.program) %>
+      <% end %> <%# end for max students %>
+    </div>
   </div>
 </div>
