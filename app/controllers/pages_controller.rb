@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @programs = Program.all
+    render layout: 'homepage'
   end
 
   def index

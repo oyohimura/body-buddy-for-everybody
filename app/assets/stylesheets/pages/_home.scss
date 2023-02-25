@@ -2,3 +2,58 @@
 .star-yellow {
   color: #FFB900;
 }
+
+.tag-item {
+  display: inline-block;
+}
+
+.tag-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.tag-selector + label {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.95rem;
+  border-radius: 50rem;
+  padding: 0.15rem 0.55rem;
+  background-color: white;
+  color: black;
+  text-shadow: #29474d79;
+  border: 1px solid $primary;
+  margin-right: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.tag-selector:checked + label {
+  background-color: $light-pink;
+  color: white;
+  border: 1px solid #ee5cbd;
+}
+
+.carousel-inner {
+  h3 {
+    font-size: 32px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    font-weight: bold;
+    a {
+      color: white;
+      text-decoration: underline;
+      text-decoration-color: $pink;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  p {
+    font-size: 16px;
+    color: white;
+    // line-height: 0.9em;
+    opacity: .9;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  }
+}

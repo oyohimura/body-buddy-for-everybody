@@ -10,11 +10,15 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= favicon_link_tag 'icon.png' %>
+    <%# <link rel="icon" type="image/png" href="http://res.cloudinary.com/dtegydg3s/image/upload/v1675763317/q0ztt1hj6muug9aa5g6y.png"> %>
   </head>
 
   <body>
-    <div style="margin-bottom: 70px">
-      <%= render "shared/navbar" %>
+    <div style="margin-bottom: 80px">
+      <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+        <%= render "shared/navbar" %>
+      </div>
     </div>
     <%= render "shared/flashes" %>
     <div style="margin-bottom: 80px">

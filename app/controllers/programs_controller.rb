@@ -6,8 +6,14 @@ class ProgramsController < ApplicationController
     if params[:search]
       filter_params = {}
       params[:search].each_key do |search_field|
-        unless params[:search][search_field].length.zero?
-          filter_params[search_field] = params[:search][search_field]
+        # unless params[:search][search_field].length.zero?
+        if params[:search][search_field].instance_of?(Array)
+          search_values = params[:search][search_field]
+        else
+          search_values = [params[:search][search_field]] # search_value est tjrs un array.
+        end
+        unless search_values == [""]
+          filter_params[search_field] = search_values.reject { |x| x.length.zero? }
         end
       end
       @programs = Program.where(filter_params)

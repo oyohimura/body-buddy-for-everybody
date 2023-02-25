@@ -1,24 +1,44 @@
-<div class="hero-banner">
+<div class="hero-banner" style="margin-bottom: 0">
   <div class="container">
-    <div class="hero-banner-content">
-      <h1>Welcome to Our School</h1>
-      <p>Discover our brand new programs to learn new skills and achieve your goals!</p>
-      <p>Find the program that suits you best and join now!</p>
+    <div class="hero-banner-content text-center" >
+      <h1>BODY<%= image_tag 'http://res.cloudinary.com/dtegydg3s/image/upload/v1675763317/q0ztt1hj6muug9aa5g6y.png', height: '80px', class: "bb_icon" %>BUDDY</h1>
       <br>
-      <%# <div class="col-4">
-        <%= render 'programs/search-form' %>
-      <%# </div> %>
+      <p>Build your own journey to a balanced life with our online
+      <%= image_tag "https://freesvg.org/img/Female-Yoga-Pose-Silhouette-13.png", class: 'bb_icon_small invert', height: '35px' %>
+      courses</p>
+      <div style="height: 50px"></div>
+      <p>
+        Select your favorite disciplines, your level and join us!
+      </p>
+      <div class="row align-center justify-content-center d-flex">
+        <%= simple_form_for(:search, url: programs_path, method: :get, class: 'form-inline') do |f| %>
+          <div class="d-flex align-center justify-content-center mx-2 mt-3">
+            <%= image_tag "https://freesvg.org/img/Female-Yoga-Pose-Silhouette-13.png", class: 'bb_icon_small invert', height: '35px' %>
+            <div style="width: 8px;"></div>
+            <%= f.input :discipline, as: :check_boxes, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item', label: '', collection: Program::DISCIPLINES, class: "form-group mb-2", required: false %>
+          </div>
+        </div>
+      </div>
+      <div class="row align-center justify-content-center d-flex">
+        <div class="d-flex align-center justify-content-center mx-2">
+          <p style='color: white; opacity: .8; font-size: 1.4rem; margin-right: 16px;'><i class="fa-solid fa-signal"> </i></p>
+          <%= f.input :level, label: '', as: :check_boxes, collection: Program::LEVELS, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item', class: "form-range mb-2", required: false %>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-6 text-center" style="margin-top: 16px">
+          <%= f.submit "Let's go!", class: "btn btn-lg btn-primary", data: { turbo: false } %>
+        </div>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>
 
-<div class="container mt-3 mb-3">
+<div class="container mb-3">
   <div class="row">
-    <div class="col-12 text-center mb-4">
-      <h1>Our latest program</h1>
-    </div>
-    <div class="col-md-12">
-      <%= render 'programs/card', program: Program.last %>
+    <div class="col-12">
+      <%= render 'programs/carousel', programs: Program.all %>
     </div>
   </div>
 

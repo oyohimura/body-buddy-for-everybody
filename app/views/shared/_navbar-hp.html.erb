@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <%= link_to root_path, data: { turbo: false } do %>
-    <%= image_tag "http://res.cloudinary.com/dtegydg3s/image/upload/v1675763317/q0ztt1hj6muug9aa5g6y.png", width: 63, height: 42 %>
+    <%= image_tag "http://res.cloudinary.com/dtegydg3s/image/upload/v1675763317/q0ztt1hj6muug9aa5g6y.png", width: 63, height: 42, id: 'logo' %>
   <% end %>
 
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,14 +10,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", root_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "All programs", programs_path, class: "nav-link", data: { turbo: false } %>
-        </li>
+        <% if current_user.teacher? %>
+          <li class="nav-item">
+            <%= link_to "My programs", dashboard_path, class: "nav-link light-color", data: { turbo: false } %>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
-          <%= cl_image_tag current_user.profile_picture.key, :transformation=>[{gravity: 'head', :crop=>"crop"}, {:height=>45, :width=>45, :crop=>"fill"}], class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <%= cl_image_tag current_user.profile_picture.key, :transformation=>[{gravity: 'head', :crop=>"crop"}, {:height=>50, :width=>50, :crop=>"fill"}], class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <%= link_to "Dashboard", dashboard_path, class: "dropdown-item" %>
             <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>

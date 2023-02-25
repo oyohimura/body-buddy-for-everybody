@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ChangeNavLinkColorController from "./change_nav_link_color_controller"
+application.register("change-nav-link-color", ChangeNavLinkColorController)
+
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
 
