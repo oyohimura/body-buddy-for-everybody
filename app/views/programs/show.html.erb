@@ -172,7 +172,7 @@
                   <p>There are <em>no batches available yet</em>.</p>
                 <% end %>
                 <% if current_user && current_user.teacher == false %>
-                  <p>Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path %></span>!</p>
+                  <p>Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path, data: { turbo: false } %></span>!</p>
                 <% end %>
               <% end %>
             </div>
