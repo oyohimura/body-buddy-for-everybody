@@ -26,8 +26,10 @@ export default class extends Controller {
           this.itemsTarget.insertAdjacentHTML("beforeend", data.inserted_item);
           this.nolessonsTarget.style = 'display: none;';
         }
+        console.log(data.form);
         this.formTarget.outerHTML = data.form
       })
+
   }
 
   rsend(event) {

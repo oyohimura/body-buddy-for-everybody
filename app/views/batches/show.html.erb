@@ -20,30 +20,7 @@
           </h5>
         </div>
       </div>
-      <div class="card mb-4 mb-lg-0">
-        <div class="card-body p-0">
-          <ul class="list-group list-group-flush rounded-3">
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.discipline %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.level %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.target %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.duration %> month</p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.price %> €</p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.language %></p>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <%= render 'shared/infos', program: @batch.program %>
     </div>
     <div class="col-lg-8">
       <% if current_user.programs.include?(@batch.program) %> <%# condition if teacher of the batch %>

@@ -12,203 +12,260 @@
           </h5>
         </div>
       </div>
-      <div class="card mb-4 mb-lg-0">
-        <div class="card-body p-0">
-          <ul class="list-group list-group-flush rounded-3">
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><i class="fa-solid fa-dumbbell"></i> <%= @program.discipline %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><i class="fa-solid fa-signal"></i> <%= @program.level %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><i class="fa-solid fa-crosshairs"></i> <%= @program.target %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><i class="fa-solid fa-clock"></i> <%= pluralize @program.duration, "month" %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><i class="fa-solid fa-euro-sign"></i> <%= @program.price %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><i class="fa-solid fa-flag"></i> <%= @program.language %></p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="card mb-4 mt-2">
-        <div id="carouselExampleControlsNoTouching" class="carousel slide carousel-fade" data-bs-touch="false" data-bs-interval="true" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-            <% @program.medias.each_with_index do |media, i| %>
-              <% if media == @program.medias.first %>
-                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-interval="6000"  data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <% else %>
-                <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-interval="6000" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="carousel-inner">
-            <% @program.medias.each do |media| %>
-              <% if media == @program.medias.first %>
-                <div class="carousel-item active" data-bs-interval="6000">
-                  <%= cl_image_tag media.key, :width=>1000, :height=>500, :gravity=>"auto", :crop=>"fill", :background=>"white", class: 'd-block w-100', data: 'color: lightblue' %>
-                </div>
-                <% else %>
-                <div class="carousel-item" data-bs-interval="6000">
-                  <%= cl_image_tag media.key, :width=>1000, :height=>500, :gravity=>"auto", :crop=>"fill",  :background=>"white", class: 'd-block w-100', data: 'color: lightblue' %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Description</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0"><%= @program.description %></p>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Lessons</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0">
-                <div data-controller="insert-in-list">
-                  <div data-insert-in-list-target="items">
-                    <% if @program.lessons.count.zero? && @program.user == current_user %>
-                      <p data-insert-in-list-target="nolessons">Create your first lesson !</p>
-                    <% elsif @program.lessons.count.zero? %>
-                      <p data-insert-in-list-target="nolessons">Teacher still has to define the lessons for this program.</p>
+      <%= render 'shared/infos', program: @program %>
+
+      <% if @program.user == current_user %>
+        <div class="card my-4">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-12">
+                <div class="bg-white rounded p-4">
+                  <div data-insert-in-list-target="ritems">
+                    <h3>Reviews</h3>
+                    <% if @program.reviews.empty? %>
+                      <p>No reviews yet.</p>
                     <% else %>
-                      <% @program.lessons.each do |lesson| %>
-                        <p>Lesson <%= lesson.number %>: <strong><%= lesson.title %></strong></p>
+                      <% @program.reviews.reverse_each do |review| %>
+                        <%= render "review", review: review %>
                       <% end %>
                     <% end %>
                   </div>
-                  <% if current_user == @program.user %>
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-10">
-                          <br>
-                          <div data-controller="visibility">
-                            <button class="btn btn-primary" data-action="visibility#toggleTargets">Add a lesson</button>
-                            <div data-visibility-target="hideable" hidden>
-                              <%= simple_form_for([@program, @lesson], data: { insert_in_list_target: "form", action: "submit->insert-in-list#send" }) do |f| %>
-                                <%= f.input :title, class: 'form-control' %>
-                                <%= f.input :description, class: 'form-control' %>
-                                <%= f.button :submit, class: "btn btn-danger" %>
-                              <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="card my-4">
+          <div class="card-body p-0">
+            <div data-controller="insert-in-list">
+              <div class="row">
+                <div class="col-12">
+                  <div class="bg-white rounded p-4">
+                    <h3>Reviews</h3>
+                    <% if @program.reviews.empty? %>
+                      <small><em class="text-muted" data-insert-in-list-target ="noreviews">Be the first one to review this program</em></small>
+                    <% end %>
+                    <div data-insert-in-list-target="ritems">
+                    <% @program.reviews.reverse_each do |review| %>
+                      <%= render "review", review: review %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card my-4">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-12">
+              <div class="bg-white rounded p-4">
+                <h5>Add your review</h5>
+                <%= render "reviews/form", program: @program, review: @review %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-lg-8">
+    <div class="card mb-4 mt-2">
+      <div id="carouselExampleControlsNoTouching" class="carousel slide carousel-fade" data-bs-touch="false" data-bs-interval="true" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <% @program.medias.each_with_index do |media, i| %>
+            <% if media == @program.medias.first %>
+              <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-interval="6000"  data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <% else %>
+              <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-interval="6000" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="carousel-inner">
+          <% @program.medias.each do |media| %>
+            <% if media == @program.medias.first %>
+              <div class="carousel-item active" data-bs-interval="6000">
+                <%= cl_image_tag media.key, :width=>1000, :height=>500, :gravity=>"auto", :crop=>"fill", :background=>"white", class: 'd-block w-100', data: 'color: lightblue' %>
+              </div>
+              <% else %>
+              <div class="carousel-item" data-bs-interval="6000">
+                <%= cl_image_tag media.key, :width=>1000, :height=>500, :gravity=>"auto", :crop=>"fill",  :background=>"white", class: 'd-block w-100', data: 'color: lightblue' %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Description</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0"><%= @program.description %></p>
+          </div>
+        </div>
+        <hr>
+        <%# <div class="row" data-controller="visibility"> %>
+        <div class="row" data-controller="insert-in-list">
+          <div class="col-sm-3">
+            <p class="mb-0">Lessons</p>
+            <% if current_user == @program.user %>
+              <div class="text-right" style="position: relative;">
+                <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
+                <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_lesson_modal"></button>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <div class="col-8" data-insert-in-list-target="items">
+              <% if @program.lessons.count.zero? && @program.user == current_user %>
+                <div data-insert-in-list-target="nolessons">
+                  <p>Create your first lesson !</p>
+                </div>
+              <% elsif @program.lessons.count.zero? %>
+                <div data-insert-in-list-target="nolessons">
+                  <p>Teacher still has to define the lessons for this program.</p>
+                </div>
+              <% else %>
+                <div>
+                  <div>
+                    <% @program.lessons.each do |lesson| %>
+                      <div data-controller="popover">
+                        <%= render 'shared/lesson-popup', lesson: lesson %>
+                        <div data-action="mouseenter->popover#show mouseleave->popover#hide" style="position: relative;">
+                          <div class="lesson-card">
+                            <div class="lesson-card-number">
+                              <%= lesson.number %>
+                            </div>
+                            <div class="lesson-card-title">
+                              <%= lesson.title %>
                             </div>
                           </div>
+                            <%# <div data-popover-target="card">
+                              <%# <div class="popover__wrapper"> %>
+                              <%# <%= lesson.description %>
+                              <%# </div> %>
+                            <%# </div> %>
                         </div>
                       </div>
-                    </div>
-                  <% end %>
-                </div>
-              </p>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Batches</p>
-            </div>
-            <div class="col-sm-9">
-              <% if @program.batches.count > 0 %>
-              <% @program.batches.each do |batch| %>
-                <div class="row">
-                  <div class="col-8">
-                    <%= batch.start_time.strftime("%A, %b %e, %Y") %> to <%= batch.end_time.strftime("%A, %b %e, %Y") %>
-                  </div>
-                  <div class="col-4">
-                    <% if current_user %>
-                      <% if current_user.teacher? && @program.user == current_user %>
-                        <%= link_to program_batch_path(@program ,batch.id) do %>
-                          <span class='text-primary'>Check my batch</span>
-                        <% end %>
-                      <% elsif current_user.teacher? && @program.user != current_user%>
-
-                      <% else %>
-                        <% if current_user.batch && current_user.batch != batch && current_user.batch.program == @program %>
-                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
-                            <span class='text-primary'>Registered to batch #<%= current_user.batch.id %></span>
-                          <% end %>
-                        <% elsif current_user.batch &&  current_user.batch != batch && current_user.batch.program != @program %>
-                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
-                            <span class='text-primary'> Already registered to batch # <%= current_user.batch.id %></span>
-                          <% end %>
-                        <% elsif current_user.batch && current_user.batch == batch %>
-                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
-                            <span class='text-blue'>you are registered to this batch </span>
-                          <% end %>
-                        <% else %>
-                          <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
-                        <% end %>
-                      <% end %>
                     <% end %>
                   </div>
                 </div>
               <% end %>
-              <% else %>
-                <% if @program.user == current_user %>
-                  <%= link_to 'Create your first batch for this lesson !', new_program_batch_path(@program) %>
-                <% else %>
-                  <p>There are <em>no batches available yet</em>.</p>
-                <% end %>
-                <% if current_user && current_user.teacher == false %>
-                  <p>Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path, data: { turbo: false } %></span>!</p>
-                <% end %>
+              <% if current_user == @program.user %>
+                <%# <div data-visibility-target="hideable" hidden> %>
+                <div class="modal fade" id="new_lesson_modal" tabindex="-1" aria-labelledby="new_lesson_modalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="new_lesson_modalLabel">Add lesson to current program</h5>
+                      </div>
+                      <div class="modal-body">
+                        <%= simple_form_for([@program, Lesson.new], data: { insert_in_list_target: "form", action: "submit->insert-in-list#send" }) do |f| %>
+                          <%= f.input :title, placeholder: "Flexibility foundations", class: 'form-control' %>
+                          <%= f.input :description, placeholder: "Let's begin with some basics.", class: 'form-control' %>
+                          <%= f.button :submit, label: "Save", class: "btn btn-primary" %>
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <% end %>
             </div>
           </div>
         </div>
-      </div>
-  </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Batches</p>
+            <% if current_user == @program.user %>
+              <div class="text-right" style="position: relative;">
+                <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
+                <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_batch_modal"></button>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <div class="modal fade" id="new_batch_modal" tabindex="-1" aria-labelledby="new_batch_modalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="new_batch_modalLabel">Add a batch to current program</h5>
+                  </div>
+                  <div class="modal-body">
+                    Program duration: <%= pluralize @program.duration, 'month' %>
+                    <br>
+                    <%= render 'batches/form', batch: Batch.new %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% if @program.batches.count > 0 %>
+            <% @program.batches.each do |batch| %>
+              <div class="row">
+                <div class="col-8">
+                  <%= batch.start_time.strftime("%A, %b %e, %Y") %> to <%= batch.end_time.strftime("%A, %b %e, %Y") %>
+                </div>
+                <div class="col-4">
+                  <% if current_user %>
+                    <% if current_user.teacher? && @program.user == current_user %>
+                      <%= link_to program_batch_path(@program ,batch.id) do %>
+                        <span class='text-primary'>Check my batch</span>
+                      <% end %>
+                    <% elsif current_user.teacher? && @program.user != current_user%>
 
- <% if @program.user == current_user %>
-    <div data-insert-in-list-target="ritems" class="col-6 mx-auto">
-    <h3>Reviews for your program</h3>
-      <% @program.reviews.reverse_each do |review| %>
-      <%= render "review", review: review %>
-    <% end %>
-    </div>
-  <% else %>
-    <div class="row" data-controller="insert-in-list">
-      <div class="col-12 col-sm-6">
-      <h3>Reviews</h3>
-      <% if @program.reviews.empty? %>
-        <small><em class="text-muted" data-insert-in-list-target ="noreviews">Be the first one to review this program</em></small>
-        <% end %>
-       <div data-insert-in-list-target="ritems">
-        <% @program.reviews.reverse_each do |review| %>
-        <%= render "review", review: review %>
-      <% end %>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6">
-        <div class="bg-white rounded p-3">
-          <h5>Add your review</h5>
-          <%= render "reviews/form", program: @program, review: @review %>
+                    <% else %>
+                      <% if current_user.batch && current_user.batch != batch && current_user.batch.program == @program %>
+                        <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                          <span class='text-primary'>Registered to batch #<%= current_user.batch.id %></span>
+                        <% end %>
+                      <% elsif current_user.batch &&  current_user.batch != batch && current_user.batch.program != @program %>
+                        <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                          <span class='text-primary'> Already registered to batch # <%= current_user.batch.id %></span>
+                        <% end %>
+                      <% elsif current_user.batch && current_user.batch == batch %>
+                        <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                          <span class='text-blue'>you are registered to this batch </span>
+                        <% end %>
+                      <% else %>
+                        <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            <% else %>
+              <% if @program.user == current_user %>
+                <%= link_to 'Create your first batch.', new_program_batch_path(@program) %>
+              <% else %>
+                <p>There are <em>no batches available yet</em>.</p>
+              <% end %>
+              <% if current_user && current_user.teacher == false %>
+                <p>Please come back later or <span class='text-blue'><%= link_to 'browse our programs', programs_path, data: { turbo: false } %></span>!</p>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
-  <% end %>
-
-
+    </div>
   </div>
 </div>

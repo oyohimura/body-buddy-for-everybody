@@ -1,0 +1,15 @@
+.popover__wrapper {
+  position: absolute;
+  top: -10;
+  left: 200;
+  z-index: 15;
+  background-color: white;
+  padding: 8px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
+}
+
+.popover__content {
+  padding: 8px;
+  font-size: 0.9em;
+}

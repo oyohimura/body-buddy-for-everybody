@@ -10,9 +10,15 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto">
       <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "All programs", programs_path, class: "nav-link", data: { turbo: false } %>
-        </li>
+        <% if current_user.teacher? %>
+          <li class="nav-item">
+            <%= link_to "My programs", dashboard_path, class: "nav-link light-color", data: { turbo: false } %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "All programs", programs_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
           <%= cl_image_tag current_user.profile_picture.key, :transformation=>[{gravity: 'head', :crop=>"crop"}, {:height=>45, :width=>45, :crop=>"fill"}], class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
