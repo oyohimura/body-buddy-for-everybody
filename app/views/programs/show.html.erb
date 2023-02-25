@@ -180,25 +180,35 @@
         </div>
       </div>
   </div>
-  <div class="row" data-controller="insert-in-list">
-    <div class="col-12 col-sm-6">
-    <h3>Reviews</h3>
-    <% if @program.reviews.empty? %>
-    <small><em class="text-muted" data-insert-in-list-target ="noreviews">Be the first one to review this program</em></small>
-    <% end %>
-    <div data-insert-in-list-target="ritems">
+
+ <% if @program.user == current_user %>
+    <div data-insert-in-list-target="ritems" class="col-6 mx-auto">
+    <h3>Reviews for your program</h3>
       <% @program.reviews.reverse_each do |review| %>
       <%= render "review", review: review %>
     <% end %>
     </div>
-  </div>
-    <% unless @program.user == current_user %>
-    <div class="col-12 col-sm-6">
-      <div class="bg-white rounded p-3">
-        <h5>Add your review</h5>
-        <%= render "reviews/form", program: @program, review: @review %>
+  <% else %>
+    <div class="row" data-controller="insert-in-list">
+      <div class="col-12 col-sm-6">
+      <h3>Reviews</h3>
+      <% if @program.reviews.empty? %>
+        <small><em class="text-muted" data-insert-in-list-target ="noreviews">Be the first one to review this program</em></small>
+        <% end %>
+       <div data-insert-in-list-target="ritems">
+        <% @program.reviews.reverse_each do |review| %>
+        <%= render "review", review: review %>
+      <% end %>
       </div>
     </div>
-    <% end %>
+    <div class="col-12 col-sm-6">
+        <div class="bg-white rounded p-3">
+          <h5>Add your review</h5>
+          <%= render "reviews/form", program: @program, review: @review %>
+        </div>
+      </div>
+  <% end %>
+
+
   </div>
-  </div>
+</div>
