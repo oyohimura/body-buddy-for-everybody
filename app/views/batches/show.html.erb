@@ -67,7 +67,22 @@
                     <% if lesson.slots.where(batch: @batch).length == 0 %> <%# condition show slots or no slots %>
                       <h6>No slots for this lesson yet</h6>
                     <% else %>
-                      <h6>Available slots</h6>
+                      <% if SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).length > 0 %>
+                        <div class="d-flex justify-content-evenly">
+                          <div>
+                            <i class="fa-regular fa-circle-check"></i> Booked!
+                          </div>
+                          <div>
+                              <i class='fa-solid fa-calendar-check'></i>
+                            <%= SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.start_time.strftime("%A, %B %e at %I:%M %p") %>
+                          </div>
+                          <div>
+                              <i class='fa-solid fa-stopwatch'></i> <%= pluralize SlotStudent.where(user: current_user, slot: lesson.slots.where(batch: @batch)).first.slot.duration, "hr" %>
+                          </div>
+                        </div>
+                      <% else %>
+                        <%= f.input lesson.id, label: false, label_method: :time_formatted, value_method: :id, collection: lesson.slots.where(batch: @batch) %>
+                      <% end %>
                     <% end %>
                     <ul>
                       <div class="m-2">

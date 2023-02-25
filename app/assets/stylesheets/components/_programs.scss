@@ -1,0 +1,132 @@
+// discipline
+
+.discipline-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.discipline-item {
+  flex: 0 0 calc(25% - 10px);
+  margin-bottom: 20px;
+}
+
+.discipline-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.discipline-selector + label {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 10px 30px 10px;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.discipline-selector:checked + label {
+  color: white !important;
+}
+
+#program_discipline_yoga + label {
+  color: #FD1015;
+}
+
+#program_discipline_yoga:checked + label {
+  background-color: #FD1015;
+  border-color: #FD1015;
+}
+
+#program_discipline_pilates + label {
+  color: #FFC65A;
+}
+
+#program_discipline_pilates:checked + label {
+  background-color: #FFC65A;
+  border-color: #FFC65A;
+}
+
+#program_discipline_dance + label {
+  color: #62DDF5;
+}
+
+#program_discipline_dance:checked + label {
+  background-color: #62DDF5;
+  border-color: #62DDF5;
+}
+
+#program_discipline_meditation + label {
+  color: #17AEBF;
+}
+
+#program_discipline_meditation:checked + label {
+  background-color: #17AEBF;
+  border-color: #17AEBF;
+}
+
+
+// level
+
+.level-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.level-item {
+  flex: 0 0 30%;
+}
+
+.level-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.level-selector + label {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 10px 30px 10px;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.level-selector:checked + label {
+  color: white !important;
+}
+
+#program_level_beginner + label {
+  color: #FD1015;
+}
+
+#program_level_beginner:checked + label {
+  background-color: #FD1015;
+  border-color: #FD1015;
+}
+
+#program_level_intermediate + label {
+  color: #FFC65A;
+}
+
+#program_level_intermediate:checked + label {
+  background-color: #FFC65A;
+  border-color: #FFC65A;
+}
+
+#program_level_advanced + label {
+  color: #62DDF5;
+}
+
+#program_level_advanced:checked + label {
+  background-color: #62DDF5;
+  border-color: #62DDF5;
+}
