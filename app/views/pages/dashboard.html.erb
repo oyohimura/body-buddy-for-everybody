@@ -39,15 +39,18 @@
         <p><%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
     <% end %>
   <% end %>
+</div>
+
+<div class="container mt-5">
   <%# calendar %>
-  <% if current_user.slot_students.present? %>
-    <%= month_calendar(events: @slots) do |date, slots| %>
-      <%= date %>
-      <% slots.each do |slot| %>
-        <div class="slot">
-          <p><%= slot.lesson.title %></p>
-        </div>
-      <% end %>
+  <%= month_calendar(events: @slots) do |date, slots| %>
+    <%= date %>
+
+    <% slots.each do |slot| %>
+      <div class="slot">
+        <p><%= slot.lesson.title %></p>
+        <small><%= slot.start_time.strftime("%l:%M %p")%> - <%= (slot.start_time + slot.duration * 3600).strftime("%l:%M %p") %></small>
+      </div>
     <% end %>
   <% end %>
   <%# calendar end%>

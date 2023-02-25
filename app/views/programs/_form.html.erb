@@ -1,13 +1,29 @@
 <div class="mx-4">
   <%= simple_form_for @program do |f| %>
-    <%= f.input :name, class: "form-control" %>
-    <%= f.input :discipline, class: "form-control", selected: 'Yoga', collection: Program::DISCIPLINES %>
-    <%= f.input :target, class: 'form-control' %>
-    <%= f.input :price, label: 'Price (€)', class: "form-control", input_html: {min: 0} %>
+    <%= f.input :name, placeholder: "ex: Yoga for Beginners, Learn Twist,...", class: "form-control" %>
+    <%= f.input :discipline,
+      as: :radio_buttons,
+      collection_wrapper_tag: 'div',
+      collection_wrapper_class: 'discipline-wrapper',
+      item_wrapper_class: 'discipline-item',
+      input_html: {class: 'discipline-selector'},
+      collection: Program::DISCIPLINES %>
+    <%= f.input :target, placeholder: "ex: gain muscles, improve flexibility, ...", class: 'form-control' %>
+    <div class="mb-3", data-controller="range-price">
+      <%= f.input :price, as: :range, label: 'Price (€)', class: "form-control",
+      input_html: {min: 0, max: 500, step:10, data: { action: "input->range-price#displayPrice"}} %>
+      <span id="display" data-range-price-target="display"> 250€ </span>
+    </div>
     <%= f.input :duration, label: 'Average length (months)', selected: 4, class: "form-control", collection: Program::DURATIONS %>
-    <%= f.input :level, class: "form-control", collection: Program::LEVELS, selected: 'Beginner' %>
+    <%= f.input :level,
+      as: :radio_buttons,
+      collection_wrapper_tag: 'div',
+      collection_wrapper_class: 'level-wrapper',
+      item_wrapper_class: 'level-item',
+      input_html: { class: 'level-selector' },
+      collection: Program::LEVELS %>
     <%= f.input :medias, as: :file, required: true, input_html: { multiple: true } %>
-    <%= f.input :description, required: true %>
+    <%= f.input :description, placeholder: "Enter a short description of your program",required: true %>
     <%= f.input :language, class: "form-control", collection: Program::LANGUAGES, selected: 'English' %>
 
     <div class="d-flex justify-content-center">

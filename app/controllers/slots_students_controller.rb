@@ -17,14 +17,14 @@ class SlotsStudentsController < ApplicationController
     @batch.program.lessons.each do |lesson|
       lesson.slots.where(batch: @batch).each { |slot| all_slots_to_book << slot }
     end
-    params[:selected_slots].each_key do |k|
-      unless params[:selected_slots][k] == ""
-        slotstudent = SlotStudent.new
-        slotstudent.user = current_user
-        lesson_param = Lesson.find(k.to_i)
-        slotstudent.slot = Slot.where(lesson: lesson_param, batch: @batch).first
-        slotstudent.save!
-      end
+    params[:selected_slots].each do |k, slot|
+      next if params[:selected_slots][k] == ""
+
+      slotstudent = SlotStudent.new
+      slotstudent.user = current_user
+      slot_param = Slot.find(slot.to_i)
+      slotstudent.slot = slot_param
+      slotstudent.save!
     end
     redirect_to program_batch_path(@batch.program, @batch)
   end

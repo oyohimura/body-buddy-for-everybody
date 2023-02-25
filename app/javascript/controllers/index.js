@@ -24,3 +24,6 @@ application.register("star-rating", StarRatingController)
 
 import VisibilityController from "./visibility_controller"
 application.register("visibility", VisibilityController)
+
+import RangePriceController from "./range_price_controller"
+application.register("range-price", RangePriceController)

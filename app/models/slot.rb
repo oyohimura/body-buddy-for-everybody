@@ -6,4 +6,8 @@ class Slot < ApplicationRecord
   validates :start_time, presence: true
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :access_link, presence: true
+
+  def time_formatted
+    start_time.strftime('%A, %B %e, at %I:%M %p')
+  end
 end
