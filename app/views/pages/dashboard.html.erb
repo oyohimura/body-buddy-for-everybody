@@ -23,7 +23,7 @@
   <% else %> <%# student page %>
     <h2>My batch:</h2>
     <% if current_user.batch.nil? %>
-      <p>You are not registered yet. You can <%= link_to "browse programs", programs_path %>!</p>
+      <p>You are not registered yet. You can <%= link_to "browse programs", programs_path, data: { turbo: false } %>!</p>
     <% else %>
         <div class="col-md-4 mt-3">
           <div class="bike-card">
