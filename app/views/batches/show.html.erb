@@ -7,7 +7,7 @@
     <% else %>
       <div data-controller="popover">
         <%= render 'students/students-popup', batch: @batch %>
-        <div data-action="mouseenter->popover#show mouseleave->popover#hide">
+        <div data-action="mouseenter->popover#show mouseleave->popover#hide" style="position: relative;">
           <%= link_to batch_students_path(@batch), class: 'px-4' do %>
             <%= @batch.users.count %> <i class="fa-solid fa-person-half-dress"></i> registered.
           <% end %>

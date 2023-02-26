@@ -12,12 +12,15 @@ class LessonsController < ApplicationController
     @lesson.number = @program.lessons.count + 1
     @lesson.program = @program
     respond_to do |format|
-      format.json
       if @lesson.save
         # format.html { redirect_to program_path(@program), notice: "Lesson was successfully created." }
+        # format.html { render :new }
         format.html { render :new }
+        format.json
       else
         format.html { render :new, status: :unprocessable_entity }
+        # format.html { render :new, status: :unprocessable_entity }
+        format.json
       end
     end
   end

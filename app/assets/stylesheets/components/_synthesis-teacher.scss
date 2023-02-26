@@ -1,0 +1,108 @@
+.card-synthesis-teacher {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  height: 350px;
+
+  // margin: 20px 0;
+  // width: 300px;
+}
+
+.card-synthesis-teacher-infos-desc {
+  h2 {
+    font-size: 24px;
+    width: 100%;
+    margin-bottom: 12px;
+    margin-left: 8px;
+  }
+
+  ul {
+    text-align: center;
+    // margin: 4px;
+    list-style-type: none;
+    padding-left: 0;
+    padding-top: 4px;
+  }
+
+  li {
+    display: inline-block;
+    font-size: 0.95rem;
+    border-radius: 50rem;
+    padding: 0.15rem 0.55rem;
+    background-color: white;
+    color: black;
+    box-shadow: 0 0 2px #29474d79;
+    border: 1px solid $primary;
+    margin-right: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.card-synthesis-teacher .edit {
+  position: absolute;
+  bottom: -20px;
+  left: 8px;
+  margin-bottom: 20px;
+}
+
+.card-synthesis-teacher .addlesson{
+  position: absolute;
+  bottom: -20px;
+  left: 35%;
+  margin-bottom: 20px;
+}
+
+.card-synthesis-teacher .delete {
+  position: absolute;
+  bottom: -20px;
+  right: 8px;
+  margin-bottom: 20px;
+}
+
+.card-synthesis-teacher img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-synthesis-teacher .card-synthesis-teacher-infos {
+  // display: flex;
+  // align-items: flex-end;
+  // bottom:0;
+  // right:0;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 24px;
+}
+
+.card-synthesis-teacher-infos {
+  position: relative;
+}
+
+// .card-synthesis-teacher-infos-desc {
+//   position: relative;
+// }
+
+// .card-synthesis-teacher-infos-desc .card-synthesis-teacher-carac {
+//   position: absolute;
+//   bottom: -20px;
+// }
+
+.card-synthesis-teacher-carac {
+  ul {
+    list-style-type: none;
+  }
+}
+
+.avatar-card {
+  position: absolute;
+  top: -25px;
+  right: 25px;
+}
+
+.card-synthesis-teacher .card-synthesis-teacher-infos-separator {
+flex-grow: 1;
+align-items: flex-end;
+}

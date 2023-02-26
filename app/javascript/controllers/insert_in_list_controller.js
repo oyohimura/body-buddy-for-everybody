@@ -8,8 +8,8 @@ export default class extends Controller {
     console.log(this.element)
     console.log(this.itemsTarget)
     console.log(this.formTarget)
-    console.log(this.ritemsTarget)
-    console.log(this.rformTarget)
+    // console.log(this.ritemsTarget)
+    // console.log(this.rformTarget)
   }
 
   send(event) {
@@ -24,7 +24,9 @@ export default class extends Controller {
     .then((data) => {
         if (data.inserted_item) {
           this.itemsTarget.insertAdjacentHTML("beforeend", data.inserted_item);
-          this.nolessonsTarget.style = 'display: none;';
+          if (this.hasNolessonsTarget) {
+            this.nolessonsTarget.style = 'display: none;';
+          }
         }
         console.log(data.form);
         this.formTarget.outerHTML = data.form

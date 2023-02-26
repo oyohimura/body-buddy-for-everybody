@@ -9,22 +9,22 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = Review.new(review_params)
-    @program = Program.find(params[:program_id])
-    @review.program = @program
-    @review.user = current_user
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to program_path(@program) }
-        format.json
-      else
-        # flash[:alert] = "Something went wrong."
-        format.html { render "programs/show", status: :unprocessable_entity }
-        format.json 
+    unless params[:review].values.reject { |x| x.length.zero? } == []
+      @review = Review.new(review_params)
+      @program = Program.find(params[:program_id])
+      @review.program = @program
+      @review.user = current_user
+      respond_to do |format|
+        if @review.save
+          format.html { redirect_to program_path(@program) }
+          format.json
+        else
+          # flash[:alert] = "Something went wrong."
+          format.html { render "programs/show", status: :unprocessable_entity }
+          format.json
+        end
       end
     end
-
-
   end
 
   def destroy
