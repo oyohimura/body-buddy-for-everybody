@@ -1,5 +1,4 @@
-.lesson-card {
-  cursor: pointer;
+.batch-card {
   display: flex;
   align-items: center;
   border-radius: 6px;
@@ -10,8 +9,10 @@
   border: 1px solid $primary;
   // margin-right: 0.6rem;
   margin-bottom: 0.5rem;
+  text-align: center;
 
-  .lesson-card-number {
+  .batch-card-number {
+    width: 20%;
     font-size: 1.2rem;
     font-weight: bold;
     padding-left: 4px;
@@ -19,7 +20,25 @@
     border-right: 1px solid $primary;
   }
 
-  .lesson-card-title {
+  .batch-card-max-students {
+    width: 15%;
+    padding-inline: 4px;
+    border-right: 1px solid $primary;
+  }
+
+  .batch-card-first-date {
+    width: 25%;
     padding-left: 8px;
+    padding-right: 12px;
+  }
+
+  .batch-card-arrow {
+    width: 5%;
+  }
+
+  .batch-card-second-date {
+    width: 25%;
+    padding-left: 8px;
+    padding-right: 4px;
   }
 }

@@ -1,0 +1,17 @@
+<template data-popover-target="content">
+  <div
+    data-popover-target="card"
+    class='popover__wrapper'
+  >
+    <div class="d-flex justify-content-center">
+      <% batch.users.each_slice(4) do |group| %>
+        <% group.each do |user| %>
+          <div class="col-sm-3 mx-3 text-center">
+            <!-- teacher card -->
+            <%= render partial: "programs/teacher-small", locals: { user: user } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</template>

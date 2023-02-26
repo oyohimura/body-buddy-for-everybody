@@ -1,6 +1,12 @@
 <div class="container">
   <div class="row">
-    <h1>"<%= @program.name.capitalize %>" program details</h1>
+    <h1>"<%= @program.name.capitalize %>" program details
+      <% if @program.user == current_user %>
+        <%= link_to "#", class: 'h4' do %>
+          <i class='fa-solid fa-pen'> </i>
+        <% end %>
+      <% end %>
+    </h1>
     <div class="col-lg-4">
       <div class="card mb-4 mt-2">
         <div class="card-body text-center">
@@ -21,12 +27,12 @@
               <div class="col-12">
                 <div class="bg-white rounded p-4">
                   <div data-insert-in-list-target="ritems">
-                    <h3>Reviews</h3>
+                    <h4>Reviews</h4>
                     <% if @program.reviews.empty? %>
                       <p>No reviews yet.</p>
                     <% else %>
                       <% @program.reviews.reverse_each do |review| %>
-                        <%= render "review", review: review %>
+                        <%= render "programs/review", review: review %>
                       <% end %>
                     <% end %>
                   </div>
@@ -110,7 +116,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm-3">
-            <p class="mb-0">Description</p>
+            <h4>Description</h4>
           </div>
           <div class="col-sm-9">
             <p class="text-muted mb-0"><%= @program.description %></p>
@@ -120,9 +126,9 @@
         <%# <div class="row" data-controller="visibility"> %>
         <div class="row" data-controller="insert-in-list">
           <div class="col-sm-3">
-            <p class="mb-0">Lessons</p>
+            <h4>Lessons</h4>
             <% if current_user == @program.user %>
-              <div class="text-right" style="position: relative;">
+              <div class="text-right" style="height: 40px; position: relative;">
                 <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
                 <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_lesson_modal"></button>
               </div>
@@ -144,7 +150,7 @@
                     <% @program.lessons.each do |lesson| %>
                       <div data-controller="popover">
                         <%= render 'shared/lesson-popup', lesson: lesson %>
-                        <div data-action="mouseenter->popover#show mouseleave->popover#hide" style="position: relative;">
+                        <div data-action="click->popover#show mouseleave->popover#hide" style="position: relative;">
                           <div class="lesson-card">
                             <div class="lesson-card-number">
                               <%= lesson.number %>
@@ -192,9 +198,9 @@
         <hr>
         <div class="row">
           <div class="col-sm-3">
-            <p class="mb-0">Batches</p>
+            <h4>Batches</h4>
             <% if current_user == @program.user %>
-              <div class="text-right" style="position: relative;">
+              <div class="text-right" style="height: 40px; position: relative;">
                 <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
                 <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_batch_modal"></button>
               </div>
@@ -219,43 +225,53 @@
               </div>
             </div>
             <% if @program.batches.count > 0 %>
-            <% @program.batches.each do |batch| %>
-              <div class="row">
-                <div class="col-8">
-                  <%= batch.start_time.strftime("%A, %b %e, %Y") %> to <%= batch.end_time.strftime("%A, %b %e, %Y") %>
-                </div>
-                <div class="col-4">
+              <% @program.batches.each do |batch| %>
+                <div class="row align-items-center">
                   <% if current_user %>
                     <% if current_user.teacher? && @program.user == current_user %>
-                      <%= link_to program_batch_path(@program ,batch.id) do %>
-                        <span class='text-primary'>Check my batch</span>
-                      <% end %>
-                    <% elsif current_user.teacher? && @program.user != current_user%>
-
+                      <div class="col-8">
+                        <%= link_to program_batch_path(@program, batch.id) do %>
+                          <%= render 'batches/info', batch: batch %>
+                        <% end %>
+                      </div>
+                      <div class="col-4">
+                        <%= link_to program_batch_path(@program ,batch.id) do %>
+                          <span class='text-primary'>Check my batch</span>
+                        <% end %>
+                      </div>
+                    <% elsif current_user.teacher? && @program.user != current_user %>
+                      <div class="col-8">
+                        <%= render 'batches/info', batch: batch %>
+                      </div>
                     <% else %>
+                      <div class="col-8">
+                        <%= render 'batches/info', batch: batch %>
+                      </div>
                       <% if current_user.batch && current_user.batch != batch && current_user.batch.program == @program %>
-                        <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
-                          <span class='text-primary'>Registered to batch #<%= current_user.batch.id %></span>
-                        <% end %>
                       <% elsif current_user.batch &&  current_user.batch != batch && current_user.batch.program != @program %>
-                        <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
-                          <span class='text-primary'> Already registered to batch # <%= current_user.batch.id %></span>
-                        <% end %>
+                        <div class="col-4">
+                          <%= link_to dashboard_path do %>
+                            Already registered to another program.
+                          <% end %>
+                        </div>
                       <% elsif current_user.batch && current_user.batch == batch %>
-                        <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
-                          <span class='text-blue'>you are registered to this batch </span>
-                        <% end %>
+                        <div class="col-4">
+                          <%= link_to program_batch_path(current_user.batch.program ,current_user.batch) do %>
+                            <span class='text-blue'>Registered to this batch.</span>
+                          <% end %>
+                        </div>
                       <% else %>
-                        <%= link_to '=> Register!', program_batch_path(@program.id, batch.id) %>
+                        <div class="col-4 text-center mb-2">
+                          <%= link_to 'More info', program_batch_path(@program.id, batch.id), class: 'btn btn-primary btn-sm' %>
+                        </div>
                       <% end %>
                     <% end %>
                   <% end %>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
             <% else %>
               <% if @program.user == current_user %>
-                <%= link_to 'Create your first batch.', new_program_batch_path(@program) %>
+                Create your first batch.
               <% else %>
                 <p>There are <em>no batches available yet</em>.</p>
               <% end %>
