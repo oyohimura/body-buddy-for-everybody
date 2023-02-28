@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    # @programs = Program.all
+    @program = Program.new
     @user = current_user
     # @students = User.where(user_id: current_user.id)
     # All my programs (as a teacher)

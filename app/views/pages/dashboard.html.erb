@@ -26,10 +26,36 @@
           <p>You do not have any programs yet. </p>
         <% end %>
         <br>
-        <div class="btn btn-success">
-          <%= link_to new_program_path do %>
-            <i class="fa-solid fa-plus"></i> Create a new program
-          <% end %>
+        
+        <div class="row">
+          <div class="col-sm-3">
+            <h4>Programs</h4>
+            <%# <% if current_user == @program.user %>
+              <div class="text-right" style="height: 40px; position: relative;">
+                <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
+                <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_batch_modal"></button>
+              </div>
+            <%# <% end %>
+          </div>
+          <div class="col-sm-9">
+            <div class="modal fade" id="new_batch_modal" tabindex="-1" aria-labelledby="new_batch_modalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="new_batch_modalLabel">Add a batch to current program</h5>
+                  </div>
+                  <div class="modal-body">
+                    <%# Program duration: <%= pluralize @program.duration, 'month' %>
+                    <br>
+                    <%= render 'programs/form', program: Program.new %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       <% else %> <%# student page %>
         <h2>My batch:</h2>
