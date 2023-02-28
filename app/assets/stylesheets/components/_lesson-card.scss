@@ -1,0 +1,25 @@
+.lesson-card {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 0.15rem 0.55rem;
+  background-color: white;
+  color: black;
+  box-shadow: 1px 1px 3px rgba(50,50,50,0.3);
+  border: 1px solid $primary;
+  // margin-right: 0.6rem;
+  margin-bottom: 0.5rem;
+
+  .lesson-card-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding-left: 4px;
+    padding-right: 12px;
+    border-right: 1px solid $primary;
+  }
+
+  .lesson-card-title {
+    padding-left: 8px;
+  }
+}

@@ -1,1 +1,13 @@
-<p>Lesson <%= lesson.number %>: <strong><%= lesson.title %></strong></p>
+<div data-controller="popover">
+  <%= render 'shared/lesson-popup', lesson: lesson %>
+  <div data-action="mouseenter->popover#show mouseleave->popover#hide" style="position: relative;">
+    <div class="lesson-card">
+      <div class="lesson-card-number">
+        <%= lesson.number %>
+      </div>
+      <div class="lesson-card-title">
+        <%= lesson.title %>
+      </div>
+    </div>
+  </div>
+</div>

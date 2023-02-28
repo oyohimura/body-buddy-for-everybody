@@ -1,12 +1,20 @@
 <div class="container">
-  <h1>"<%= @batch.program.name.capitalize %>"</h1>
-  <h2>Info about batch #<%= @batch.id %></h2>
-  <ul>
-    <li>Starts at <%= @batch.start_time.strftime("%l:%M %p on %A, %b %e, %Y") %></li>
-    <li>Ends at <%= @batch.end_time.strftime("%l:%M %p on %A, %b %e, %Y") %></li>
-    <li><%= @batch.max_students %> students maximum
-    - <%= link_to "#{@batch.users.count} currently registered!", batch_students_path(@batch) %></li>
-  </ul>
+  <h1>"<%= @batch.program.name.capitalize %>" - batch #<%= @batch.id %></h1>
+  <div class="col-4 py-4">
+    <%= render 'batches/info', batch: @batch %>
+    <% if @batch.users.count.zero? %>
+      <p>No student yet.</p>
+    <% else %>
+      <div data-controller="popover">
+        <%= render 'students/students-popup', batch: @batch %>
+        <div data-action="mouseenter->popover#show mouseleave->popover#hide">
+          <%= link_to batch_students_path(@batch), class: 'px-4' do %>
+            <%= @batch.users.count %> <i class="fa-solid fa-person-half-dress"></i> registered.
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
   <div class="row">
     <div class="col-lg-4">
@@ -20,35 +28,12 @@
           </h5>
         </div>
       </div>
-      <div class="card mb-4 mb-lg-0">
-        <div class="card-body p-0">
-          <ul class="list-group list-group-flush rounded-3">
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.discipline %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.level %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.target %></p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.duration %> month</p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.price %> €</p>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <p class="mb-0"><%= @batch.program.language %></p>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <%= render 'shared/infos', program: @batch.program %>
     </div>
     <div class="col-lg-8">
       <% if current_user.programs.include?(@batch.program) %> <%# condition if teacher of the batch %>
         <div class="d-flex justify-content-center">
-          <div class="card" style="width: 44rem;">
+          <div class="card">
             <div class="card-body m-4">
               <ul class="list-unstyled">
                 <% if @batch.program.lessons == [] %>
@@ -59,8 +44,8 @@
                 <% @batch.program.lessons.each do |lesson| %>
                 <div class="container">
                   <div class="card text-center mb-5">
-                    <div class="card-header bg-success text-dark">
-                      <li><h3><%= lesson.number %>. <%= lesson.title %></h3></li>
+                    <div class="card-header bg-primary text-dark">
+                      <li><h4>Lesson <%= lesson.number %> - <%= lesson.title %></h4></li>
                     </div>
                     <div class="card-body">
                       <% if lesson.slots.where(batch: @batch).length == 0 %> <%# condition show slots or no slots %>
@@ -121,7 +106,8 @@
         <% unless current_user.teacher? %>
           <% @user = User.new() %>
           <% if current_user.batch == @batch %> <%# condition student of the batch %>
-            <p>You are <span class="text-blue">registered</span> to this batch. </p>
+            <p><i class="fa-solid fa-thumbs-up"> </i> You are <span class="text-blue">registered</span> to this batch.</p>
+            <p><i class="fa-solid fa-calendar"> </i> Please <span class="text-blue">select a slot</span> for each lesson. </p>
             <%# Say if registered to slots already. %>
             <% unless @your_slot_students.length.zero? %>
               <p>You are <span class="text-pink">already registered</span> to slots for:</p>
@@ -136,12 +122,12 @@
               </ul>
             <% end %>
             <div class="d-flex justify-content-center">
-              <div class="card" style="width: 44rem;">
-                <div class="card text-center  m-4">
-                  <%= simple_form_for :selected_slots, url: batch_slots_create_path(@batch.id), method: :post, data: { turbo: false }, html: {class: "nifty_form"} do |f| %>
-                    <% @batch.program.lessons.each do |lesson| %>
-                      <div class="card-header bg-success text-dark">
-                        <h3><%= lesson.number %>. <%= lesson.title %></h3>
+              <div class="card p-4" style="width: 44rem;">
+                <%= simple_form_for :selected_slots, url: batch_slots_create_path(@batch.id), method: :post, data: { turbo: false }, html: {class: "nifty_form"} do |f| %>
+                  <% @batch.program.lessons.each do |lesson| %>
+                    <div class="card text-center p-4" style="border-style: none;">
+                      <div class="card-header bg-primary text-dark">
+                        <h4>Lesson <%= lesson.number %> - <%= lesson.title %></h4>
                       </div>
                       <div class="card-body">
                         <% if lesson.slots.where(batch: @batch).length.zero? %>
@@ -172,11 +158,13 @@
                           <%# <% end %>
                         <% end %>
                       </div>
-                    <% end %>
-                    <%= f.submit "Register to selected time slots!" %>
+                    </div>
                   <% end %>
+                  <div class=' text-center'>
+                    <%= f.submit "Register to selected time slots!", class: 'btn btn-primary mt-2' %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
           <% else %> <%# else for current_user.batch %>
             <%= simple_form_for @user, method: :post, url: batch_students_path(@batch), data: { turbo: false } do |f| %>
               <%= f.submit 'Register to this batch', class: 'btn btn-primary' %>

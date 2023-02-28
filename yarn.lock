@@ -1134,6 +1134,16 @@ star-rating@^0.0.1:
     grunt-gh-pages "~0.9.1"
     grunt-text-replace "~0.3.11"
 
+stimulus-popover@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/stimulus-popover/-/stimulus-popover-6.2.0.tgz#67bcf725d9077f213869905e7b5c80212a92d802"
+  integrity sha512-QJqGXA842qS9s+c0Si6JUKDHDZVnkClvgZPfl2KbHcT6G9BMrEK+21na00SVNpWmmzdc6E1qQrq/oVY7gGaf3w==
+
+stimulus-scroll-reveal@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/stimulus-scroll-reveal/-/stimulus-scroll-reveal-3.1.0.tgz#ffb087f802d8f8d23cb174ecf5f869e98172888b"
+  integrity sha512-3xfiNgwgAM70F6Phy14CCVto3O2gIXiOd4arvqHD+sPv5EdRJ1rav+So2T+IZz89IT3AagF3I7ZY7DgeHm/iNg==
+
 stimulus@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/stimulus/-/stimulus-3.2.1.tgz#bf049a4379ed4ff7475515acce1f0b6fa15a0187"

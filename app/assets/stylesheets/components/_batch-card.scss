@@ -1,0 +1,44 @@
+.batch-card {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 0.15rem 0.55rem;
+  background-color: white;
+  color: black;
+  box-shadow: 1px 1px 3px rgba(50,50,50,0.3);
+  border: 1px solid $primary;
+  // margin-right: 0.6rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+
+  .batch-card-number {
+    width: 20%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding-left: 4px;
+    padding-right: 12px;
+    border-right: 1px solid $primary;
+  }
+
+  .batch-card-max-students {
+    width: 15%;
+    padding-inline: 4px;
+    border-right: 1px solid $primary;
+  }
+
+  .batch-card-first-date {
+    width: 25%;
+    padding-left: 8px;
+    padding-right: 12px;
+  }
+
+  .batch-card-arrow {
+    width: 5%;
+  }
+
+  .batch-card-second-date {
+    width: 25%;
+    padding-left: 8px;
+    padding-right: 4px;
+  }
+}

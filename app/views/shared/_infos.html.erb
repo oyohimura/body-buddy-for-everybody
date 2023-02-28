@@ -1,0 +1,24 @@
+<div class="card mb-4">
+  <div class="card-body p-0">
+    <ul class="list-group list-group-flush rounded-3">
+      <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+        <p class="mb-0"><i class="fa-solid fa-dumbbell"></i> <%= program.discipline %></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+        <p class="mb-0"><i class="fa-solid fa-signal"></i> <%= program.level %></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+        <p class="mb-0"><i class="fa-solid fa-crosshairs"></i> <%= program.target %></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+        <p class="mb-0"><i class="fa-solid fa-clock"></i> <%= pluralize program.duration, "month" %></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+        <p class="mb-0"><i class="fa-solid fa-euro-sign"></i> <%= program.price %></p>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+        <p class="mb-0"><i class="fa-solid fa-flag"></i> <%= program.language %></p>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="batch-card">
+  <div class="batch-card-number">
+    #<%= batch.id %>
+  </div>
+  <div class="batch-card-max-students">
+    <i class="fa-solid fa-person-half-dress"></i> <%= batch.max_students %>
+  </div>
+  <div class="batch-card-first-date">
+    <%= batch.start_time.strftime("%b %e") %>
+  </div>
+  <div style="width: 20px;">
+    <i class="fa-solid fa-arrow-right-long"></i>
+  </div>
+  <div class="batch-card-second-date">
+    <%= batch.end_time.strftime("%b %e") %>
+  </div>
+</div>
