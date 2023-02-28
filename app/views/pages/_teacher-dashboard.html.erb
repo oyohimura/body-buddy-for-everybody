@@ -1,0 +1,91 @@
+<div class="container my-5">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="Infos-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><h4>Infos</h4></button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="programs-tab" data-bs-toggle="tab" data-bs-target="#programs" type="button" role="tab" aria-controls="programs" aria-selected="false"><h4>Programs</h4></button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="false"><h4>Calendar</h4></button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><%# infos tab %>
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8 justify-content-center">
+          <div class="bike-card">
+            <%= render 'pages/synthesis-teacher' %>
+          </div>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div><%# infos tab end%>
+
+    <div class="tab-pane fade" id="programs" role="tabpanel" aria-labelledby="programs-tab"><%# programs tab%>
+      <div class="container mt-5">
+        <% if @programs.length > 0 %>
+          <h2>My programs:</h2><br>
+          <div class="row">
+            <% @programs.each do |program| %>
+              <div class="col-md-4 mt-3">
+                <div class="bike-card">
+                  <%= render 'programs/dashboardcard', program: program %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p>You do not have any programs yet. </p>
+        <% end %>
+        <br>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <h4>Programs</h4>
+          <div class="text-right" style="height: 40px; position: relative;">
+            <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
+            <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_batch_modal"></button>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <div class="modal fade" id="new_batch_modal" tabindex="-1" aria-labelledby="new_batch_modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="new_batch_modalLabel">Add a batch to current program</h5>
+                </div>
+                <div class="modal-body">
+                  <%# Program duration: <%= pluralize @program.duration, 'month' %>
+                  <br>
+                  <%= render 'programs/form', program: Program.new %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><%# programs tab end%>
+
+    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab"><%# calendar tab%>
+      <div class="container mt-5">
+        <%# calendar %>
+        <%= month_calendar(events: @slots) do |date, slots| %>
+          <%= date %>
+          <% slots.each do |slot| %>
+            <div class="slot">
+              <p><%= slot.lesson.title %></p>
+              <small><%= slot.start_time.strftime("%l:%M %p")%> - <%= (slot.start_time + slot.duration * 3600).strftime("%l:%M %p") %></small>
+            </div>
+          <% end %>
+        <% end %>
+        <%# calendar end%>
+      </div>
+    </div><%# calendar tab end%>
+  </div>
+</div>
