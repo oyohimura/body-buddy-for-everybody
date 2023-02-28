@@ -1,0 +1,19 @@
+<div class="card-synthesis-teacher">
+  <div class="card-synthesis-teacher-infos">
+    <div class="card-synthesis-teacher-infos-desc">
+      <h2><%= pluralize current_user.programs.count, 'program' %></h2>
+      <% count_batch = 0 %>
+      <% count_student = 0 %>
+      <% current_user.programs.each do |prg| %>
+        <% count_batch += prg.batches.count %>
+        <% prg.batches.each { |b| count_student += b.users.count } %>
+      <% end %>
+      <h2><%= pluralize count_batch, 'batch' %></h2>
+      <h2><%= pluralize count_student, 'student' %></h2>
+      <h2>Teaching at BodyBuddy since <%= current_user.created_at.strftime("%B %Y") %></h2>
+    </div>
+    <%# <div class="card-synthesis-teacher-price"> %>
+      <%# <><%= program.price %>
+    <%# </div> %>
+  </div>
+</div>
