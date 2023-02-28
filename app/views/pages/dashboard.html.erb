@@ -1,21 +1,33 @@
-<div class="container">
-  <% if current_user.teacher? %> <%#teacher page %>
-    <% if @programs.length > 0 %>
-      <h2>My programs:</h2><br>
-      <div class="row">
-        <% @programs.each do |program| %>
-          <div class="col-md-4 mt-3">
-            <div class="bike-card">
-              <%= render 'programs/dashboardcard', program: program %>
-            </div>
+<div class="container my-5">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="Infos-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><h4>Infos</h4></button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="false"><h4>Calendar</h4></button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><%# infos tab %>
+      <% if current_user.teacher? %> <%#teacher page %>
+        <% if @programs.length > 0 %>
+          <h2>My programs:</h2><br>
+          <div class="row">
+            <% @programs.each do |program| %>
+              <div class="col-md-4 mt-3">
+                <div class="bike-card">
+                  <%= render 'programs/dashboardcard', program: program %>
+                </div>
+              </div>
+            <% end %>
           </div>
+        <% else %>
+          <p>You do not have any programs yet. </p>
         <% end %>
-      </div>
-    <% else %>
-      <p>You do not have any programs yet. </p>
-    <% end %>
-    <br>
-    <div class="row">
+        <br>
+        
+        <div class="row">
           <div class="col-sm-3">
             <h4>Programs</h4>
             <%# <% if current_user == @program.user %>
@@ -43,43 +55,43 @@
                 </div>
               </div>
             </div>
-    <div class="btn btn-success">
-      <%= link_to new_program_path do %>
-        <i class="fa-solid fa-plus"></i> Create a new program
-      <% end %>
-    </div>
-  <% else %> <%# student page %>
-    <h2>My batch:</h2>
-    <% if current_user.batch.nil? %>
-      <p>You are not registered yet. You can <%= link_to "browse programs", programs_path, data: { turbo: false } %>!</p>
-    <% else %>
-        <div class="col-md-4 mt-3">
-          <div class="bike-card">
-            <%= render 'programs/dashboardstudentcard', program: @batch.program %>
           </div>
         </div>
-        <br>
-        <h5>[Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.]</h5>
-        <br>
-        <%= link_to program_batch_path(@batch.program, @batch) do%>
-          <p>[Select a slot !]</p>
+      <% else %> <%# student page %>
+        <h2>My batch:</h2>
+        <% if current_user.batch.nil? %>
+          <p>You are not registered yet. You can <%= link_to "browse programs", programs_path, data: { turbo: false } %>!</p>
+        <% else %>
+          <div class="col-md-4 mt-3">
+            <div class="bike-card">
+              <%= render 'programs/dashboardstudentcard', program: @batch.program %>
+            </div>
+          </div>
+          <br>
+          <h5>[Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.]</h5>
+          <br>
+          <%= link_to program_batch_path(@batch.program, @batch) do%>
+            <p>[Select a slot !]</p>
+          <% end %>
+          <p><%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
         <% end %>
-        <p><%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
-    <% end %>
-  <% end %>
-</div>
+      <% end %>
+    </div><%# infos tab end%>
 
-<div class="container mt-5">
-  <%# calendar %>
-  <%= month_calendar(events: @slots) do |date, slots| %>
-    <%= date %>
-
-    <% slots.each do |slot| %>
-      <div class="slot">
-        <p><%= slot.lesson.title %></p>
-        <small><%= slot.start_time.strftime("%l:%M %p")%> - <%= (slot.start_time + slot.duration * 3600).strftime("%l:%M %p") %></small>
+    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab"><%# calendar tab%>
+      <div class="container mt-5">
+        <%# calendar %>
+        <%= month_calendar(events: @slots) do |date, slots| %>
+          <%= date %>
+          <% slots.each do |slot| %>
+            <div class="slot">
+              <p><%= slot.lesson.title %></p>
+              <small><%= slot.start_time.strftime("%l:%M %p")%> - <%= (slot.start_time + slot.duration * 3600).strftime("%l:%M %p") %></small>
+            </div>
+          <% end %>
+        <% end %>
+        <%# calendar end%>
       </div>
-    <% end %>
-  <% end %>
-  <%# calendar end%>
+    </div><%# calendar tab end%>
+  </div>
 </div>
