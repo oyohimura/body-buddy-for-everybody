@@ -1,4 +1,4 @@
-<%= simple_form_for [@program, @batch], url: program_batches_path(@program), method: :post, data: { controller: 'flatpickr' } do |f| %>
+ <%= simple_form_for [@program, batch], url: program_batches_path(@program), method: :post, data: { controller: 'flatpickr' } do |f| %>
   <div class="form-group text-center mt-3">
     <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_target: "startDate" } }, class: "form-control" %>
   </div>

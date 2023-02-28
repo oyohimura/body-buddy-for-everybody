@@ -3,7 +3,7 @@
     <%# <img src="https://images.unsplash.com/photo-1522787345986-d5c7885a889e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format" alt="image"> %>
     <%= cl_image_tag program.medias.first.key %>
     <div class="more-info">
-      <%= link_to "More info", program_path(program), class: 'btn btn-primary', data: { turbo: false } %>
+      <%= link_to "More info", program_path(program), class: 'btn btn-primary btn-sm', data: { turbo: false } %>
     </div>
     <div class="card-trip-infos">
       <div class="avatar-card">
@@ -14,30 +14,37 @@
       </div>
       <div class="card-trip-infos-desc">
         <h2><%= program.name.capitalize %></h2>
-        <p><i class="fa-solid fa-dumbbell"></i> <%= program.discipline %> - <span class="text-blue"><%= program.user.first_name %></span>'s program - <strong><%= pluralize program.duration, 'month' %></strong></p>
-        <% case program.level %>
-        <% when 'Beginner' %>
-          <% color_level = 'success-green' %>
-        <% when 'Intermediate' %>
-          <% color_level = 'orange' %>
-        <% when 'Advanced' %>
-          <% color_level = 'red' %>
-        <% end %>
-
-        <div class="card-trip-carac" style="padding-top: 4px;">
-          <ul style="padding-left: 8px;">
-            <li style="padding-bottom: 8px;">
-              <span class="text-<%= color_level %>"><i class="fa-solid fa-signal"></i> </span> <%= program.level %>
-            </li>
-            <li>
-              <i class="fa-solid fa-crosshairs"></i> <%= truncate(program.target, length: 30, separator: ',') %>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li><i class="fa-solid fa-dumbbell"></i> <%= program.discipline %></li>
+          <li><i class="fa-solid fa-clock"></i> <%= pluralize program.duration, "month" %></li>
+          <% case program.level %>
+          <% when 'Beginner' %>
+            <% color_level = 'success-green' %>
+          <% when 'Intermediate' %>
+            <% color_level = 'orange' %>
+          <% when 'Advanced' %>
+            <% color_level = 'red' %>
+          <% end %>
+          <br>
+          <%# <div class="card-trip-carac" style="padding-top: 4px;"> %>
+          <%# <ul style="padding-left: 8px;"> %>
+          <li>
+            <span class="text-<%= color_level %>"><i class="fa-solid fa-signal"></i> </span> <%= program.level %>
+          </li>
+          <li>
+            <i class="fa-solid fa-flag"></i> <%= program.language %>
+          </li>
+          <br>
+          <li>
+            <i class="fa-solid fa-euro-sign"></i> <%= program.price %>
+          </li>
+            <%# </ul> %>
+            <%# </div> %>
+        </ul>
       </div>
-      <div class="card-trip-price">
-        <strong><%= program.price %>€</strong>
-      </div>
+      <%# <div class="card-trip-price"> %>
+        <%# <><%= program.price %>
+      <%# </div> %>
     </div>
   </div>
 </div>

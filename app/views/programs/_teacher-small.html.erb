@@ -1,0 +1,3 @@
+<%= link_to user_profile_path(user) do %>
+  <%= cl_image_tag user.profile_picture.key, :transformation=>[{gravity: 'head', :crop=>"crop"}, {:height=>80, :width=>80, :crop=>"fill"}], class: "teacher-avatar rounded-circle" %>
+<% end %>
