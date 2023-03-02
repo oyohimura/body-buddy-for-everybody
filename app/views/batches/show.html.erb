@@ -19,7 +19,7 @@
   <div class="row">
     <div class="col-lg-4">
       <div class="card mb-4 mt-2">
-        <div class="card-body text-center">
+        <div class="card-body text-center" style ="height:240px">
           <%= cl_image_tag @batch.program.user.profile_picture.key, :transformation=>[{gravity: 'head', :crop=>"crop"}, {:height=>150, :width=>150, :crop=>"fill"}],
           class: 'rounded-circle img-fluid' %>
           <h5 class="my-3">Teached by <span><%= link_to user_profile_path(@batch.program.user) do %>
@@ -106,21 +106,27 @@
         <% unless current_user.teacher? %>
           <% @user = User.new() %>
           <% if current_user.batch == @batch %> <%# condition student of the batch %>
-            <p><i class="fa-solid fa-thumbs-up"> </i> You are <span class="text-blue">registered</span> to this batch.</p>
-            <p><i class="fa-solid fa-calendar"> </i> Please <span class="text-blue">select a slot</span> for each lesson. </p>
-            <%# Say if registered to slots already. %>
-            <% unless @your_slot_students.length.zero? %>
-              <p>You are <span class="text-pink">already registered</span> to slots for:</p>
-              <ul>
-                <% @your_slot_students.each do |el| %>
-                  <li>
-                    Lesson <%= el.slot.lesson.number %>: <%= el.slot.lesson.title %>
-                    - <i class="fa-solid fa-circle-xmark"></i>
-                    <%= link_to "Un-register", slots_student_path(el), data: { "turbo-method": :delete } %>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
+          <div class="col-lg-8 mx-auto">
+            <div class="card p-3 mt-2 mb-4 text-center"style ="height:240px">
+              <p><i class="fa-solid fa-thumbs-up"></i> You are <span class="text-blue">registered</span> to this batch.</p>
+              <p><i class="fa-solid fa-calendar"></i> Please <span class="text-blue">select a slot</span> below for each lesson.</p>
+              <%# Say if registered to slots already. %>
+              <% unless @your_slot_students.length.zero? %>
+                <p>You are <span class="text-pink">already registered</span> to slots for:</p>
+                <ul>
+                  <% @your_slot_students.each do |el| %>
+                  <div class = "align center">
+                    <li style="list-style-type: none;">
+                      Lesson <%= el.slot.lesson.number %>: <%= el.slot.lesson.title %>
+                      - <i class="fa-solid fa-circle-xmark"></i>
+                      <%= link_to "Un-register", slots_student_path(el), class: "ms-2", data: { "turbo-method": :delete } %>
+                    </li>
+                  </div>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          </div>
             <div class="d-flex justify-content-center">
               <div class="card p-4" style="width: 44rem;">
                 <%= simple_form_for :selected_slots, url: batch_slots_create_path(@batch.id), method: :post, data: { turbo: false }, html: {class: "nifty_form"} do |f| %>
