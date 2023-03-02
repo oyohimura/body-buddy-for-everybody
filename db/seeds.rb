@@ -205,6 +205,17 @@ user2.save!
 batch4 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.last, start_time: "2023-06-01 14:00:00", end_time: "2023-09-30 16:00:00", max_students: 15)
 batch4.save!
 
+# Add reviews to Kelly's program for demo
+user = User.where(first_name: 'Arnaud').first
+prg = User.where(first_name: 'Kelly').first.programs.first
+review = Review.new(
+  user: user,
+  program: prg,
+  comment: 'Very powerful teaching, Kelly is the best.',
+  rating: 5
+)
+review.save!
+
 # Create lessons
 puts "Generating lessons for first program..."
 lessons = [
