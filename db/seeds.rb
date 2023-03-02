@@ -130,13 +130,13 @@ program1.medias.attach(io: file1, filename: "program1.jpg", content_type: "image
 program1.user = User.where(first_name: 'Bob').first
 program1.save!
 
-file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
+file2 = URI.open("https://wallpapercave.com/wp/wp6120255.jpg")
 program2 = Program.new(discipline: 'Pilates', level: 'Intermediate', target: 'Flexibility and strength', duration: 4, price: 150, description: 'Improve flexibility and strength with Pilates', language: 'English', name: 'Pilates for strength')
 program2.medias.attach(io: file2, filename: "program2.jpg", content_type: "image/jpg")
 program2.user = User.where(first_name: 'Bob').first
 program2.save!
 
-file3 = URI.open("https://images.unsplash.com/photo-1540324155974-7523202daa3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80")
+file3 = URI.open("https://dance.arts.uci.edu/sites/default/files/styles/aspect_ratio_-_1920px_portrait/public/ACDA1920X1280.jpg?itok=4Kdm8F7S")
 program3 = Program.new(discipline: 'Dance', level: 'Advanced', target: 'Fun and fitness', duration: 2, price: 80, description: 'Get fit and have fun with dance', language: 'English', name: 'Fun dance moves')
 program3.medias.attach(io: file3, filename: "program3.jpg", content_type: "image/jpg")
 program3.user = User.where(first_name: 'Bob').first
@@ -170,7 +170,7 @@ program5.medias.attach(
 program5.user = User.where(first_name: 'Kelly').first
 program5.save!
 
-file6 = URI.open('https://images.yogaanytime.com/2022/11/21/forum_kellykamm15729TIMG19071-86349.jpg')
+file6 = URI.open('https://www.thebostoncalendar.com/system/events/photos/000/147/102/large/Kelly_Kam_-_Robert_Sturman.jpeg?1503949846')
 program6 = Program.new(discipline: 'Yoga', level: 'Intermediate', target: 'Hips, Legs', duration: 4, price: 260,
   description: "Our hearts are spacious enough to hold the agony and the ecstasy. Kelly tells the tale of the creation of Patanjali and his gift to Shiva, as we find space in the legs, hips, and side body in Anantasana, Sphinx, and Half Saddle. You will feel spacious and wholehearted.Our hearts are spacious enough to hold the agony and the ecstasy. Kelly tells the tale of the creation of Patanjali and his gift to Shiva, as we find space in the legs, hips, and side body in Anantasana, Sphinx, and Half Saddle. You will feel spacious and wholehearted.",
   language: 'English', name: 'Patanjali')
@@ -193,7 +193,7 @@ batch1.save!
 batch2 = Batch.new(program: Program.first, start_time: "2024-01-05 14:00:00", end_time: "2024-06-30 16:00:00", max_students: 15)
 batch2.save!
 
-batch3 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.first, start_time: "2023-03-02 14:00:00", end_time: "2023-04-01 16:00:00", max_students: 15)
+batch3 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.first, start_time: "2023-03-05 14:00:00", end_time: "2023-04-04 16:00:00", max_students: 5)
 user1 = User.where(first_name: 'Bill').first
 user1.batch = batch3
 user2 = User.where(first_name: 'Elon').first
@@ -202,7 +202,7 @@ batch3.save!
 user1.save!
 user2.save!
 
-batch4 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.last, start_time: "2023-06-01 14:00:00", end_time: "2023-09-30 16:00:00", max_students: 15)
+batch4 = Batch.new(program: User.where(first_name: 'Kelly').first.programs.first, start_time: "2023-06-01 14:00:00", end_time: "2023-06-30 16:00:00", max_students: 15)
 batch4.save!
 
 # Add reviews to Kelly's program for demo
