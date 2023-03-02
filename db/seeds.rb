@@ -127,7 +127,7 @@ puts "Generating example programs..."
 file1 = URI.open("https://www.shape.com/thmb/RpXMWyevf6dSw3-uve0Bxu18sjs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Yoga-Poses-for-Beginners-Social-GettyImages-961084648-9a458aac66a24999b57b387a8ddfd061.jpg")
 program1 = Program.new(discipline: 'Yoga', level: 'Beginner', target: 'Stress relief', duration: 6, price: 300, description: 'Introducing the basics of yoga and breathing techniques to help relieve stress', language: 'English', name: 'Yoga basics for stress')
 program1.medias.attach(io: file1, filename: "program1.jpg", content_type: "image/jpg")
-program1.user = User.where(first_name: 'Yamato').first
+program1.user = User.where(first_name: 'Bob').first
 program1.save!
 
 file2 = URI.open("https://plus.unsplash.com/premium_photo-1672039973087-904269a23edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80")
@@ -139,7 +139,7 @@ program2.save!
 file3 = URI.open("https://images.unsplash.com/photo-1540324155974-7523202daa3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80")
 program3 = Program.new(discipline: 'Dance', level: 'Advanced', target: 'Fun and fitness', duration: 2, price: 80, description: 'Get fit and have fun with dance', language: 'English', name: 'Fun dance moves')
 program3.medias.attach(io: file3, filename: "program3.jpg", content_type: "image/jpg")
-program3.user = User.where(first_name: 'Yamato').first
+program3.user = User.where(first_name: 'Bob').first
 program3.save!
 
 file4 = URI.open("https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=499&q=80")
