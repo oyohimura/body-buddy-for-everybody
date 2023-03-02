@@ -1,10 +1,10 @@
 <div class="container my-5">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="Infos-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><h4>Infos</h4></button>
+      <button class="nav-link active" id="programs-tab" data-bs-toggle="tab" data-bs-target="#programs" type="button" role="tab" aria-controls="programs" aria-selected="false"><h4>Programs</h4></button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="programs-tab" data-bs-toggle="tab" data-bs-target="#programs" type="button" role="tab" aria-controls="programs" aria-selected="false"><h4>Programs</h4></button>
+      <button class="nav-link" id="Infos-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><h4>Infos</h4></button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="false"><h4>Calendar</h4></button>
@@ -12,7 +12,7 @@
   </ul>
 
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><%# infos tab %>
+    <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab"><%# infos tab %>
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8 justify-content-center">
@@ -24,7 +24,7 @@
       </div>
     </div><%# infos tab end%>
 
-    <div class="tab-pane fade" id="programs" role="tabpanel" aria-labelledby="programs-tab"><%# programs tab%>
+    <div class="tab-pane fade show active" id="programs" role="tabpanel" aria-labelledby="programs-tab"><%# programs tab%>
       <div class="container mt-5">
         <% if @programs.length > 0 %>
           <h2>My programs:</h2><br>
