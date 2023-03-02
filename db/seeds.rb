@@ -124,7 +124,7 @@ user.save!
 
 # Creating programs
 puts "Generating example programs..."
-file1 = URI.open("https://www.mensjournal.com/wp-content/uploads/mf/main-the-beginners-guide-to-yoga.jpg?quality=86&strip=all")
+file1 = URI.open("https://www.shape.com/thmb/RpXMWyevf6dSw3-uve0Bxu18sjs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Yoga-Poses-for-Beginners-Social-GettyImages-961084648-9a458aac66a24999b57b387a8ddfd061.jpg")
 program1 = Program.new(discipline: 'Yoga', level: 'Beginner', target: 'Stress relief', duration: 6, price: 300, description: 'Introducing the basics of yoga and breathing techniques to help relieve stress', language: 'English', name: 'Yoga basics for stress')
 program1.medias.attach(io: file1, filename: "program1.jpg", content_type: "image/jpg")
 program1.user = User.where(first_name: 'Yamato').first
