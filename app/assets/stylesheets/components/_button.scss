@@ -1,3 +1,8 @@
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  // border-color: $light-pink; /*set the color you want here*/
+  text-decoration: underline;
+  text-decoration-color: $light-pink;
+}
 
 .parent {
   display: flex;
