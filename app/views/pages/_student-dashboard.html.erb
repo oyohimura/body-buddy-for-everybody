@@ -10,15 +10,6 @@
 
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><%# infos tab %>
-      <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8 justify-content-center">
-          <div class="bike-card">
-            <%= render 'pages/synthesis-teacher' %>
-          </div>
-        </div>
-        <div class="col-2"></div>
-      </div>
       <h2>My batch:</h2>
       <% if current_user.batch.nil? %>
         <p>You are not registered yet. You can <%= link_to "browse programs", programs_path, data: { turbo: false } %>!</p>
@@ -28,13 +19,6 @@
             <%= render 'programs/dashboardstudentcard', program: @batch.program %>
           </div>
         </div>
-        <br>
-        <h5>[Batch number <%= @batch.id %> of "<%= @batch.program.name %>" program.]</h5>
-        <br>
-        <%= link_to program_batch_path(@batch.program, @batch) do%>
-          <p>[Select a slot !]</p>
-        <% end %>
-        <p><%= link_to "[See batch participants]", batch_students_path(@batch) %></p>
       <% end %>
     </div><%# infos tab end%>
 
