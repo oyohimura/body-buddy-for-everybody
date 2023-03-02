@@ -84,9 +84,9 @@
                           <% @slot = Slot.new %>
                           <%= simple_form_for [@lesson, @slot], method: :post, url: lesson_slots_path(lesson), data: { turbo: false }, data: { controller: 'flatpickr-time' } do |f| %>
                             <%= f.hidden_field :batch_id, value: @batch.id %>
-                            <%= f.input :start_time,  as: :string,  label: "Start Date", input_html: { data: { flatpickr_time_target: "startDate" } }, class: "form-control" %>
-                            <%= f.input :duration, class: "form-control"  %>
-                            <%= f.input :access_link, class: "form-control" %>
+                            <%= f.input :start_time,  as: :string,  label: "Date", input_html: { data: { flatpickr_time_target: "startDate" } }, class: "form-control" %>
+                            <%= f.input :duration, label: "Duration (hrs)", class: "form-control"  %>
+                            <%= f.hidden_field :access_link, value: "www.zoom.us/personal-page", class: "form-control" %>
                             <%= f.submit 'Create a slot', class: 'btn btn-danger' %>
                           <% end %>
                       </div>
