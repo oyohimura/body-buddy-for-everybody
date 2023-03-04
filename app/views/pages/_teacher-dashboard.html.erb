@@ -25,12 +25,12 @@
     </div><%# infos tab end%>
 
     <div class="tab-pane fade show active" id="programs" role="tabpanel" aria-labelledby="programs-tab"><%# programs tab%>
-      <div class="container mt-5">
+      <div class="container mt-4">
         <% if @programs.length > 0 %>
-          <h2>My programs:</h2><br>
+          <h2><%= pluralize @programs.count, 'program' %></h2><br>
           <div class="row">
             <% @programs.each do |program| %>
-              <div class="col-md-4 mt-3">
+              <div class="col-md-4 mt-2">
                 <div class="bike-card">
                   <%= render 'programs/dashboardcard', program: program %>
                 </div>
@@ -44,7 +44,7 @@
       </div>
       <div class="row">
         <div class="col-sm-3">
-          <h4>Programs</h4>
+          <h4 style="padding-left: 36px;">Add program</h4>
           <div class="text-right" style="height: 40px; position: relative;">
             <%# <button class="button_plus" data-action="visibility#toggleTargets"></button> %>
             <button class="button_plus" data-bs-toggle="modal" data-bs-target="#new_batch_modal"></button>
