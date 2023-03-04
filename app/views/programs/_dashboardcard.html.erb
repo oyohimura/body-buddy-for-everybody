@@ -8,21 +8,23 @@
     </div>
     <div class="card-dashboard-infos">
       <div class="card-dashboard-infos-desc">
-        <h2><%= program.name %></h2> <%= pluralize program.duration, 'month' %>
+        <h2><%= program.name %></h2>
         <% if program.batches.length != 0  %>
-          <strong><h6>my batches</h6></strong>
+          <strong><h5 style="padding-left: 4px;"><%= pluralize program.batches.count, 'batch' %> :</h5></strong>
 
         <%# <div class="scroll"> %>
-          <ul>
-            <%program.batches.each do |batch|%>
+          <ul style="list-style: none;">
+            <% program.batches.each do |batch|%>
               <%= link_to program_batch_path(program, batch) do %>
-                <li>batch #<%= batch.id %> - <%= link_to "(#{batch.users.count} / #{batch.max_students} students)", batch_students_path(batch) %></li>
+                <li>#<%= batch.id %> - <%= link_to batch_students_path(batch) do %>
+                  <i class='fa-solid fa-person-half-dress'></i> <%= batch.users.count %> / <%= batch.max_students %>
+                <% end %></li>
               <% end %>
             <% end %>
           </ul>
         <%# </div> %>
         <% else %>
-          <strong><h6><%= link_to "You have no batch yet", new_program_batch_path(program) %></h6></strong>
+          <strong><h5><%= link_to "You have no batch yet", new_program_batch_path(program) %></h5></strong>
         <% end %>
       </div>
     </div>
